@@ -26,6 +26,18 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+            develop {
+                applicationIdSuffix ".develop"
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            }
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -73,17 +85,17 @@ dependencies {
     implementation 'com.karumi:dexter:6.2.1'
 
     // Dependency for Google Sign-In
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
     // Dependencies for the REST API example
     implementation 'com.google.api-client:google-api-client-android:1.26.0'
     /*Google drive*/
     implementation 'com.google.apis:google-api-services-drive:v3-rev126-1.24.1'
     implementation 'com.google.android.gms:play-services-drive:17.0.0'
     // Recommended: Add the Firebase SDK for Google Analytics.
-    implementation 'com.google.firebase:firebase-analytics:18.0.2'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
     implementation 'com.google.android.gms:play-services-basement:17.6.0'
     // Add the Firebase Crashlytics SDK.
-    implementation 'com.google.firebase:firebase-crashlytics:17.3.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.2.1'
     /*Gson*/
     implementation 'com.google.code.gson:gson:2.8.6'
     /*Material Design*/
@@ -98,7 +110,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.6'
     /*In app purchase*/
     //implementation project(':checkoutlibrary')
-    implementation 'com.anjlab.android.iab.v3:library:1.0.44'
+    implementation 'com.anjlab.android.iab.v3:library:1.1.0'
     /*Even Bus*/
     implementation 'org.greenrobot:eventbus:3.2.0'
     /*Animation textview*/
@@ -115,7 +127,7 @@ dependencies {
     implementation "com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava"
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
     implementation 'android.arch.lifecycle:extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'id.zelory:compressor:3.0.0'
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.2.0'
     implementation "androidx.security:security-crypto:1.1.0-alpha03"

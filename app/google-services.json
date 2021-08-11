@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "466535202079",
+    "project_id": "saveyourvoicemails",
+    "storage_bucket": "saveyourvoicemails.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466535202079:android:1e30f2cf63de56ab1b042a",
+        "android_client_info": {
+          "package_name": "co.tpcreative.saveyourvoicemails"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466535202079-drupejcl9lb2l1oh8n09rn0g5981bsqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrLgKpKg3jZyUAFJBYabhQGxsYZDSPkUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466535202079-drupejcl9lb2l1oh8n09rn0g5981bsqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
