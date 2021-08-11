@@ -1,11 +1,11 @@
-package co.tpcreative.saveyourvoicemails.modules.home.view
+package co.tpcreative.saveyourvoicemails.presentationlayer.user.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import co.tpcreative.saveyourvoicemails.R
 
-class HomeAct : AppCompatActivity() {
+class SignInAct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_sign_in)
     }
 }
