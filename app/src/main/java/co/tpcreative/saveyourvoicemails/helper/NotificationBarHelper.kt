@@ -7,11 +7,15 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.widget.RemoteViews
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Constant
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsService
 
@@ -29,29 +33,28 @@ class NotificationBarHelper {
     }
 
     init {
-        initNotifyChanel()
+
     }
 
     private val notifyManager: NotificationManager by lazy {
-        SaveYourVoiceMailsApplication.getInstance()
+        appContext
             .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     }
 
     private fun initNotifyChanel(){
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && notifyManager.getNotificationChannel(
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && notifyManager.getNotificationChannel(
                 Constant.FOREGROUND_CHANNEL_ID
             ) == null
         ) {
-            val name = Constant.NAME_NOTIFICATION
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(Constant.FOREGROUND_CHANNEL_ID, name, importance)
-            channel.enableVibration(false)
+            val channel = NotificationChannel(Constant.FOREGROUND_CHANNEL_ID, Constant.FOREGROUND_CHANNEL_NAME, importance)
+            channel.enableVibration(true)
             notifyManager.createNotificationChannel(channel)
         }
     }
 
     private val appContext by lazy {
-        SaveYourVoiceMailsApplication.getInstance()
+        SaveYourVoiceMailsApplication.getInstance().applicationContext
     }
 
     private val homeIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
@@ -66,14 +69,14 @@ class NotificationBarHelper {
     }
 
     private val notifyCompatBuilder by lazy {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        initNotifyChanel()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return@lazy NotificationCompat.Builder(appContext, Constant.FOREGROUND_CHANNEL_ID)
         } else {
             return@lazy  NotificationCompat.Builder(appContext, Constant.FOREGROUND_CHANNEL_ID)
         }
     }
 
-    @SuppressLint("WrongConstant")
     fun createNotificationBar() : Notification{
         val pendingHome = PendingIntent.getService(appContext, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
@@ -83,11 +86,25 @@ class NotificationBarHelper {
             .setSmallIcon(R.drawable.ic_record)
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setOnlyAlertOnce(true)
-            //.setOngoing(true)
             .setAutoCancel(true)
             .priority = NotificationManagerCompat.IMPORTANCE_HIGH
-        notifyCompatBuilder.setVisibility(Notification.VISIBILITY_PUBLIC)
         return notifyCompatBuilder.build()
     }
 
+    fun createNotificationBar(builder : NotificationCompat.Builder) : Notification{
+        val remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
+            builder
+            .setContent(remoteViews)
+            .setSmallIcon(R.drawable.ic_record)
+            .setCategory(NotificationCompat.CATEGORY_SERVICE)
+            .setOnlyAlertOnce(true)
+            .setAutoCancel(true)
+            .priority = NotificationManagerCompat.IMPORTANCE_HIGH
+        return builder.build()
+    }
+
+}
+
+fun NotificationBarHelper.log(message : Any){
+    Utils.log(this::class.java,message)
 }

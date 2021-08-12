@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
         <LinearLayout
             android:weightSum="3"
             android:orientation="horizontal"
@@ -24,7 +21,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                     app:tint="@color/teal_700"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgRecording"
@@ -33,7 +30,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:gravity="center"
                     android:text="@string/record"
                     android:layout_below="@+id/imgRecording"
@@ -47,7 +44,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                     app:tint="@color/teal_700"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgStop"
@@ -56,7 +53,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:gravity="center"
                     android:text="@string/stop"
                     android:layout_below="@+id/imgStop"
@@ -70,7 +67,7 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
-                <androidx.appcompat.widget.AppCompatImageView
+                <ImageView
                     app:tint="@color/teal_700"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgHome"
@@ -79,7 +76,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
+                <TextView
                     android:gravity="center"
                     android:text="@string/home"
                     android:layout_below="@+id/imgHome"
@@ -90,4 +87,4 @@
 
         </LinearLayout>
     </RelativeLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

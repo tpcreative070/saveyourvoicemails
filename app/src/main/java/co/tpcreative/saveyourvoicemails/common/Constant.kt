@@ -23,6 +23,7 @@ class Constant {
     companion object {
         const val NAME_NOTIFICATION = "NOTIFICATION"
         const val FOREGROUND_CHANNEL_ID = "foreground_channel_id"
+        const val FOREGROUND_CHANNEL_NAME = "foreground_channel_name"
         const val ID_NOTIFICATION_FOREGROUND_SERVICE = 8466503
     }
 }
