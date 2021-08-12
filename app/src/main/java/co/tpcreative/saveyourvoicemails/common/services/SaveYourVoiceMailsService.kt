@@ -3,7 +3,9 @@ import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
+import co.tpcreative.saveyourvoicemails.helper.NotificationBarHelper
 
 class SaveYourVoiceMailsService : Service() {
     private val mBinder = LocalBinder() // Binder given to clients
@@ -24,6 +26,8 @@ class SaveYourVoiceMailsService : Service() {
     override fun onCreate() {
         super.onCreate()
         log("Created service")
+        val notification = NotificationBarHelper.getInstance().createNotificationBar()
+        startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
     }
 
     fun exitApp(){
@@ -47,7 +51,6 @@ class SaveYourVoiceMailsService : Service() {
         super.onDestroy()
         log("onDestroy")
     }
-    
 }
 
 fun SaveYourVoiceMailsService.log(message: Any){

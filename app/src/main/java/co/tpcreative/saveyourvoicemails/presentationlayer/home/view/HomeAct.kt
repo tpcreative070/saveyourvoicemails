@@ -1,5 +1,4 @@
 package co.tpcreative.saveyourvoicemails.presentationlayer.home.view
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.activity.BaseActivity
