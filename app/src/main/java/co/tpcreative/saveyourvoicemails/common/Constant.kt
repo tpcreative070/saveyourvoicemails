@@ -6,9 +6,10 @@ class Constant {
         companion object {
             const val START_SERVICE = "START_SERVICE"
             const val START_RECORDING = "START_RECORDING"
+            const val STOP_RECORDING = "STOP_RECORDING"
+            const val EXIT_APP = "EXIT_APP"
             const val PAUSE_RECORD = "PAUSE_RECORD"
             const val RESUME_RECORD = "RESUME_RECORD"
-            const val EXIT_APP_RECORD = "EXIT_APP_RECORD"
             const val SETTING = "SETTING"
             const val START_HOME = "START_HOME"
             const val START_SETTING = "START_SETTING"

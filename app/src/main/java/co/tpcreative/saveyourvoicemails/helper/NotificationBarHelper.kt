@@ -63,6 +63,24 @@ class NotificationBarHelper {
             action = Constant.ACTION.START_HOME
         }
 
+    private val recordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
+        .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            action = Constant.ACTION.START_RECORDING
+        }
+
+    private val stopRecordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
+        .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            action = Constant.ACTION.STOP_RECORDING
+        }
+
+    private val exitIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
+        .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            action = Constant.ACTION.EXIT_APP
+        }
+
     private val requestPermissionIntent = Intent(appContext, SaveYourVoiceMailsService::class.java).apply {
         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         action = Constant.ACTION.START_RECORDING
@@ -78,9 +96,17 @@ class NotificationBarHelper {
     }
 
     fun createNotificationBar() : Notification{
+
+        val pendingRecord = PendingIntent.getService(appContext, 0, recordIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingStop = PendingIntent.getService(appContext, 0, stopRecordIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val pendingHome = PendingIntent.getService(appContext, 0, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingExit = PendingIntent.getService(appContext, 0, exitIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
-        remoteViews.setOnClickPendingIntent(R.id.imgHome, pendingHome)
+        remoteViews.setOnClickPendingIntent(R.id.rlRecord, pendingRecord)
+        remoteViews.setOnClickPendingIntent(R.id.rlStopRecord, pendingStop)
+        remoteViews.setOnClickPendingIntent(R.id.rlHome, pendingHome)
+        remoteViews.setOnClickPendingIntent(R.id.rlExit, pendingExit)
         notifyCompatBuilder
             .setContent(remoteViews)
             .setSmallIcon(R.drawable.ic_record)
@@ -102,7 +128,6 @@ class NotificationBarHelper {
             .priority = NotificationManagerCompat.IMPORTANCE_HIGH
         return builder.build()
     }
-
 }
 
 fun NotificationBarHelper.log(message : Any){

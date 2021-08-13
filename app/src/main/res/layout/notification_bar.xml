@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         >
         <LinearLayout
-            android:weightSum="3"
+            android:weightSum="4"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
             <RelativeLayout
+                android:id="@+id/rlRecord"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
@@ -41,6 +42,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rlStopRecord"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
@@ -62,8 +64,8 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-
             <RelativeLayout
+                android:id="@+id/rlHome"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
@@ -85,6 +87,28 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/rlExit"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    app:tint="@color/teal_700"
+                    app:srcCompat="@drawable/ic_record"
+                    android:id="@+id/imgExit"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:gravity="center"
+                    android:text="@string/exit"
+                    android:layout_below="@+id/imgExit"
+                    android:id="@+id/tvExit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

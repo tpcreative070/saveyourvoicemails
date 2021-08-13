@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.tpcreative.saveyourvoicemails">
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".common.services.SaveYourVoiceMailsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".common.services.SaveYourVoiceMailsApplication"
         android:theme="@style/Theme.Saveyourvoicemails">
-        <activity android:name="co.tpcreative.saveyourvoicemails.presentationlayer.user.view.SignInAct"></activity>
-        <activity android:name="co.tpcreative.saveyourvoicemails.presentationlayer.home.view.HomeAct">
+
+        <activity
+            android:name=".presentationlayer.user.view.SignUpAct"
+            android:label="@string/title_activity_sign_up"></activity>
+        <activity android:name=".presentationlayer.user.view.SignInAct" />
+        <activity android:name=".presentationlayer.home.view.HomeAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
