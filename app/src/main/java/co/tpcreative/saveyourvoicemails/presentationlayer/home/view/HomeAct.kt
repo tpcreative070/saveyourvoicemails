@@ -22,6 +22,7 @@ class HomeAct : BaseActivity() {
 
         Dexter.withContext(this)
             .withPermissions(
+                Manifest.permission.BIND_ACCESSIBILITY_SERVICE,
                 Manifest.permission.RECORD_AUDIO,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.CALL_PHONE,

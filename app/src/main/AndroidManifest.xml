@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="co.tpcreative.saveyourvoicemails">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -32,8 +33,13 @@
         </activity>
 
         <service
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:name=".common.services.SaveYourVoiceMailsService"
-            android:foregroundServiceType="mediaProjection" />
+            android:foregroundServiceType="mediaProjection">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+       </service>
     </application>
 
 </manifest>

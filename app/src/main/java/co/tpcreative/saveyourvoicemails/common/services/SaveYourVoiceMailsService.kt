@@ -32,6 +32,7 @@ class SaveYourVoiceMailsService : Service() {
                 log("START_RECORDING")
                 Dexter.withContext(this)
                     .withPermissions(
+                        Manifest.permission.BIND_ACCESSIBILITY_SERVICE,
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.CALL_PHONE,
@@ -54,6 +55,7 @@ class SaveYourVoiceMailsService : Service() {
                 log("START_RECORDING_PHONE_CALL")
                 Dexter.withContext(this)
                     .withPermissions(
+                        Manifest.permission.BIND_ACCESSIBILITY_SERVICE,
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.READ_PHONE_STATE,
                         Manifest.permission.CALL_PHONE,
