@@ -110,12 +110,6 @@ class NotificationBarHelper {
             recordIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val pendingStop = PendingIntent.getService(
-            appContext,
-            0,
-            stopRecordIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
         val pendingHome = PendingIntent.getService(
             appContext,
             0,
@@ -131,7 +125,6 @@ class NotificationBarHelper {
 
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
         remoteViews?.setOnClickPendingIntent(R.id.rlRecord, pendingRecord)
-        remoteViews?.setOnClickPendingIntent(R.id.rlStopRecord, pendingStop)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
         remoteViews?.setOnClickPendingIntent(R.id.rlExit, pendingExit)
         notifyCompatBuilder
