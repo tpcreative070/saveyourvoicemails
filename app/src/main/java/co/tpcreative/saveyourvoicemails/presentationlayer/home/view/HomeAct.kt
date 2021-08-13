@@ -25,6 +25,7 @@ class HomeAct : BaseActivity() {
                 Manifest.permission.RECORD_AUDIO
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) { /* ... */
+                    finish()
                 }
                 override fun onPermissionRationaleShouldBeShown(
                     permissions: List<PermissionRequest?>?,

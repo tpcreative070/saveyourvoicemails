@@ -3,6 +3,9 @@ import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.github.squti.androidwaverecorder.RecorderState
 import com.github.squti.androidwaverecorder.WaveRecorder
+import org.greenrobot.eventbus.EventBus
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class RecordHelper {
     companion object{
@@ -36,6 +39,8 @@ class RecordHelper {
         }
         waveRecorder.onTimeElapsed = {
             log("onCreate: time elapsed $it")
+            val mResult = formatTimeUnit(it*1000)
+            EventBus.getDefault().post(mResult)
         }
         log("init data")
     }
@@ -54,6 +59,21 @@ class RecordHelper {
 
     private fun response(message : String){
         log(message)
+    }
+
+    private fun formatTimeUnit(timeInMilliseconds: Long): String {
+        return try {
+            String.format(
+                Locale.getDefault(),
+                "%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(timeInMilliseconds),
+                TimeUnit.MILLISECONDS.toSeconds(timeInMilliseconds) - TimeUnit.MINUTES.toSeconds(
+                    TimeUnit.MILLISECONDS.toMinutes(timeInMilliseconds)
+                )
+            )
+        } catch (e: Exception) {
+            "00:00"
+        }
     }
 }
 
