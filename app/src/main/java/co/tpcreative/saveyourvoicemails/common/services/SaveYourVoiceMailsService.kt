@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import co.tpcreative.saveyourvoicemails.common.Constant
+import co.tpcreative.saveyourvoicemails.common.Navigator
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.helper.NotificationBarHelper
 import co.tpcreative.saveyourvoicemails.helper.RecordHelper
@@ -24,6 +25,7 @@ class SaveYourVoiceMailsService : Service() {
             Constant.ACTION.STOP_RECORDING -> {
                 log("stopping record")
                 RecordHelper.instance().stopRecording()
+                Navigator.movePlayer(this,SaveYourVoiceMailsApplication.getInstance().externalCacheDir?.absolutePath + "/audioFile001.wav")
             }
             Constant.ACTION.EXIT_APP -> {
                 log("exit app")

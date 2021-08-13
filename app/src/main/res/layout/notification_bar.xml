@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="@color/teal_700"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,7 +24,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    app:tint="@color/teal_700"
+                    app:tint="@color/white"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgRecording"
                     android:layout_centerInParent="true"
@@ -32,6 +33,7 @@
                     android:layout_height="20dp"/>
 
                 <TextView
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/record"
                     android:layout_below="@+id/imgRecording"
@@ -47,7 +49,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <ImageView
-                    app:tint="@color/teal_700"
+                    app:tint="@color/white"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgStop"
                     android:layout_centerInParent="true"
@@ -56,6 +58,7 @@
                     android:layout_height="20dp"/>
 
                 <TextView
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/stop"
                     android:layout_below="@+id/imgStop"
@@ -70,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <ImageView
-                    app:tint="@color/teal_700"
+                    app:tint="@color/white"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgHome"
                     android:layout_centerInParent="true"
@@ -79,6 +82,7 @@
                     android:layout_height="20dp"/>
 
                 <TextView
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/home"
                     android:layout_below="@+id/imgHome"
@@ -93,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
                 <ImageView
-                    app:tint="@color/teal_700"
+                    app:tint="@color/white"
                     app:srcCompat="@drawable/ic_record"
                     android:id="@+id/imgExit"
                     android:layout_centerInParent="true"
@@ -102,6 +106,7 @@
                     android:layout_height="20dp"/>
 
                 <TextView
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/exit"
                     android:layout_below="@+id/imgExit"
