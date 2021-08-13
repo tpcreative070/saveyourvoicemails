@@ -12,7 +12,7 @@
         >
         <LinearLayout
             android:id="@+id/llMenu"
-            android:weightSum="3"
+            android:weightSum="4"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="50dp">
@@ -35,12 +35,41 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textSize="11dp"
+                    android:textSize="10dp"
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/record"
                     android:layout_below="@+id/imgRecording"
                     android:id="@+id/tvRecording"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlRecordPhoneCall"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:tint="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_record"
+                    android:id="@+id/imgPhoneCall"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:textSize="10dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="@string/record_phone_call"
+                    android:layout_below="@+id/imgPhoneCall"
+                    android:id="@+id/tvRecordPhoneCall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -63,7 +92,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textSize="11dp"
+                    android:textSize="10dp"
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/home"
@@ -90,7 +119,7 @@
 
                 <TextView
                     android:layout_marginTop="3dp"
-                    android:textSize="11dp"
+                    android:textSize="10dp"
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/exit"

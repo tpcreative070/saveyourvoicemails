@@ -25,17 +25,45 @@ class SaveYourVoiceMailsService : Service() {
     override fun onBind(intent: Intent?): IBinder {
        return  mBinder
     }
-    private var mTimer = ""
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when(intent?.action){
             Constant.ACTION.START_RECORDING -> {
-                log("recording")
+                log("START_RECORDING")
                 Dexter.withContext(this)
                     .withPermissions(
-                        Manifest.permission.RECORD_AUDIO
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.PROCESS_OUTGOING_CALLS,
+                        Manifest.permission.MODIFY_AUDIO_SETTINGS
                     ).withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             RecordHelper.instance().startRecording()
+                            val notification = NotificationBarHelper.getInstance().updatedNotificationBar()
+                            startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
+                        }
+                        override fun onPermissionRationaleShouldBeShown(
+                            permissions: List<PermissionRequest?>?,
+                            token: PermissionToken?
+                        ) { /* ... */
+                        }
+                    }).check()
+            }
+            Constant.ACTION.START_RECORDING_PHONE_CALL -> {
+                log("START_RECORDING_PHONE_CALL")
+                Dexter.withContext(this)
+                    .withPermissions(
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.PROCESS_OUTGOING_CALLS,
+                        Manifest.permission.MODIFY_AUDIO_SETTINGS
+                    ).withListener(object : MultiplePermissionsListener {
+                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                            RecordHelper.instance().startRecordPhoneCall()
+                            val notification = NotificationBarHelper.getInstance().updatedNotificationBar()
+                            startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
                         }
                         override fun onPermissionRationaleShouldBeShown(
                             permissions: List<PermissionRequest?>?,
@@ -48,7 +76,11 @@ class SaveYourVoiceMailsService : Service() {
                 log("stopping record")
                 Dexter.withContext(this)
                     .withPermissions(
-                        Manifest.permission.RECORD_AUDIO
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.PROCESS_OUTGOING_CALLS,
+                        Manifest.permission.MODIFY_AUDIO_SETTINGS
                     ).withListener(object : MultiplePermissionsListener {
                         override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                             RecordHelper.instance().stopRecording()
@@ -61,7 +93,7 @@ class SaveYourVoiceMailsService : Service() {
                         ) { /* ... */
                         }
                     }).check()
-                Navigator.movePlayer(this,SaveYourVoiceMailsApplication.getInstance().externalCacheDir?.absolutePath + "/audioFile001.wav")
+                Navigator.movePlayer(this,RecordHelper.instance().path)
             }
             Constant.ACTION.EXIT_APP -> {
                 log("exit app")
@@ -111,21 +143,21 @@ class SaveYourVoiceMailsService : Service() {
     }
 
     init {
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this)
-        }
+//        if (!EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().register(this)
+//        }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: String) {
-        if (event == mTimer){
-            return
-        }
-        mTimer = event
-        val notification = NotificationBarHelper.getInstance().updatedNotificationBar(event)
-        startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
-        log(event)
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onMessageEvent(event: String) {
+//        if (event == mTimer){
+//            return
+//        }
+//        mTimer = event
+//        val notification = NotificationBarHelper.getInstance().updatedNotificationBar(event)
+//        startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
+//        log(event)
+//    }
 }
 
 fun SaveYourVoiceMailsService.log(message: Any){

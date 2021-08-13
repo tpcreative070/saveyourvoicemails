@@ -22,7 +22,11 @@ class HomeAct : BaseActivity() {
 
         Dexter.withContext(this)
             .withPermissions(
-                Manifest.permission.RECORD_AUDIO
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.PROCESS_OUTGOING_CALLS,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) { /* ... */
                     finish()

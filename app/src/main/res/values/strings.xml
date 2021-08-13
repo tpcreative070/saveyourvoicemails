@@ -15,4 +15,5 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="create_new_account">Create New Account</string>
     <string name="exit">Exit</string>
+    <string name="record_phone_call">Record Phone Call</string>
 </resources>

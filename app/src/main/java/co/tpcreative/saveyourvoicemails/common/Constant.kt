@@ -7,6 +7,7 @@ class Constant {
             const val START_SERVICE = "START_SERVICE"
             const val START_RECORDING = "START_RECORDING"
             const val STOP_RECORDING = "STOP_RECORDING"
+            const val START_RECORDING_PHONE_CALL = "START_RECORDING_PHONE_CALL"
             const val EXIT_APP = "EXIT_APP"
             const val PAUSE_RECORD = "PAUSE_RECORD"
             const val RESUME_RECORD = "RESUME_RECORD"

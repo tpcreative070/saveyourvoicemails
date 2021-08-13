@@ -134,6 +134,7 @@ dependencies {
     implementation 'com.github.Binary-Finery:Bungee:3.0'
     implementation 'com.github.squti:Android-Wave-Recorder:1.6.0'
     implementation "androidx.media:media:1.4.1"
+    implementation "com.github.aykuttasil:CallRecorder:1.5.3"
 }
 /*Resolved duplicated for Google api client*/
 configurations {

@@ -7,8 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
+import android.os.SystemClock
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -17,11 +16,6 @@ import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 
 class NotificationBarHelper {
@@ -77,6 +71,12 @@ class NotificationBarHelper {
             action = Constant.ACTION.START_RECORDING
         }
 
+    private val recordPhoneCallIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
+        .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            action = Constant.ACTION.START_RECORDING_PHONE_CALL
+        }
+
     private val stopRecordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
         .apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -110,6 +110,12 @@ class NotificationBarHelper {
             recordIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val pendingRecordPhoneCall = PendingIntent.getService(
+            appContext,
+            0,
+            recordPhoneCallIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
         val pendingHome = PendingIntent.getService(
             appContext,
             0,
@@ -125,6 +131,7 @@ class NotificationBarHelper {
 
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
         remoteViews?.setOnClickPendingIntent(R.id.rlRecord, pendingRecord)
+        remoteViews?.setOnClickPendingIntent(R.id.rlRecordPhoneCall, pendingRecordPhoneCall)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
         remoteViews?.setOnClickPendingIntent(R.id.rlExit, pendingExit)
         notifyCompatBuilder
@@ -137,7 +144,7 @@ class NotificationBarHelper {
         return notifyCompatBuilder.build()
     }
 
-    fun updatedNotificationBar(value : String) : Notification {
+    fun updatedNotificationBar() : Notification {
         val pendingStop = PendingIntent.getService(
             appContext,
             0,
@@ -156,12 +163,11 @@ class NotificationBarHelper {
             exitIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar_recording)
         remoteViews?.setOnClickPendingIntent(R.id.rlStopRecord, pendingStop)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
         remoteViews?.setOnClickPendingIntent(R.id.rlExit, pendingExit)
-        remoteViews?.setTextViewText(R.id.tvTimer,value)
+        remoteViews?.setChronometer(R.id.chronometer1, SystemClock.elapsedRealtime(), null, true);
         notifyCompatBuilder
             .setContent(remoteViews)
             .setSmallIcon(R.drawable.ic_record)
