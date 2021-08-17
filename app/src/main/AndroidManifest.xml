@@ -11,20 +11,20 @@
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <application
-        android:name=".common.services.SaveYourVoiceMailsApplication"
+        android:name="co.tpcreative.presentation.common.services.SaveYourVoiceMailsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Saveyourvoicemails">
-        <activity android:name=".presentationlayer.player.PlayerAct">
+        <activity android:name="co.tpcreative.presentation.ui.player.PlayerAct">
         </activity>
         <activity
-            android:name=".presentationlayer.user.view.SignUpAct"
+            android:name="co.tpcreative.presentation.ui.user.view.SignUpAct"
             android:label="@string/title_activity_sign_up" />
-        <activity android:name=".presentationlayer.user.view.SignInAct" />
-        <activity android:name=".presentationlayer.home.view.HomeAct">
+        <activity android:name="co.tpcreative.presentation.ui.user.view.SignInAct" />
+        <activity android:name="co.tpcreative.presentation.ui.home.HomeAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
 
         <service
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:name=".common.services.SaveYourVoiceMailsService"
+            android:name="co.tpcreative.presentation.common.services.SaveYourVoiceMailsService"
             android:foregroundServiceType="mediaProjection">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
