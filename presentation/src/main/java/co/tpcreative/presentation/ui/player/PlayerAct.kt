@@ -1,9 +1,8 @@
 package co.tpcreative.presentation.ui.player
 import android.os.Build
 import android.os.Bundle
-import co.tpcreative.presentation.R
 import co.tpcreative.presentation.common.activity.BaseActivity
-import kotlinx.android.synthetic.main.activity_player.*
+import co.tpcreative.presentation.databinding.ActivityPlayerBinding
 
 class PlayerAct : BaseActivity(), VideoViewContract.View {
 
@@ -12,10 +11,13 @@ class PlayerAct : BaseActivity(), VideoViewContract.View {
     }
 
     private lateinit var presenter: VideoViewContract.Presenter
+    private lateinit var binding: ActivityPlayerBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         init()
     }
 
@@ -44,7 +46,7 @@ class PlayerAct : BaseActivity(), VideoViewContract.View {
 
         val videoUrl = intent.getStringExtra(VIDEO_URL_EXTRA)
 
-        playerView.player = presenter.getPlayer().getPlayerImpl(this)
+        binding.playerView.player = presenter.getPlayer().getPlayerImpl(this)
 
         presenter.play(videoUrl!!)
     }
