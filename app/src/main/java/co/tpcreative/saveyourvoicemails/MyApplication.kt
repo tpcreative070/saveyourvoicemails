@@ -10,7 +10,7 @@ class MyApplication : DaggerApplication() {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
+    
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
 
         return DaggerAppComponent.builder().create(this)

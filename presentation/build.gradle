@@ -45,6 +45,7 @@ dependencies {
     implementation "androidx.media:media:$androidxMedia"
     implementation "androidx.multidex:multidex:$appMultidex"
     implementation "com.karumi:dexter:$dexter"
+    implementation "javax.inject:javax.inject:$javaxInject"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

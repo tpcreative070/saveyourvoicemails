@@ -121,4 +121,5 @@ subprojects {
     ext.daggerAndroidSupport = "2.24"
     ext.daggerAndroidProcessor = "2.24"
     ext.daggerCompiler = "2.24"
+    ext.javaxInject    = "1"
 }
