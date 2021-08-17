@@ -137,9 +137,9 @@ dependencies {
     implementation "com.github.aykuttasil:CallRecorder:1.5.3"
 
 
-    implementation project(":Data")
-    implementation project(":Domain")
-    implementation project(":Presentation")
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":presentation")
 }
 /*Resolved duplicated for Google api client*/
 configurations {
