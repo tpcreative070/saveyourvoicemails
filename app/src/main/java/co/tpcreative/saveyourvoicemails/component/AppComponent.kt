@@ -5,6 +5,7 @@ import co.tpcreative.saveyourvoicemails.modules.home.HomeModule
 import co.tpcreative.saveyourvoicemails.AppModule
 import co.tpcreative.saveyourvoicemails.ViewModelModule
 import co.tpcreative.saveyourvoicemails.modules.settings.SettingsModule
+import co.tpcreative.saveyourvoicemails.MainModule
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
@@ -16,6 +17,7 @@ import javax.inject.Singleton
     ViewModelModule::class,
     AppModule::class,
     HomeModule::class,
+    MainModule::class,
     SettingsModule::class
 ])
 interface AppComponent : AndroidInjector<MyApplication> {
