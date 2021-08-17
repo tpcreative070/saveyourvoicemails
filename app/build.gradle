@@ -130,6 +130,13 @@ dependencies {
     implementation "androidx.security:security-crypto:$securityCrypto"
     implementation "androidx.media:media:$androidxMedia"
 
+
+    implementation "com.google.dagger:dagger:$dagger"
+    implementation "com.google.dagger:dagger-android:$daggerAndroid"
+    implementation "com.google.dagger:dagger-android-support:$daggerAndroidSupport"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerAndroidProcessor"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompiler"
+
     implementation project(":data")
     implementation project(":domain")
     implementation project(":presentation")

@@ -116,4 +116,9 @@ subprojects {
     ext.ectionedRecyclerViewAdapter = "3.2.0"
     ext.securityCrypto = "1.1.0-alpha03"
     ext.androidxMedia = "1.4.1"
+    ext.dagger  = "2.16"
+    ext.daggerAndroid  = "2.24"
+    ext.daggerAndroidSupport = "2.24"
+    ext.daggerAndroidProcessor = "2.24"
+    ext.daggerCompiler = "2.24"
 }
