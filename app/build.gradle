@@ -135,6 +135,11 @@ dependencies {
     implementation 'com.github.squti:Android-Wave-Recorder:1.6.0'
     implementation "androidx.media:media:1.4.1"
     implementation "com.github.aykuttasil:CallRecorder:1.5.3"
+
+
+    implementation project(":Data")
+    implementation project(":Domain")
+    implementation project(":Presentation")
 }
 /*Resolved duplicated for Google api client*/
 configurations {

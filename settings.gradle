@@ -1,2 +1,5 @@
+include ':Domain'
+include ':Data'
+include ':Presentation'
 include ':app'
 rootProject.name = "saveyourvoicemails"
