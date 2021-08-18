@@ -22,7 +22,7 @@ buildscript {
                 }
 
                 if (details.requested.group == 'org.jetbrains.kotlin'
-                        && !details.requested.name.contains('kotlin-stdlib') ) {
+                        && !details.requested.name.contains('kotlin-reflect') ) {
                     details.useVersion kotlin_version
                 }
 
@@ -122,4 +122,10 @@ subprojects {
     ext.daggerAndroidProcessor = "2.24"
     ext.daggerCompiler = "2.24"
     ext.javaxInject    = "1"
+    ext.navigationFragment = "1.0.0-alpha06"
+    ext.navigationUi  = "1.0.0-alpha06"
+
+    ext.rxJava = "2.2.6"
+    ext.rxAndroid = "2.1.0"
+    ext.reactiveStreams = "1.1.0"
 }

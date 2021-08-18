@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -50,6 +51,20 @@ dependencies {
     implementation "androidx.multidex:multidex:$appMultidex"
     implementation "com.karumi:dexter:$dexter"
     implementation "javax.inject:javax.inject:$javaxInject"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationFragment"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationUi"
+
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
+
+    implementation "com.google.dagger:dagger:$dagger"
+    implementation "com.google.dagger:dagger-android:$daggerAndroid"
+    implementation "com.google.dagger:dagger-android-support:$daggerAndroidSupport"
+    kapt "com.google.dagger:dagger-android-processor:$daggerAndroidProcessor"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompiler"
+    kapt "com.google.dagger:dagger-compiler:$daggerCompiler"
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
