@@ -57,10 +57,12 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
-
+    implementation "com.pandora.bottomnavigator:bottom-navigator:$bottomNavigator"
+    implementation "com.google.android.material:material:$material"
     implementation "com.google.dagger:dagger:$dagger"
     implementation "com.google.dagger:dagger-android:$daggerAndroid"
     implementation "com.google.dagger:dagger-android-support:$daggerAndroidSupport"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:dagger-android-processor:$daggerAndroidProcessor"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompiler"
     kapt "com.google.dagger:dagger-compiler:$daggerCompiler"

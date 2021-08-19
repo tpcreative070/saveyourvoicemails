@@ -124,7 +124,8 @@ subprojects {
     ext.javaxInject    = "1"
     ext.navigationFragment = "1.0.0-alpha06"
     ext.navigationUi  = "1.0.0-alpha06"
-
+    ext.bubbleTabBar = "1.0.8"
+    ext.bottomNavigator = "1.8"
     ext.rxJava = "2.2.6"
     ext.rxAndroid = "2.1.0"
     ext.reactiveStreams = "1.1.0"

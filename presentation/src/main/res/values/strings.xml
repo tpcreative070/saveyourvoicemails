@@ -15,4 +15,9 @@
     <string name="create_new_account">Create New Account</string>
     <string name="exit">Exit</string>
     <string name="record_phone_call">Record Phone Call</string>
+    <string name="logger">logger</string>
+    <string name="documents">documents</string>
+    <string name="settings">settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
