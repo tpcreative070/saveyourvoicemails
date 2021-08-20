@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails
 import android.content.Context
 import android.content.res.Resources
+import co.tpcreative.presentation.common.services.NetworkConnectivityHelper
 import co.tpcreative.saveyourvoicemails.qualifier.ApplicationContext
 import dagger.Binds
 import dagger.Module

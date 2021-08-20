@@ -141,5 +141,5 @@ class SaveYourVoiceMailsService : Service() {
 }
 
 fun SaveYourVoiceMailsService.log(message: Any){
-    Utils.log(this::class.java,message)
+   Utils.log(this::class.java,message)
 }

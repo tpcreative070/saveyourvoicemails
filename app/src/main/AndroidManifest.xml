@@ -21,10 +21,10 @@
         <activity android:name="co.tpcreative.presentation.ui.player.PlayerAct">
         </activity>
         <activity
-            android:name="co.tpcreative.presentation.ui.main.MainAct"
+            android:name="co.tpcreative.presentation.ui.user.view.SignUpAct"
             android:label="@string/title_activity_sign_up" />
         <activity android:name="co.tpcreative.presentation.ui.user.view.SignInAct" />
-        <activity android:name="co.tpcreative.presentation.ui.user.view.SignUpAct">
+        <activity android:name="co.tpcreative.presentation.ui.main.MainAct">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

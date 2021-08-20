@@ -53,6 +53,12 @@ dependencies {
     implementation "javax.inject:javax.inject:$javaxInject"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationFragment"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationUi"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlin_core_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroid"
+    implementation "android.arch.lifecycle:extensions:$lifecycleExtensions"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKTX"
 
     implementation "io.reactivex.rxjava2:rxjava:$rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
@@ -62,10 +68,12 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger"
     implementation "com.google.dagger:dagger-android:$daggerAndroid"
     implementation "com.google.dagger:dagger-android-support:$daggerAndroidSupport"
+    implementation  "javax.inject:javax.inject:$javaxInject"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:dagger-android-processor:$daggerAndroidProcessor"
     annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompiler"
     kapt "com.google.dagger:dagger-compiler:$daggerCompiler"
+    implementation project(':domain')
 
 
     testImplementation 'junit:junit:4.+'

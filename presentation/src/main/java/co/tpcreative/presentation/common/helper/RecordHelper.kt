@@ -66,5 +66,5 @@ class RecordHelper {
 }
 
 fun RecordHelper.log(message: Any){
-    Utils.log(this::class.java, message)
+   Utils.log(this::class.java, message)
 }
