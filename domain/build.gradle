@@ -11,11 +11,10 @@ java {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "androidx.paging:paging-runtime:$pagingRuntime"
-    implementation "androidx.paging:paging-rxjava2:$pagingRxJava"
     implementation "com.jakewharton.timber:timber:$timber"
-    implementation "io.reactivex.rxjava2:rxjava:$rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation project(":common")
 }
 
 repositories {

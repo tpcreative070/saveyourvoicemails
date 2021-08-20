@@ -65,6 +65,7 @@ android {
 
     buildFeatures {
         dataBinding true
+        viewBinding = true
     }
 }
 
@@ -118,9 +119,7 @@ dependencies {
     /*Finger print*/
     implementation "co.infinum:goldfinger:$goldFinger"
     /*Kotlin*/
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation "androidx.core:core-ktx:$kotlin_core_version"
-    implementation "androidx.room:room-runtime:$appRoomVersion"
     implementation "com.google.guava:listenablefuture:$listenablefuture"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
     implementation "android.arch.lifecycle:extensions:$lifecycleExtensions"
@@ -129,18 +128,25 @@ dependencies {
     implementation "io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:$ectionedRecyclerViewAdapter"
     implementation "androidx.security:security-crypto:$securityCrypto"
     implementation "androidx.media:media:$androidxMedia"
+    implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
+    implementation "com.pandora.bottomnavigator:bottom-navigator:$bottomNavigator"
+    implementation "com.google.android.material:material:$material"
 
-
-    implementation "com.google.dagger:dagger:$dagger"
-    implementation "com.google.dagger:dagger-android:$daggerAndroid"
-    implementation "com.google.dagger:dagger-android-support:$daggerAndroidSupport"
-    kapt "com.google.dagger:dagger-android-processor:$daggerAndroidProcessor"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerCompiler"
-    kapt "com.google.dagger:dagger-compiler:$daggerCompiler"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlin_core_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroid"
+    implementation "android.arch.lifecycle:extensions:$lifecycleExtensions"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKTX"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewModelKTX"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"
+    implementation "androidx.legacy:legacy-support-v4:$legacySupportV4"
+    implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
+    implementation "com.pandora.bottomnavigator:bottom-navigator:$bottomNavigator"
 
     implementation project(":data")
     implementation project(":domain")
-    implementation project(":presentation")
+    implementation project(":common")
 }
 
 /*Resolved duplicated for Google api client*/
