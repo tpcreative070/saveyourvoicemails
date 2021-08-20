@@ -2,7 +2,6 @@ package co.tpcreative.saveyourvoicemails.ui.player
 import android.os.Build
 import android.os.Bundle
 import co.tpcreative.presentation.ui.player.VideoViewContract
-import co.tpcreative.presentation.ui.player.VideoViewPresenter
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.databinding.ActivityPlayerBinding
 

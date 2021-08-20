@@ -1,6 +1,6 @@
-package co.tpcreative.presentation.ui.player
+package co.tpcreative.saveyourvoicemails.ui.player
 
-import co.tpcreative.saveyourvoicemails.ui.player.MediaPlayerImpl
+import co.tpcreative.presentation.ui.player.VideoViewContract
 import java.lang.ref.WeakReference
 
 class VideoViewPresenter(videoViewView: VideoViewContract.View) : VideoViewContract.Presenter {

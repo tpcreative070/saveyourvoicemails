@@ -1,4 +1,4 @@
-package co.tpcreative.presentation.ui.player
+package co.tpcreative.saveyourvoicemails.ui.player
 
 import android.content.Context
 import com.google.android.exoplayer2.ExoPlayer

@@ -1,4 +1,6 @@
-package co.tpcreative.presentation.ui.main
+package co.tpcreative.saveyourvoicemails.ui.main
+
+import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 
 fun MainAct.initUI(){
 

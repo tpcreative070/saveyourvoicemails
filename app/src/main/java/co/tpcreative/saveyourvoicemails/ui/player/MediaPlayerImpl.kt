@@ -3,7 +3,6 @@ import android.content.Context
 import android.net.Uri
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
-import co.tpcreative.presentation.ui.player.MediaPlayer
 import co.tpcreative.saveyourvoicemails.R
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultRenderersFactory

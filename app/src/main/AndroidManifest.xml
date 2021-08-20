@@ -24,7 +24,7 @@
             android:name=".ui.user.view.SignUpAct"
             android:label="@string/title_activity_sign_up" />
         <activity android:name=".ui.user.view.SignInAct" />
-        <activity android:name="co.tpcreative.presentation.ui.main.MainAct"
+        <activity android:name=".ui.main.MainAct"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

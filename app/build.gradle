@@ -143,6 +143,9 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:$legacySupportV4"
     implementation "android.arch.lifecycle:reactivestreams:$reactiveStreams"
     implementation "com.pandora.bottomnavigator:bottom-navigator:$bottomNavigator"
+    implementation "androidx.activity:activity-ktx:$activityKTX"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKTX"
 
     implementation project(":data")
     implementation project(":domain")

@@ -1,5 +1,7 @@
 package co.tpcreative.presentation.ui.player
 
+import co.tpcreative.saveyourvoicemails.ui.player.MediaPlayer
+
 interface VideoViewContract {
 
     interface Presenter {
