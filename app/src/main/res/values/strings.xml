@@ -7,7 +7,7 @@
     <string name="enter_password">Enter Password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_in_with_google">Sign In with Google</string>
-    <string name="title_activity_sign_up">SignUpAct</string>
+    <string name="title_activity_sign_up">SignUp</string>
     <!--
     This string is used for square devices and overridden by hello_world in
     values-round/strings.xml for round devices.
@@ -31,4 +31,6 @@
 
     <!-- TODO: user case -->
     <string name="user_key">user_key</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="live_chat">Live Chat</string>
 </resources>

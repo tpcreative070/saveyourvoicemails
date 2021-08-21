@@ -21,6 +21,14 @@ class UserViewModel (
 
     val requestSignUp = MutableLiveData<Event<Boolean>>()
 
+    val requestSignIn = MutableLiveData<Event<Boolean>>()
+
+    val requestSignInWithGoogle = MutableLiveData<Event<Boolean>>()
+
+    var requestForgotPassword = MutableLiveData<Event<Boolean>>()
+
+    var requestLiveChat = MutableLiveData<Event<Boolean>>()
+
     fun doSearch() {
         viewModelScope.launch(ioDispatcher) {
             try {
@@ -47,5 +55,21 @@ class UserViewModel (
 
     fun onSignUpClicked() = viewModelScope.launch(mainDispatcher) {
         requestSignUp.value =  Event(true)
+    }
+
+    fun onForgotPasswordClicked() = viewModelScope.launch(mainDispatcher) {
+        requestForgotPassword.value = Event(true)
+    }
+
+    fun onLiveChatClicked() = viewModelScope.launch(mainDispatcher) {
+        requestLiveChat.value = Event(true)
+    }
+
+    fun onSignInClicked() = viewModelScope.launch(mainDispatcher) {
+        requestSignIn.value = Event(true)
+    }
+
+    fun onSignInWithGoogleClicked() = viewModelScope.launch(mainDispatcher) {
+        requestSignInWithGoogle.value = Event(true)
     }
 }

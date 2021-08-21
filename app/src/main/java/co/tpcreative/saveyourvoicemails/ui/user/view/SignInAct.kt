@@ -1,18 +1,19 @@
 package co.tpcreative.saveyourvoicemails.ui.user.view
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
+import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
+import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.ActivitySignInBinding
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
-class SignInAct : AppCompatActivity() {
-    //private lateinit var binding: ActivitySignInBinding
+class SignInAct : BaseActivity() {
+
+
     private val viewModel : UserViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()) )
     }
@@ -34,9 +35,11 @@ class SignInAct : AppCompatActivity() {
                 Navigator.moveToSignUp(this)
             }
         })
-    }
 
-    private  fun registerOnClicked(){
-
+        viewModel.requestForgotPassword.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let { value ->
+               log(value)
+            }
+        })
     }
 }

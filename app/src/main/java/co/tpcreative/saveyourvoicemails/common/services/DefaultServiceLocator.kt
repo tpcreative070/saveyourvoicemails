@@ -1,7 +1,7 @@
 package co.tpcreative.saveyourvoicemails.common.services
 
 import android.app.Application
-import co.tpcreative.data.github.RetrofitGithubDataSource
+import co.tpcreative.data.voicemails.RetrofitVoiceMailsDataSource
 import co.tpcreative.data.logger.AndroidLogger
 import co.tpcreative.data.searchhistory.SqliteSearchHistoryDataSource
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ class DefaultServiceLocator private constructor(application: Application) : Serv
         fun getInstance(application: Application) = instance ?: DefaultServiceLocator(application).also { instance = it }
     }
 
-    override val githubDataSource by lazy { RetrofitGithubDataSource() }
+    override val githubDataSource by lazy { RetrofitVoiceMailsDataSource() }
 
     override val searchHistoryDataSource by lazy { SqliteSearchHistoryDataSource(application) }
 

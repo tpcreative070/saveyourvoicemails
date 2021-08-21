@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.App" parent="Theme.MaterialComponents.Light">
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+    <style name="Theme.App" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@android:color/holo_green_dark</item>
+        <item name="textInputStyle">@style/InputTextInputLayoutStyle</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+    <style name="InputTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/selector_items</item>
+        <item name="android:textColorHint">@color/text_color_hint</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
+        <item name="endIconTint">?attr/colorAccent</item>
     </style>
 
     <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
