@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import co.tpcreative.saveyourvoicemails.R
 
-class SettingFragment : Fragment(){
+class SettingsFragment : Fragment(){
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,

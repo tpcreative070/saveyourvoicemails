@@ -17,6 +17,6 @@
         android:background="?attr/colorPrimary"
         app:itemIconTint="@color/bottom_navigation_colors"
         app:itemTextColor="@color/bottom_navigation_colors"
-        app:itemRippleColor="@color/home"
+        app:itemRippleColor="?attr/colorAccent"
         app:menu="@menu/navigation_items"/>
 </LinearLayout>

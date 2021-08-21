@@ -3,10 +3,12 @@ package co.tpcreative.saveyourvoicemails.ui.user.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
+import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.domain.models.User
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -28,6 +30,26 @@ class UserViewModel (
     var requestForgotPassword = MutableLiveData<Event<Boolean>>()
 
     var requestLiveChat = MutableLiveData<Event<Boolean>>()
+
+    var email : String = ""
+        set(value) {
+            field = value
+            validationEmail(value)
+        }
+
+    override val errorResponseMessage: MutableLiveData<MutableMap<String, String?>?>
+        get() = super.errorResponseMessage
+
+    private fun validationEmail(mValue : String){
+        if (mValue.isEmpty()){
+            putError(EnumValidationKey.EDIT_TEXT_EMAIL, "Request enter email")
+        }else if (!Utils.isValidEmail(mValue)){
+            putError(EnumValidationKey.EDIT_TEXT_EMAIL, "Email invalid")
+        }
+        else{
+            putError(EnumValidationKey.EDIT_TEXT_EMAIL)
+        }
+    }
 
     fun doSearch() {
         viewModelScope.launch(ioDispatcher) {

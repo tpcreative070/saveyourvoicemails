@@ -33,4 +33,6 @@
     <string name="user_key">user_key</string>
     <string name="forgot_password">Forgot password</string>
     <string name="live_chat">Live Chat</string>
+    <string name="sign_in_with_facebook">Sign In With Facebook</string>
+    <string name="me">Me</string>
 </resources>

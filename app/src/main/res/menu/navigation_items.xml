@@ -7,10 +7,10 @@
         android:checked="true"/>
     <item
         android:id="@+id/log"
-        android:icon="@drawable/ic_clock"
-        android:title="@string/logger"/>
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="@string/me"/>
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/ic_android_black_24dp_rotated"
+        android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings"/>
 </menu>

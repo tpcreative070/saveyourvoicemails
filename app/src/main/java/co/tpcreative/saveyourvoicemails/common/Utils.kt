@@ -1,6 +1,8 @@
 package co.tpcreative.saveyourvoicemails.common
 import android.annotation.SuppressLint
+import android.text.TextUtils
 import android.util.Log
+import android.util.Patterns
 import co.tpcreative.domain.models.User
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
@@ -24,4 +26,8 @@ object Utils {
              }
          }
      }
+
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target ?: "").matches()
+    }
  }
