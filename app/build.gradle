@@ -90,8 +90,6 @@ dependencies {
     // Dependencies for the REST API example
     implementation "com.google.api-client:google-api-client-android:$googleAPIClientAndroid"
     /*Google drive*/
-    implementation "com.google.apis:google-api-services-drive:$googleAPIServicesDrive"
-    implementation "com.google.android.gms:play-services-drive:$playServicesDrive"
     // Recommended: Add the Firebase SDK for Google Analytics.
     implementation "com.google.firebase:firebase-analytics:$firebaseAnalytics"
     implementation "com.google.android.gms:play-services-basement:$playServicesBasement"
@@ -146,6 +144,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activityKTX"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"
     implementation "androidx.fragment:fragment-ktx:$fragmentKTX"
+    implementation "androidx.security:security-crypto:$androidxSecurityCrypto"
 
     implementation project(":data")
     implementation project(":domain")

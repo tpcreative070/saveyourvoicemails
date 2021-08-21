@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
 import co.tpcreative.saveyourvoicemails.ui.home.HomeViewModel
 import androidx.lifecycle.ViewModelProvider
+import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
 class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelProvider.NewInstanceFactory() {
@@ -41,6 +42,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher
                     )
+                isAssignableFrom(MainActViewModel::class.java) ->
+                    MainActViewModel()
                 else -> throw IllegalArgumentException("unknown model class $modelClass")
             }
         } as T

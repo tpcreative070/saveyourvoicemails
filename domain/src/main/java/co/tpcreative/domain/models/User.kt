@@ -1,6 +1,7 @@
 package co.tpcreative.domain.models
 
 data class User (
+    var isSignIn : Boolean = false,
     var login: String,
     var avatarUrl: String,
     var name: String? = null,

@@ -1,9 +1,12 @@
 package co.tpcreative.saveyourvoicemails.ui.user.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
+import co.tpcreative.domain.models.User
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
+import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -14,10 +17,11 @@ class UserViewModel (
     private val logger: Logger,
     private val ioDispatcher: CoroutineDispatcher,
     private val mainDispatcher: CoroutineDispatcher
-) : BaseViewModel() {
+) : BaseViewModel<User>() {
+
+    val requestSignUp = MutableLiveData<Event<Boolean>>()
 
     fun doSearch() {
-
         viewModelScope.launch(ioDispatcher) {
             try {
                 val result = searchUsersUseCase("tp")
@@ -39,5 +43,9 @@ class UserViewModel (
 
             }
         }
+    }
+
+    fun onSignUpClicked() = viewModelScope.launch(mainDispatcher) {
+        requestSignUp.value =  Event(true)
     }
 }

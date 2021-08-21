@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.home
 import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
+import co.tpcreative.domain.models.User
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
@@ -13,7 +14,7 @@ class HomeViewModel(
     private val logger: Logger,
     private val ioDispatcher: CoroutineDispatcher,
     private val mainDispatcher: CoroutineDispatcher
-) : BaseViewModel() {
+) : BaseViewModel<User>() {
 
     fun doSearch() {
 

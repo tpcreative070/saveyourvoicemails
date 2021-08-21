@@ -27,4 +27,8 @@
     <string name="confirm_password">Confirm password</string>
     <string name="contact_no">Contact No</string>
     <string name="sign_up">Sign up</string>
+
+
+    <!-- TODO: user case -->
+    <string name="user_key">user_key</string>
 </resources>
