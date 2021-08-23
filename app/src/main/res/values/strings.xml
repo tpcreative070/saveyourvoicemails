@@ -35,4 +35,5 @@
     <string name="live_chat">Live Chat</string>
     <string name="sign_in_with_facebook">Sign In With Facebook</string>
     <string name="me">Me</string>
+    <string name="email">Email</string>
 </resources>

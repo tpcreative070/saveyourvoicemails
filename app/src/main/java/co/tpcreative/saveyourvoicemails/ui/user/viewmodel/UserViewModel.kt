@@ -37,6 +37,12 @@ class UserViewModel (
             validationEmail(value)
         }
 
+    var password : String  = ""
+        set(value){
+            field = value
+            validationPassword(value)
+        }
+
     override val errorResponseMessage: MutableLiveData<MutableMap<String, String?>?>
         get() = super.errorResponseMessage
 
@@ -51,7 +57,26 @@ class UserViewModel (
         }
     }
 
+    private fun validationPassword(mValue : String){
+        if (mValue.isEmpty()){
+            putError(EnumValidationKey.EDIT_PASSWORD, "Request enter password")
+        }
+        else if(mValue.length < 6){
+            putError(EnumValidationKey.EDIT_PASSWORD, "Password at least 6 characters")
+        }
+        else{
+            putError(EnumValidationKey.EDIT_PASSWORD)
+        }
+    }
+
     fun doSearch() {
+        errorMessages.value
+        errorMessages.value.let {
+            if (it?.isNotEmpty() == true){
+                log("Not empty")
+                return
+            }
+        }
         viewModelScope.launch(ioDispatcher) {
             try {
                 val result = searchUsersUseCase("tp")
@@ -89,6 +114,7 @@ class UserViewModel (
 
     fun onSignInClicked() = viewModelScope.launch(mainDispatcher) {
         requestSignIn.value = Event(true)
+        doSearch()
     }
 
     fun onSignInWithGoogleClicked() = viewModelScope.launch(mainDispatcher) {

@@ -3,6 +3,7 @@ package co.tpcreative.saveyourvoicemails.common.base
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.tpcreative.domain.models.EnumValidationKey
+import co.tpcreative.saveyourvoicemails.common.Utils
 
 open class BaseViewModel<T> : ViewModel() {
     open val isLoading : MutableLiveData<Boolean> by lazy {
@@ -70,7 +71,7 @@ open class BaseViewModel<T> : ViewModel() {
                 errorMessages.postValue(mutableMapOf(key.name to value))
             }
         }else{
-            if (value.isNullOrEmpty()){
+            if (value==null){
                 errorMessages.value?.remove(key.name)
                 errorMessages.postValue(errorMessages.value)
             }else{
@@ -78,5 +79,9 @@ open class BaseViewModel<T> : ViewModel() {
                 errorMessages.postValue(errorMessages.value)
             }
         }
+    }
+
+    fun log(message : Any){
+        Utils.log(this::class.java,message)
     }
 }
