@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.*
 
 class SignInAct : BaseActivity() {
 
-    private lateinit var binding: ActivitySignInBinding
+    lateinit var binding: ActivitySignInBinding
     val viewModel : UserViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()) )
     }
@@ -35,6 +35,7 @@ class SignInAct : BaseActivity() {
             }.root
         )
         bindingEvent()
+        initUI()
     }
 
     private fun bindingEvent(){
@@ -76,35 +77,5 @@ class SignInAct : BaseActivity() {
                 SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
             }
         })
-
-        lifecycleScope.launchWhenResumed {
-            binding.textPutUserName.textChanges()
-                    .debounce(400)
-                    .collect {
-                        execute(it)
-                    }
-        }
-        lifecycleScope.launchWhenResumed {
-            binding.textPutPassword.textChanges()
-                    .debounce(400)
-                    .collect {
-                        execute(it)
-                    }
-        }
-        viewModel.putError(EnumValidationKey.EDIT_TEXT_EMAIL,"")
-        viewModel.putError(EnumValidationKey.EDIT_PASSWORD, "")
-
-        binding.btnSignIn.setOnClickListener {
-            signIn()
-        }
     }
-
-    private fun execute(s : CharSequence?) {
-        if (binding.textPutUserName == currentFocus){
-            viewModel.email = s.toString()
-        }else{
-            viewModel.password = s.toString()
-        }
-    }
-
 }

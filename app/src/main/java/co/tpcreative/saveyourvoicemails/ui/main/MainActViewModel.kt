@@ -11,8 +11,9 @@ class MainActViewModel : BaseViewModel<GitHubUser>() {
     val onSignIn = MutableLiveData<Boolean>()
 
     fun checkSignedIn(){
-        if (!Utils.isSignedIn()){
-            onSignIn.postValue(true)
-        }
+//        if (!Utils.isSignedIn()){
+//            onSignIn.postValue(true)
+//        }
+        onSignIn.postValue(true)
     }
 }

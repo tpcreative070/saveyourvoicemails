@@ -54,8 +54,28 @@ class UserViewModel (
             validationPassword(value)
         }
 
+    var confirmPassword : String = ""
+        set(value){
+            field = value
+            validationConfirmPassword(value)
+        }
+
+    var phoneNumber : String = ""
+        set(value){
+            field = value
+            validationPhoneNumber(value)
+        }
+
     override val errorResponseMessage: MutableLiveData<MutableMap<String, String?>?>
         get() = super.errorResponseMessage
+
+    private fun validationPhoneNumber(mValue : String){
+
+    }
+
+    private fun validationConfirmPassword(mValue : String){
+
+    }
 
     private fun validationEmail(mValue : String){
         if (mValue.isEmpty()){
@@ -84,6 +104,24 @@ class UserViewModel (
         try {
             val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             val result = signInUsersUseCase(mUser)
+            logger.debug("result: ${Gson().toJson(result)}")
+            if (result.error){
+                emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
+            }else{
+                Utils.putUserPreShare(result.user)
+                Utils.putSessionTokenPreShare(result.session_token)
+                Utils.putMail365PreShare(result.mail365)
+                emit(Resource.success(result))
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while login user", e)
+        }
+    }
+
+    fun signUp() = liveData(Dispatchers.IO){
+        try {
+            val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val result = signUpUsersUseCase(mUser)
             logger.debug("result: ${Gson().toJson(result)}")
             if (result.error){
                 emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
