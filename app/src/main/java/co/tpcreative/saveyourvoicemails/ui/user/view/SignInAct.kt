@@ -69,14 +69,14 @@ class SignInAct : BaseActivity() {
 
         lifecycleScope.launchWhenResumed {
             binding.textPutUserName.textChanges()
-                    .debounce(700)
+                    .debounce(600)
                     .collect {
                         execute(it)
                     }
         }
         lifecycleScope.launchWhenResumed {
             binding.textPutPassword.textChanges()
-                    .debounce(700)
+                    .debounce(600)
                     .collect {
                         execute(it)
                     }
