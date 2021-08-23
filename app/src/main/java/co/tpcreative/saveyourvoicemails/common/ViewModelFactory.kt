@@ -1,13 +1,11 @@
 package co.tpcreative.saveyourvoicemails.common
-import co.tpcreative.domain.usecases.SearchUsersUseCase
-import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import androidx.lifecycle.ViewModel
 import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
 import co.tpcreative.saveyourvoicemails.ui.list.AudioViewModel
 import androidx.lifecycle.ViewModelProvider
-import co.tpcreative.domain.usecases.SignInUsersUseCase
-import co.tpcreative.domain.usecases.SignUpUsersUseCase
+import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
+import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
 class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelProvider.NewInstanceFactory() {
@@ -45,6 +43,14 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                         serviceLocator.getLogger(UserViewModel::class),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher
+                    )
+
+                isAssignableFrom(ShareViewModel::class.java) ->
+                    ShareViewModel(
+                        InsertVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
+                        serviceLocator.ioDispatcher,
+                        serviceLocator.mainDispatcher,
+                        serviceLocator.getLogger(UserViewModel::class),
                     )
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()

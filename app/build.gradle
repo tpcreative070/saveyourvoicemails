@@ -145,6 +145,8 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragmentKTX"
     implementation "androidx.security:security-crypto:$androidxSecurityCrypto"
     implementation "com.github.tapadoo:alerter:$androidAlerter"
+    implementation "com.afollestad.material-dialogs:input:$materialDialogsInput"
+    implementation "com.afollestad.material-dialogs:core:$materialDialogsInput"
 
     implementation project(":data")
     implementation project(":domain")

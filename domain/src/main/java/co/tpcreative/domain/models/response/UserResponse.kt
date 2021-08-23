@@ -1,8 +1,8 @@
 package co.tpcreative.domain.models.response
 
-class UserResponse {
-    var message: String? = null
-    var error = false
+import co.tpcreative.domain.models.BaseResponse
+
+class UserResponse  : BaseResponse() {
     var session_token : SessionToken? = null
     var user: User? = null
     var mail365: Mail365? = null

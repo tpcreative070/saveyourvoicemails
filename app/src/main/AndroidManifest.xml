@@ -5,27 +5,35 @@
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.PROCESS_INCOMING_CALLS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
     <application
-        android:usesCleartextTraffic="true"
         android:name=".common.services.SaveYourVoiceMailsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App">
-        <activity android:name=".ui.player.PlayerAct">
+        android:theme="@style/Theme.App"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.share.ShareAct">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="audio/*" />
+            </intent-filter>
         </activity>
+        <activity android:name=".ui.player.PlayerAct"></activity>
         <activity
             android:name=".ui.user.view.SignUpAct"
             android:label="@string/title_activity_sign_up" />
         <activity android:name=".ui.user.view.SignInAct" />
-        <activity android:name=".ui.main.MainAct"
+        <activity
+            android:name=".ui.main.MainAct"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,13 +43,13 @@
         </activity>
 
         <service
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:name=".common.services.SaveYourVoiceMailsService"
-            android:foregroundServiceType="mediaProjection">
+            android:foregroundServiceType="mediaProjection"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-       </service>
+        </service>
     </application>
 
 </manifest>

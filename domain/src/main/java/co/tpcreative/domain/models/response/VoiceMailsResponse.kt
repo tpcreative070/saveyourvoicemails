@@ -1,4 +1,6 @@
 package co.tpcreative.domain.models.response
 
-class VoiceMailsResponse {
+import co.tpcreative.domain.models.BaseResponse
+
+class VoiceMailsResponse : BaseResponse(){
 }
