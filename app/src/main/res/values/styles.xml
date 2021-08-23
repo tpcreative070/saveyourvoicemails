@@ -14,6 +14,13 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <!--Changed cursor color-->
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/blue</item>
+    </style>
+
     <style name="InputTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/selector_items</item>
         <item name="android:textColorHint">@color/text_color_hint</item>

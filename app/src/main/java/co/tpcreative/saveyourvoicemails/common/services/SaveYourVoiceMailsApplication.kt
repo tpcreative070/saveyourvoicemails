@@ -1,5 +1,7 @@
 package co.tpcreative.saveyourvoicemails.common.services
 import androidx.multidex.MultiDexApplication
+import co.tpcreative.saveyourvoicemails.BuildConfig
+import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
 
 class SaveYourVoiceMailsApplication : MultiDexApplication() {
@@ -11,6 +13,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
     companion object{
         @Volatile private var INSTANCE: SaveYourVoiceMailsApplication? = null
+        lateinit var url : String
         fun  getInstance(): SaveYourVoiceMailsApplication {
             return INSTANCE ?: synchronized(this){
                 SaveYourVoiceMailsApplication().also {
@@ -18,6 +21,15 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
                 }
             }
         }
+    }
+
+    fun getUrl(): String {
+        url = if (!BuildConfig.DEBUG) {
+            SecurityUtil.url_live
+        } else {
+            SecurityUtil.url_developer
+        }
+        return url
     }
 
 }
