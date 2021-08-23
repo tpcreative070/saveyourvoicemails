@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.*
 class SignInAct : BaseActivity() {
 
     private lateinit var binding: ActivitySignInBinding
-    private val viewModel : UserViewModel by viewModels {
+    val viewModel : UserViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()) )
     }
 
@@ -93,6 +93,10 @@ class SignInAct : BaseActivity() {
         }
         viewModel.putError(EnumValidationKey.EDIT_TEXT_EMAIL,"")
         viewModel.putError(EnumValidationKey.EDIT_PASSWORD, "")
+
+        binding.btnSignIn.setOnClickListener {
+            signIn()
+        }
     }
 
     private fun execute(s : CharSequence?) {

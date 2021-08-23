@@ -72,7 +72,6 @@
                 android:text="@string/sign_in"
                 android:layout_weight="0.7"
                 android:layout_width="0dp"
-                android:onClick="@{() -> viewmodel.onSignInClicked()}"
                 android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatButton
                 android:onClick="@{() -> viewmodel.onSignInWithGoogleClicked()}"

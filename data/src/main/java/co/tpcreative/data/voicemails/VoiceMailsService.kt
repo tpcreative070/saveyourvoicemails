@@ -1,7 +1,7 @@
 package co.tpcreative.data.voicemails
 
 import co.tpcreative.domain.models.SearchUsersResult
-import co.tpcreative.domain.models.User
+import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.response.UserResponse
 import retrofit2.Call
@@ -13,7 +13,7 @@ internal interface VoiceMailsService {
     fun searchUsers(@Query("q") query: String): Call<SearchUsersResult>
 
     @GET("users/{username}")
-    fun getUser(@Path("username") username: String): Call<User>
+    fun getUser(@Path("username") username: String): Call<GitHubUser>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signIn")
     fun signIn(@Body request : UserRequest): Call<UserResponse>

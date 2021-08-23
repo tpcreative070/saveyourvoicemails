@@ -36,5 +36,7 @@
     <string name="email">Email</string>
 
     <!-- TODO: user case -->
-    <string name="user_key">user_key</string>
+    <string name="key_user">key_user</string>
+    <string name="key_mail365">key_mail365</string>
+    <string name="key_session_token">key_session_token</string>
 </resources>

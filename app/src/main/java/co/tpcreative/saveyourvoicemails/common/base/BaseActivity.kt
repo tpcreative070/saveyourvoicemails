@@ -1,11 +1,15 @@
 package co.tpcreative.saveyourvoicemails.common.base
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
+import com.tapadoo.alerter.Alerter
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -45,6 +49,16 @@ open class BaseActivity : AppCompatActivity() {
             // TODO: handle exception
             e.printStackTrace()
         }
+    }
+
+    fun onBasicAlertNotify(title: String? = "Warning", message: String?) {
+        Alerter.create(this)
+            .setTitle(title!!)
+            .setBackgroundColorInt(
+                ContextCompat.getColor(this, R.color.colorAccent))
+            .setText(message ?: "")
+            .setDuration(2000)
+            .show()
     }
 }
 

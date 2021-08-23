@@ -1,10 +1,11 @@
 package co.tpcreative.saveyourvoicemails.ui.user.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.EnumValidationKey
-import co.tpcreative.domain.models.User
+import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
@@ -13,9 +14,14 @@ import co.tpcreative.domain.usecases.SignUpUsersUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
+import co.tpcreative.saveyourvoicemails.common.extension.putMail365PreShare
+import co.tpcreative.saveyourvoicemails.common.extension.putSessionTokenPreShare
+import co.tpcreative.saveyourvoicemails.common.extension.putUserPreShare
+import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel (
@@ -26,7 +32,7 @@ class UserViewModel (
         private val logger: Logger,
         private val ioDispatcher: CoroutineDispatcher,
         private val mainDispatcher: CoroutineDispatcher
-) : BaseViewModel<User>() {
+) : BaseViewModel<GitHubUser>() {
 
     val requestSignUp = MutableLiveData<Event<Boolean>>()
 
@@ -76,63 +82,21 @@ class UserViewModel (
         }
     }
 
-    private fun signIn(){
-        errorMessages.value
-        errorMessages.value.let {
-            if (it?.isNotEmpty() == true){
-                log("Not empty")
-                return
+    fun signIn() = liveData(Dispatchers.IO){
+        try {
+            val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val result = signInUsersUseCase(mUser)
+            logger.debug("result: ${Gson().toJson(result)}")
+            if (result.error){
+                emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
+            }else{
+                Utils.putUserPreShare(result.user)
+                Utils.putSessionTokenPreShare(result.session_token)
+                Utils.putMail365PreShare(result.mail365)
+                emit(Resource.success(result))
             }
-        }
-        isLoading.value = true
-        viewModelScope.launch(ioDispatcher) {
-            try {
-                val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
-                val result = signInUsersUseCase(mUser)
-                logger.debug("result: ${Gson().toJson(result)}")
-                launch(mainDispatcher) {
-
-                }
-            } catch (e: Exception) {
-                logger.warn( "An error occurred while login user", e)
-                launch(mainDispatcher) {
-
-                }
-            }
-            launch(mainDispatcher) {
-                isLoading.value = false
-            }
-        }
-    }
-
-    fun doSearch() {
-        errorMessages.value
-        errorMessages.value.let {
-            if (it?.isNotEmpty() == true){
-                log("Not empty")
-                return
-            }
-        }
-        viewModelScope.launch(ioDispatcher) {
-            try {
-                val result = searchUsersUseCase("tp")
-
-                logger.debug("result: $result")
-
-                launch(mainDispatcher) {
-
-                }
-            } catch (e: Exception) {
-                logger.warn( "An error occurred while searching users", e)
-
-                launch(mainDispatcher) {
-
-                }
-            }
-
-            launch(mainDispatcher) {
-
-            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while login user", e)
         }
     }
 
@@ -146,11 +110,6 @@ class UserViewModel (
 
     fun onLiveChatClicked() = viewModelScope.launch(mainDispatcher) {
         requestLiveChat.value = Event(true)
-    }
-
-    fun onSignInClicked() = viewModelScope.launch(mainDispatcher) {
-        requestSignIn.value = Event(true)
-        signIn()
     }
 
     fun onSignInWithGoogleClicked() = viewModelScope.launch(mainDispatcher) {

@@ -16,6 +16,5 @@ class SignUpAct : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        viewModel.doSearch()
     }
 }

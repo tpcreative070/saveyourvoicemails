@@ -113,7 +113,6 @@ dependencies {
     /*Animation textview*/
     implementation "me.grantland:autofittextview:$autoFittextView"
     implementation "commons-codec:commons-codec:$commonsCodec"
-    implementation "com.tapadoo.android:alerter:$androidAlerter"
     /*Finger print*/
     implementation "co.infinum:goldfinger:$goldFinger"
     /*Kotlin*/
@@ -145,6 +144,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"
     implementation "androidx.fragment:fragment-ktx:$fragmentKTX"
     implementation "androidx.security:security-crypto:$androidxSecurityCrypto"
+    implementation "com.github.tapadoo:alerter:$androidAlerter"
 
     implementation project(":data")
     implementation project(":domain")

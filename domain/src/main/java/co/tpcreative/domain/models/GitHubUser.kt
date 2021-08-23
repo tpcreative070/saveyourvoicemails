@@ -1,6 +1,6 @@
 package co.tpcreative.domain.models
 
-data class User (
+data class GitHubUser (
     var isSignIn : Boolean = false,
     var login: String,
     var avatarUrl: String,

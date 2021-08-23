@@ -1,7 +1,7 @@
 package co.tpcreative.data.voicemails
 import co.tpcreative.domain.interfaces.VoiceMailsDataSource
 import co.tpcreative.domain.models.SearchUsersResult
-import co.tpcreative.domain.models.User
+import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.response.UserResponse
 import com.google.gson.FieldNamingPolicy
@@ -32,7 +32,7 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
         }
     }
 
-    override fun getUser(username: String): User {
+    override fun getUser(username: String): GitHubUser {
         val response = githubService.getUser(username).execute()
         if (response.isSuccessful) {
             return response.body()!!

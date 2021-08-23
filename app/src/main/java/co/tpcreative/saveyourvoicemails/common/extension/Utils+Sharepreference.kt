@@ -1,5 +1,8 @@
 package co.tpcreative.saveyourvoicemails.common.extension
-import co.tpcreative.domain.models.User
+import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.response.Mail365
+import co.tpcreative.domain.models.response.SessionToken
+import co.tpcreative.domain.models.response.User
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
@@ -8,7 +11,7 @@ import com.google.gson.Gson
 
 fun Utils.getUserInfo(): User? {
     try {
-        val value: String? = AppPrefs.encryptedPrefs.read(getString(R.string.user_key), "")
+        val value: String? = AppPrefs.encryptedPrefs.read(getString(R.string.key_user), "")
         if (value != null) {
             val mUser: User? = Gson().fromJson(value, User::class.java)
             if (mUser != null) {
@@ -22,7 +25,16 @@ fun Utils.getUserInfo(): User? {
 }
 
 fun Utils.putUserPreShare(user: User?) {
-     AppPrefs.encryptedPrefs.write(getString(R.string.user_key), Gson().toJson(user))
+     user?.isSignIn = true
+     AppPrefs.encryptedPrefs.write(getString(R.string.key_user), Gson().toJson(user))
+}
+
+fun Utils.putMail365PreShare(mail365 : Mail365?){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_mail365), Gson().toJson(mail365))
+}
+
+fun Utils.putSessionTokenPreShare(sessionToken: SessionToken?){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_session_token), Gson().toJson(sessionToken))
 }
 
 fun Utils.isSignedIn() : Boolean {
