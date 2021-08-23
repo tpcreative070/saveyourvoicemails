@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.user.view
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import kotlinx.coroutines.flow.collect
@@ -33,7 +34,7 @@ private fun SignInAct.signIn(){
         viewModel.isLoading.value = false
         when(result.status){
             Status.SUCCESS ->{
-
+                Navigator.moveToMain(this)
             }else ->{
                 onBasicAlertNotify(message = result.message)
             }
