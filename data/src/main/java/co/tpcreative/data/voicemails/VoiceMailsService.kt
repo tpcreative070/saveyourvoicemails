@@ -3,7 +3,9 @@ package co.tpcreative.data.voicemails
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
+import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.UserResponse
+import co.tpcreative.domain.models.response.VoiceMailsResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -20,4 +22,7 @@ internal interface VoiceMailsService {
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
     fun signUp(@Body request : UserRequest): Call<UserResponse>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
+    fun signUp(@Body request : VoiceMailsRequest): Call<VoiceMailsResponse>
 }
