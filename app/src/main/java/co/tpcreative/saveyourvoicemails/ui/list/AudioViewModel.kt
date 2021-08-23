@@ -1,14 +1,12 @@
-package co.tpcreative.saveyourvoicemails.ui.home
-import androidx.lifecycle.viewModelScope
+package co.tpcreative.saveyourvoicemails.ui.list
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.launch
 
-class HomeViewModel(
+class AudioViewModel(
     private val searchUsersUseCase: SearchUsersUseCase,
     private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
     private val logger: Logger,
@@ -17,27 +15,5 @@ class HomeViewModel(
 ) : BaseViewModel<GitHubUser>() {
 
     fun doSearch() {
-
-        viewModelScope.launch(ioDispatcher) {
-            try {
-                val result = searchUsersUseCase("tp")
-
-                logger.debug("result: $result")
-
-                launch(mainDispatcher) {
-
-                }
-            } catch (e: Exception) {
-                logger.warn( "An error occurred while searching users", e)
-
-                launch(mainDispatcher) {
-
-                }
-            }
-
-            launch(mainDispatcher) {
-
-            }
-        }
     }
 }

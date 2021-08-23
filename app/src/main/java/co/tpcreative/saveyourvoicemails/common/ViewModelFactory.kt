@@ -3,7 +3,7 @@ import co.tpcreative.domain.usecases.SearchUsersUseCase
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import androidx.lifecycle.ViewModel
 import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
-import co.tpcreative.saveyourvoicemails.ui.home.HomeViewModel
+import co.tpcreative.saveyourvoicemails.ui.list.AudioViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.tpcreative.domain.usecases.SignInUsersUseCase
 import co.tpcreative.domain.usecases.SignUpUsersUseCase
@@ -16,8 +16,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-                isAssignableFrom(HomeViewModel::class.java) ->
-                    HomeViewModel(
+                isAssignableFrom(AudioViewModel::class.java) ->
+                    AudioViewModel(
                         SearchUsersUseCase(
                             serviceLocator.voiceMailsDataSource,
                             serviceLocator.searchHistoryDataSource,
@@ -26,7 +26,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                         GetSearchHistoryUseCase(
                             serviceLocator.searchHistoryDataSource
                         ),
-                        serviceLocator.getLogger(HomeViewModel::class),
+                        serviceLocator.getLogger(AudioViewModel::class),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher
                     )
