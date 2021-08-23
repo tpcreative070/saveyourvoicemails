@@ -12,4 +12,173 @@
     inner_frame_layout_padding (below variable) on round screens.
     -->
     <dimen name="inner_frame_layout_padding">5dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="g_top_margin">100dp</dimen>
+    <dimen name="button_high">40dp</dimen>
+    <dimen name="button_high_50">50dp</dimen>
+    <dimen name="button_high_trash">55dp</dimen>
+    <dimen name="relative_high">60dp</dimen>
+    <dimen name="linear_high">90dp</dimen>
+    <dimen name="text_size_xlarge">22sp</dimen>
+    <dimen name="text_size_xlarge_20">20sp</dimen>
+    <dimen name="text_size_large_x">30sp</dimen>
+    <dimen name="text_size_large_x_x">45sp</dimen>
+    <dimen name="text_size_large">16sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_19">19sp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_21">21sp</dimen>
+    <dimen name="text_size_22">22sp</dimen>
+    <dimen name="text_size_23">23sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_25">25sp</dimen>
+    <dimen name="text_size_26">26sp</dimen>
+    <dimen name="text_size_27">27sp</dimen>
+    <dimen name="text_size_28">28sp</dimen>
+    <dimen name="text_size_29">29sp</dimen>
+    <dimen name="text_size_30">30sp</dimen>
+    <dimen name="text_size_31">31sp</dimen>
+    <dimen name="text_size_32">32sp</dimen>
+    <dimen name="text_size_33">33sp</dimen>
+    <dimen name="text_size_34">34sp</dimen>
+    <dimen name="text_size_35">35sp</dimen>
+    <dimen name="text_size_36">36sp</dimen>
+    <dimen name="text_size_37">37sp</dimen>
+    <dimen name="text_size_38">38sp</dimen>
+
+    <dimen name="mod_text_size">22sp</dimen>
+    <dimen name="formula_text_size">20sp</dimen>
+    <dimen name="display_text_size">40sp</dimen>
+    <dimen name="text_size_title">16.5sp</dimen>
+    <dimen name="text_size_normal">15sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+    <dimen name="margin_right">40dp</dimen>
+    <dimen name="margin_left">40dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="image_size">40dp</dimen>
+    <dimen name="image_size_50">50dp</dimen>
+    <dimen name="log_size">90dp</dimen>
+    <dimen name="icon_size">20dp</dimen>
+    <dimen name="icon_size_15">15dp</dimen>
+    <dimen name="icon_size_20">20dp</dimen>
+    <dimen name="icon_size_30">30dp</dimen>
+    <dimen name="icon_size_40">40dp</dimen>
+    <dimen name="icon_size_50">50dp</dimen>
+    <dimen name="icon_size_60">60dp</dimen>
+    <dimen name="icon_size_90">90dp</dimen>
+    <dimen name="image_size_custom">50dp</dimen>
+    <dimen name="image_size_custom_40">40dp</dimen>
+    <dimen name="image_size_custom_60">60dp</dimen>
+    <dimen name="image_size_video_cam">20dp</dimen>
+    <dimen name="text_size_preference_categories_title">18sp</dimen>
+    <dimen name="text_size_preference_categories_summary">16sp</dimen>
+    <dimen name="text_size_preference_item_title">17sp</dimen>
+    <dimen name="text_size_preference_item_summary">15sp</dimen>
+
+    // default
+    <dimen name="default_delete_button_size_width">39dp</dimen>
+    <dimen name="default_delete_button_size_height">27dp</dimen>
+    <dimen name="default_verify_button_size_height">40dp</dimen>
+    <dimen name="default_horizontal_spacing">40dp</dimen>
+    <dimen name="default_vertical_spacing">18dp</dimen>
+
+    // text size
+    <dimen name="default_text_size">25sp</dimen>
+    <dimen name="default_button_size">60dp</dimen>
+    <dimen name="item_button_size">80dp</dimen>
+
+    // dots
+    <dimen name="dot_diameter">15dp</dimen>
+    <dimen name="dot_spacing">12.2dp</dimen>
+    <dimen name="dot_margintop">25dp</dimen>
+
+    //attempts
+    <dimen name="attempts_margintop">5dp</dimen>
+    <dimen name="attempts_marginbottom">10dp</dimen>
+    <dimen name="textsize_attempts">13sp</dimen>
+
+    <dimen name="lockview_margin">10dp</dimen>
+
+    // layout
+    <dimen name="layout_maxwidth">500dp</dimen>
+    <dimen name="layout_padding">10dp</dimen>
+
+    // title
+    <dimen name="textsize_title">20sp</dimen>
+    <dimen name="title_margintop">54dp</dimen>
+    <dimen name="title_marginstart">10dp</dimen>
+    <dimen name="title_marginend">10dp</dimen>
+
+    <dimen name="delete_radius">6dp</dimen>
+
+    // border
+    <dimen name="button_border">0.5dp</dimen>
+    <dimen name="dot_border">1dp</dimen>
+
+    // fingerprint
+    <dimen name="finger_text_marginbottom">22dp</dimen>
+    <dimen name="finger_icon">60dp</dimen>
+    <dimen name="finger_icon_margintop">80dp</dimen>
+    <dimen name="finger_icon_marginbottom">10dp</dimen>
+    <dimen name="textsize_fingerprint">14sp</dimen>
+
+    /*Material Design*/
+    <dimen name="detail_backdrop_height">200dp</dimen>
+    <dimen name="detail_activity_cloud_height">250dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="list_item_avatar_size">40dp</dimen>
+
+
+    /*CardView*/
+    <dimen name="card_album_radius">0dp</dimen>
+    <dimen name="card_margin_item">5dp</dimen>
+    <dimen name="album_cover_height">160dp</dimen>
+    <dimen name="album_title_padding">10dp</dimen>
+    <dimen name="album_title">15dp</dimen>
+    <dimen name="songs_count_padding_bottom">5dp</dimen>
+    <dimen name="songs_count">12dp</dimen>
+    <dimen name="ic_album_overflow_width">35dp</dimen>
+    <dimen name="ic_album_overflow_height">40dp</dimen>
+    <dimen name="ic_album_overflow_margin_top">10dp</dimen>
+    <dimen name="item_offset">10dp</dimen>
+    <dimen name="backdrop_title">30dp</dimen>
+    <dimen name="backdrop_subtitle">18dp</dimen>
+
+    /*Standard text size*/
+    <dimen name="abc_text_size_body_1_material">14sp</dimen>
+    <dimen name="abc_text_size_body_2_material">14sp</dimen>
+    <dimen name="abc_text_size_button_material">14sp</dimen>
+    <dimen name="abc_text_size_caption_material">12sp</dimen>
+    <dimen name="abc_text_size_display_1_material">34sp</dimen>
+    <dimen name="abc_text_size_display_2_material">45sp</dimen>
+    <dimen name="abc_text_size_display_3_material">56sp</dimen>
+    <dimen name="abc_text_size_display_4_material">112sp</dimen>
+    <dimen name="abc_text_size_headline_material">24sp</dimen>
+    <dimen name="abc_text_size_large_material">22sp</dimen>
+    <dimen name="abc_text_size_medium_material">18sp</dimen>
+    <dimen name="abc_text_size_menu_material">16sp</dimen>
+    <dimen name="abc_text_size_small_material">14sp</dimen>
+    <dimen name="abc_text_size_subhead_material">16sp</dimen>
+    <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
+    <dimen name="abc_text_size_title_material">20sp</dimen>
+    <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
+
+    <dimen name="small">14sp</dimen>
+    <dimen name="medium">18sp</dimen>
+    <dimen name="medium_17">17sp</dimen>
+    <dimen name="medium_16">16sp</dimen>
+    <dimen name="medium_x">20sp</dimen>
+    <dimen name="large">22sp</dimen>
+    <dimen name="floating_action_button_size_large_80">80dp</dimen>
+
+    <dimen name="spot_size">7dp</dimen>
+    <dimen name="title_margin">10dp</dimen>
+    <dimen name="title_padding">6dp</dimen>
+    <dimen name="progress_margin">24dp</dimen>
+    <dimen name="progress_width">250dp</dimen>
 </resources>

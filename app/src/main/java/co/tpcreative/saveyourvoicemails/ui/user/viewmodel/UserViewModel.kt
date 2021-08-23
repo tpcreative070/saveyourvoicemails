@@ -77,21 +77,30 @@ class UserViewModel (
     }
 
     private fun signIn(){
+        errorMessages.value
+        errorMessages.value.let {
+            if (it?.isNotEmpty() == true){
+                log("Not empty")
+                return
+            }
+        }
+        isLoading.value = true
         viewModelScope.launch(ioDispatcher) {
             try {
                 val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
                 val result = signInUsersUseCase(mUser)
                 logger.debug("result: ${Gson().toJson(result)}")
                 launch(mainDispatcher) {
+
                 }
             } catch (e: Exception) {
-                logger.warn( "An error occurred while searching users", e)
+                logger.warn( "An error occurred while login user", e)
                 launch(mainDispatcher) {
+
                 }
             }
-
             launch(mainDispatcher) {
-
+                isLoading.value = false
             }
         }
     }

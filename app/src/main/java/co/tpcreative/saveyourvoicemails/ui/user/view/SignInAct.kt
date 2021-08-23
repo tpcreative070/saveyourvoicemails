@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.base.log
@@ -67,16 +68,25 @@ class SignInAct : BaseActivity() {
             }
         })
 
+        viewModel.isLoading.observe(this,{ mResult ->
+            if (mResult){
+                hideSoftKeyBoard(currentFocus)
+                SingletonManagerProcessing.getInstance()?.onStartProgressing(this,R.string.waiting)
+            }else{
+                SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
+            }
+        })
+
         lifecycleScope.launchWhenResumed {
             binding.textPutUserName.textChanges()
-                    .debounce(600)
+                    .debounce(400)
                     .collect {
                         execute(it)
                     }
         }
         lifecycleScope.launchWhenResumed {
             binding.textPutPassword.textChanges()
-                    .debounce(600)
+                    .debounce(400)
                     .collect {
                         execute(it)
                     }

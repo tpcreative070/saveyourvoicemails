@@ -1,6 +1,9 @@
 package co.tpcreative.saveyourvoicemails.common.base
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import co.tpcreative.saveyourvoicemails.common.Utils
 
@@ -32,6 +35,16 @@ open class BaseActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun hideSoftKeyBoard(view: View?) {
+        try {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+        } catch (e: Exception) {
+            // TODO: handle exception
+            e.printStackTrace()
+        }
     }
 }
 
