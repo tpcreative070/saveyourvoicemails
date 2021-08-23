@@ -70,11 +70,30 @@ class UserViewModel (
         get() = super.errorResponseMessage
 
     private fun validationPhoneNumber(mValue : String){
-
+        if (mValue.isEmpty()){
+            putError(EnumValidationKey.EDIT_TEXT_PHONE_NUMBER, "Request enter phone number")
+        }
+        else if(mValue.length < 6){
+            putError(EnumValidationKey.EDIT_TEXT_PHONE_NUMBER, "Phone number at least 6 digits")
+        }
+        else{
+            putError(EnumValidationKey.EDIT_TEXT_PHONE_NUMBER)
+        }
     }
 
     private fun validationConfirmPassword(mValue : String){
-
+        if (mValue.isEmpty()){
+            putError(EnumValidationKey.EDIT_TEXT_CONFIRM_PASSWORD, "Request enter password")
+        }
+        else if(mValue.length < 6){
+            putError(EnumValidationKey.EDIT_TEXT_CONFIRM_PASSWORD, "Password at least 6 characters")
+        }
+        else if (mValue != password){
+            putError(EnumValidationKey.EDIT_TEXT_CONFIRM_PASSWORD, "The password don't match")
+        }
+        else{
+            putError(EnumValidationKey.EDIT_TEXT_CONFIRM_PASSWORD)
+        }
     }
 
     private fun validationEmail(mValue : String){
@@ -102,7 +121,7 @@ class UserViewModel (
 
     fun signIn() = liveData(Dispatchers.IO){
         try {
-            val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val mUser = UserRequest(email,password,null,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             val result = signInUsersUseCase(mUser)
             logger.debug("result: ${Gson().toJson(result)}")
             if (result.error){
@@ -120,7 +139,7 @@ class UserViewModel (
 
     fun signUp() = liveData(Dispatchers.IO){
         try {
-            val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val mUser = UserRequest(email,password,null,phoneNumber,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             val result = signUpUsersUseCase(mUser)
             logger.debug("result: ${Gson().toJson(result)}")
             if (result.error){

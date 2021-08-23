@@ -63,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatButton
+                android:enabled="false"
                 android:id="@+id/btnSignIn"
                 android:textSize="13sp"
                 android:layout_marginRight="5dp"

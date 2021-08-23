@@ -52,7 +52,6 @@ class SignInAct : BaseActivity() {
         })
 
         viewModel.errorMessages.observe( this,{ mResult->
-
             mResult?.let {
                 log(mResult)
                 if (it.isEmpty()){
@@ -60,11 +59,13 @@ class SignInAct : BaseActivity() {
                     binding.edtPassword.error = ""
                     binding.btnSignIn.background = ContextCompat.getDrawable(this, R.drawable.bg_button_rounded)
                     binding.btnSignIn.setTextColor(ContextCompat.getColor(this,R.color.white))
+                    binding.btnSignIn.isEnabled = true
                 }else{
                     binding.edtUsername.error = it[EnumValidationKey.EDIT_TEXT_EMAIL.name]
                     binding.edtPassword.error = it[EnumValidationKey.EDIT_PASSWORD.name]
                     binding.btnSignIn.background = ContextCompat.getDrawable(this,R.drawable.bg_button_disable_rounded)
                     binding.btnSignIn.setTextColor(ContextCompat.getColor(this,R.color.white))
+                    binding.btnSignIn.isEnabled = false
                 }
             }
         })
@@ -77,5 +78,8 @@ class SignInAct : BaseActivity() {
                 SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
             }
         })
+
+        viewModel.putError(EnumValidationKey.EDIT_TEXT_EMAIL,"")
+        viewModel.putError(EnumValidationKey.EDIT_PASSWORD, "")
     }
 }

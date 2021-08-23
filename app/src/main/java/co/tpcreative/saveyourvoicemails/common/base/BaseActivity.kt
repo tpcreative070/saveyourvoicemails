@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import com.tapadoo.alerter.Alerter
+import com.tapadoo.alerter.OnHideAlertListener
+import com.tapadoo.alerter.OnShowAlertListener
 
 
 open class BaseActivity : AppCompatActivity() {
@@ -51,13 +53,18 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun onBasicAlertNotify(title: String? = "Warning", message: String?) {
+    fun onBasicAlertNotify(title: String? = "Warning", message: String?,exit : Boolean? = false) {
         Alerter.create(this)
             .setTitle(title!!)
             .setBackgroundColorInt(
                 ContextCompat.getColor(this, R.color.colorAccent))
             .setText(message ?: "")
-            .setDuration(2000)
+            .setDuration(5000)
+            .setOnHideListener(OnHideAlertListener {
+               if (exit == true){
+                   finish()
+               }
+            })
             .show()
     }
 }
