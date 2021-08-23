@@ -36,8 +36,6 @@ class UserViewModel (
 
     val requestSignUp = MutableLiveData<Event<Boolean>>()
 
-    val requestSignIn = MutableLiveData<Event<Boolean>>()
-
     val requestSignInWithGoogle = MutableLiveData<Event<Boolean>>()
 
     var requestForgotPassword = MutableLiveData<Event<Boolean>>()
