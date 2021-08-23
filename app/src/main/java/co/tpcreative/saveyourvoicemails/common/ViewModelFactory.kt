@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
 import co.tpcreative.saveyourvoicemails.ui.home.HomeViewModel
 import androidx.lifecycle.ViewModelProvider
+import co.tpcreative.domain.usecases.SignInUsersUseCase
+import co.tpcreative.domain.usecases.SignUpUsersUseCase
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
@@ -17,7 +19,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                 isAssignableFrom(HomeViewModel::class.java) ->
                     HomeViewModel(
                         SearchUsersUseCase(
-                            serviceLocator.githubDataSource,
+                            serviceLocator.voiceMailsDataSource,
                             serviceLocator.searchHistoryDataSource,
                             serviceLocator.getLogger(SearchUsersUseCase::class)
                         ),
@@ -30,8 +32,10 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                     )
                 isAssignableFrom(UserViewModel::class.java) ->
                     UserViewModel(
-                        SearchUsersUseCase(
-                            serviceLocator.githubDataSource,
+                            SignUpUsersUseCase(serviceLocator.voiceMailsDataSource),
+                            SignInUsersUseCase(serviceLocator.voiceMailsDataSource),
+                            SearchUsersUseCase(
+                            serviceLocator.voiceMailsDataSource,
                             serviceLocator.searchHistoryDataSource,
                             serviceLocator.getLogger(SearchUsersUseCase::class)
                         ),

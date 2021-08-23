@@ -1,4 +1,6 @@
 package co.tpcreative.saveyourvoicemails.common.services
+import android.annotation.SuppressLint
+import android.provider.Settings
 import androidx.multidex.MultiDexApplication
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
@@ -30,6 +32,12 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
             SecurityUtil.url_developer
         }
         return url
+    }
+
+    @SuppressLint("HardwareIds")
+    fun getDeviceId() : String{
+        return Settings.Secure.getString(applicationContext.contentResolver,
+                Settings.Secure.ANDROID_ID)
     }
 
 }

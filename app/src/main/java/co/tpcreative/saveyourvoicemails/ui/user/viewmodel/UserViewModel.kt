@@ -5,20 +5,27 @@ import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.domain.models.User
+import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
 import co.tpcreative.domain.usecases.SearchUsersUseCase
+import co.tpcreative.domain.usecases.SignInUsersUseCase
+import co.tpcreative.domain.usecases.SignUpUsersUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class UserViewModel (
-    private val searchUsersUseCase: SearchUsersUseCase,
-    private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
-    private val logger: Logger,
-    private val ioDispatcher: CoroutineDispatcher,
-    private val mainDispatcher: CoroutineDispatcher
+        private val signUpUsersUseCase: SignUpUsersUseCase,
+        private val signInUsersUseCase : SignInUsersUseCase,
+        private val searchUsersUseCase: SearchUsersUseCase,
+        private val getSearchHistoryUseCase: GetSearchHistoryUseCase,
+        private val logger: Logger,
+        private val ioDispatcher: CoroutineDispatcher,
+        private val mainDispatcher: CoroutineDispatcher
 ) : BaseViewModel<User>() {
 
     val requestSignUp = MutableLiveData<Event<Boolean>>()
@@ -69,6 +76,26 @@ class UserViewModel (
         }
     }
 
+    private fun signIn(){
+        viewModelScope.launch(ioDispatcher) {
+            try {
+                val mUser = UserRequest(email,password,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+                val result = signInUsersUseCase(mUser)
+                logger.debug("result: ${Gson().toJson(result)}")
+                launch(mainDispatcher) {
+                }
+            } catch (e: Exception) {
+                logger.warn( "An error occurred while searching users", e)
+                launch(mainDispatcher) {
+                }
+            }
+
+            launch(mainDispatcher) {
+
+            }
+        }
+    }
+
     fun doSearch() {
         errorMessages.value
         errorMessages.value.let {
@@ -114,7 +141,7 @@ class UserViewModel (
 
     fun onSignInClicked() = viewModelScope.launch(mainDispatcher) {
         requestSignIn.value = Event(true)
-        doSearch()
+        signIn()
     }
 
     fun onSignInWithGoogleClicked() = viewModelScope.launch(mainDispatcher) {

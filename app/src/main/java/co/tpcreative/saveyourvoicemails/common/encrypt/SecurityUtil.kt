@@ -41,7 +41,7 @@ class SecurityUtil  {
         const val SHA1 = "PBKDF2WithHmacSHA1"
         const val iterationCount = 1000 // recommended by PKCS#5
         const val keyLength = 128
-        const val url_developer = "https://api.github.com/"
+        const val url_developer = "http://192.168.1.3:8888/"
         const val url_live = "https://api.github.com/"
         const val key_password_default = "tpcreative.co"
         const val key_password_default_encrypted = "qF6xTl5bcYOVtf4A9RND6g=="

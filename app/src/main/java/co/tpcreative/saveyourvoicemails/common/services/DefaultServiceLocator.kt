@@ -16,7 +16,7 @@ class DefaultServiceLocator private constructor(application: Application) : Serv
         fun getInstance(application: Application) = instance ?: DefaultServiceLocator(application).also { instance = it }
     }
 
-    override val githubDataSource by lazy { RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl()) }
+    override val voiceMailsDataSource by lazy { RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl()) }
 
     override val searchHistoryDataSource by lazy { SqliteSearchHistoryDataSource(application) }
 

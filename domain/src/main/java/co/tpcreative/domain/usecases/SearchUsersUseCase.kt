@@ -1,14 +1,14 @@
 package co.tpcreative.domain.usecases
 import co.tpcreative.common.Logger
-import co.tpcreative.domain.interfaces.GithubDataSource
+import co.tpcreative.domain.interfaces.VoiceMailsDataSource
 import co.tpcreative.domain.interfaces.SearchHistoryDataSource
 import co.tpcreative.domain.models.SearchHistoryItem
 import co.tpcreative.domain.models.SearchUsersResult
 
 class SearchUsersUseCase(
-    private val githubDataSource: GithubDataSource,
-    private val searchHistoryDataSource: SearchHistoryDataSource,
-    private val logger: Logger
+        private val githubDataSource: VoiceMailsDataSource,
+        private val searchHistoryDataSource: SearchHistoryDataSource,
+        private val logger: Logger
 ) {
     operator fun invoke(query: String): SearchUsersResult {
         try {
