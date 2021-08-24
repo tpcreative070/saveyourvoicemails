@@ -11,6 +11,8 @@ import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.extension.getSessionTokenObject
+import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import com.google.gson.Gson
 import com.tapadoo.alerter.Alerter
 import org.apache.commons.io.FilenameUtils
@@ -129,6 +131,20 @@ object Utils {
         }
     }
 
+    fun getUserId() : String? {
+        val mUser =  getUserInfo()
+        return mUser?.email
+    }
+
+    fun getUserUUID() : String? {
+        val mUser =  getUserInfo()
+        return mUser?.uuid
+    }
+
+    fun getSessionToken() : String?{
+        val mSessionToken = getSessionTokenObject()
+        return mSessionToken?.session_token
+    }
 
     fun getCurrentDateTime(): String? {
         val date = Date()

@@ -17,13 +17,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
             when {
                 isAssignableFrom(AudioViewModel::class.java) ->
                     AudioViewModel(
-                        SearchUsersUseCase(
-                            serviceLocator.voiceMailsDataSource,
-                            serviceLocator.searchHistoryDataSource,
-                            serviceLocator.getLogger(SearchUsersUseCase::class)
-                        ),
-                        GetSearchHistoryUseCase(
-                            serviceLocator.searchHistoryDataSource
+                        GetVoiceMailsUseCase(
+                            serviceLocator.voiceMailsDataSource
                         ),
                         serviceLocator.getLogger(AudioViewModel::class),
                         serviceLocator.ioDispatcher,
@@ -48,7 +43,6 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
 
                 isAssignableFrom(ShareViewModel::class.java) ->
                     ShareViewModel(
-                        InsertVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(ShareViewModel::class),

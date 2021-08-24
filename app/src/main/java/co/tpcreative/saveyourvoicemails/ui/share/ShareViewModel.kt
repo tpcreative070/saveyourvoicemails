@@ -16,8 +16,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import java.io.File
 
-class ShareViewModel(private val insertVoiceMailsUseCase: InsertVoiceMailsUseCase,
-                     private val ioDispatcher: CoroutineDispatcher,
+class ShareViewModel(private val ioDispatcher: CoroutineDispatcher,
                      private val mainDispatcher: CoroutineDispatcher,
                      private val logger: Logger,
                      private val uploadDownloadService: UploadDownloadService,

@@ -24,6 +24,22 @@ fun Utils.getUserInfo(): User? {
     return null
 }
 
+fun Utils.getSessionTokenObject(): SessionToken? {
+    try {
+        val value: String? = AppPrefs.encryptedPrefs.read(getString(R.string.key_session_token), "")
+        if (value != null) {
+            val mSessionToken: SessionToken? = Gson().fromJson(value, SessionToken::class.java)
+            if (mSessionToken != null) {
+                return mSessionToken
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return null
+}
+
+
 fun Utils.putUserPreShare(user: User?) {
      user?.isSignIn = true
      AppPrefs.encryptedPrefs.write(getString(R.string.key_user), Gson().toJson(user))

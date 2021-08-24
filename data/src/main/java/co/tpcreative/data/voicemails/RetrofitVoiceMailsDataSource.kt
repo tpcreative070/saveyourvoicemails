@@ -1,14 +1,13 @@
 package co.tpcreative.data.voicemails
+import co.tpcreative.data.BuildConfig
 import co.tpcreative.domain.interfaces.VoiceMailsDataSource
 import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
-import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.UserResponse
 import co.tpcreative.domain.models.response.VoiceMailsResponse
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -17,14 +16,11 @@ import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
+class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceMailsDataSource {
 
     private val voiceMailsService = Retrofit.Builder()
         .baseUrl(url)
-        .client(
-            OkHttpClient.Builder()
-            //.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build())
+        .client(client)
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder()
@@ -89,16 +85,7 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
     }
 
     override fun getVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
-        val response = voiceMailsService.signUp(request).execute()
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw Exception(response.message())
-        }
-    }
-
-    override fun insertVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
-        val response = voiceMailsService.signUp(request).execute()
+        val response = voiceMailsService.getVoiceMails(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {
@@ -107,7 +94,7 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
     }
 
     override fun deleteVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
-        val response = voiceMailsService.signUp(request).execute()
+        val response = voiceMailsService.deleteVoiceMails(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {
@@ -116,7 +103,7 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
     }
 
     override fun updateVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
-        val response = voiceMailsService.signUp(request).execute()
+        val response = voiceMailsService.updateVoiceMails(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {

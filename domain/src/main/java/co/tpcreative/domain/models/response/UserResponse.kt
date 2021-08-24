@@ -34,6 +34,7 @@ class User {
     var status = 0
     var create_date: String? = null
     var name: String? = null
+    var uuid : String? = null
     var isSignIn : Boolean = false
 }
 

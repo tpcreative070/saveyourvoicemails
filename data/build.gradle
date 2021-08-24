@@ -40,6 +40,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$appRetrofit"
     implementation "com.squareup.retrofit2:converter-gson:$appRetrofit"
     implementation "com.squareup.retrofit2:converter-scalars:$appRetrofit"
+    implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
     implementation "io.reactivex.rxjava2:rxjava:$rxAndroid"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
     implementation  "javax.inject:javax.inject:$javaxInject"

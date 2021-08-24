@@ -1,9 +1,8 @@
 package co.tpcreative.data.voicemails
 
 import co.tpcreative.domain.models.BaseResponse
-import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
-import co.tpcreative.domain.models.UploadBody
+import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.UserResponse
@@ -23,23 +22,35 @@ internal interface VoiceMailsService {
     fun getUser(@Path("username") username: String): Call<GitHubUser>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signIn")
-    fun signIn(@Body request : UserRequest): Call<UserResponse>
+    fun signIn(@Body request: UserRequest): Call<UserResponse>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
-    fun signUp(@Body request : UserRequest): Call<UserResponse>
+    fun signUp(@Body request: UserRequest): Call<UserResponse>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
-    fun signUp(@Body request : VoiceMailsRequest): Call<VoiceMailsResponse>
+    fun signUp(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/include/fileUpload.php")
     @Multipart
-    fun uploadFile(@Part metaPart: MultipartBody.Part?,@Part dataPart: MultipartBody.Part?,
-          ): Call<ResponseBody>
+    fun uploadFile(
+        @Part metaPart: MultipartBody.Part?, @Part dataPart: MultipartBody.Part?,
+    ): Call<ResponseBody>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/include/fileUpload.php")
     @Multipart
-    fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
-                     @Part("session_token") session_token: RequestBody,@Part("fileTitle") fileTitle: RequestBody,@Part dataPart: MultipartBody.Part?,
+    fun uploadFileFormData(
+        @Part("user_id") user_id: RequestBody,
+        @Part("session_token") session_token: RequestBody,
+        @Part("fileTitle") fileTitle: RequestBody,
+        @Part dataPart: MultipartBody.Part?,
     ): Call<BaseResponse>
 
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/getListVoiceMail")
+    fun getVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/deleteMail")
+    fun deleteVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/updatedTitle")
+    fun updateVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 }
