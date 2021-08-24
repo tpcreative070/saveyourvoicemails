@@ -4,6 +4,7 @@ import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
 import co.tpcreative.saveyourvoicemails.ui.list.AudioViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.tpcreative.domain.usecases.*
+import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
 import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
@@ -50,7 +51,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                         InsertVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
-                        serviceLocator.getLogger(UserViewModel::class),
+                        serviceLocator.getLogger(ShareViewModel::class),
+                        UploadDownloadService(UploadFileVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()

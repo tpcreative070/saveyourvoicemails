@@ -2,10 +2,14 @@ package co.tpcreative.data.voicemails
 
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.UserResponse
 import co.tpcreative.domain.models.response.VoiceMailsResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -25,4 +29,16 @@ internal interface VoiceMailsService {
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
     fun signUp(@Body request : VoiceMailsRequest): Call<VoiceMailsResponse>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/include/fileUpload.php")
+    @Multipart
+    fun uploadFile(@Part metaPart: MultipartBody.Part?,@Part dataPart: MultipartBody.Part?,
+          ): Call<ResponseBody>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/include/fileUpload.php")
+    @Multipart
+    fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
+                     @Part("session_token") session_token: RequestBody,@Part("fileTitle") fileTitle: RequestBody,@Part dataPart: MultipartBody.Part?,
+    ): Call<ResponseBody>
+
 }

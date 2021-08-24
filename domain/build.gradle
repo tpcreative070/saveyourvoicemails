@@ -14,6 +14,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timber"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation "com.squareup.retrofit2:retrofit:$appRetrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$appRetrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$appRetrofit"
     implementation project(":common")
 }
 

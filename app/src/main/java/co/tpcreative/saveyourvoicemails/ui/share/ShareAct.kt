@@ -2,7 +2,6 @@ package co.tpcreative.saveyourvoicemails.ui.share
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
@@ -17,10 +16,9 @@ class ShareAct : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_share)
-        setContentView(
-            binding.apply {
-            }.root
-        )
+        binding = ActivityShareBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        initUI()
     }
 }
