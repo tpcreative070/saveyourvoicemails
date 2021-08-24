@@ -10,7 +10,7 @@ import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
-import co.tpcreative.supersafe.common.services.upload.ProgressRequestBody
+import co.tpcreative.saveyourvoicemails.common.services.upload.ProgressRequestBody
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ class ShareViewModel(private val insertVoiceMailsUseCase: InsertVoiceMailsUseCas
     fun insertVoiceMails(item : UploadBody, mContent :  MutableMap<String?,Any?>?, mFilePath: File?) = liveData(Dispatchers.IO ){
         try {
             val mResult = uploadDownloadService.uploadFile(item, mContent, mProgressUploading, mFilePath)
-            logger.debug("result: ${Gson().toJson(mResult.data)}")
+            logger.debug("result: ${Gson().toJson(mResult.data.toString())}")
             when(mResult.status){
                 Status.SUCCESS ->{
                     emit(Resource.success(mResult))

@@ -1,5 +1,6 @@
 package co.tpcreative.data.voicemails
 import co.tpcreative.domain.interfaces.VoiceMailsDataSource
+import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.UploadBody
@@ -10,6 +11,7 @@ import co.tpcreative.domain.models.response.VoiceMailsResponse
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
@@ -19,10 +21,13 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
 
     private val voiceMailsService = Retrofit.Builder()
         .baseUrl(url)
+        .client(
+            OkHttpClient.Builder()
+            //.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build())
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder()
-                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                     .create()
             )
         )
@@ -136,7 +141,7 @@ class RetrofitVoiceMailsDataSource(url : String) : VoiceMailsDataSource {
         session_token: RequestBody,
         fileTitle: RequestBody,
         dataPart: MultipartBody.Part?
-    ): ResponseBody {
+    ): BaseResponse {
         val response = voiceMailsService.uploadFileFormData(user_id,session_token,fileTitle,dataPart).execute()
         if (response.isSuccessful) {
             return response.body()!!

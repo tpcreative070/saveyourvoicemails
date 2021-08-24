@@ -1,6 +1,5 @@
-package co.tpcreative.supersafe.common.services.upload
-import android.os.Handler
-import android.os.Looper
+package co.tpcreative.saveyourvoicemails.common.services.upload
+import co.tpcreative.saveyourvoicemails.common.Utils
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -29,6 +28,7 @@ class ProgressRequestBody(private val mFile: File?,private val mContentType : St
 
     @Throws(IOException::class)
     override fun writeTo(sink: BufferedSink) {
+        Utils.log(this::class.java,"Call write file")
         var mInPutStream : FileInputStream? = null
         try {
             val fileLength = mFile?.length()
@@ -36,12 +36,17 @@ class ProgressRequestBody(private val mFile: File?,private val mContentType : St
             mInPutStream = FileInputStream(mFile)
             var uploaded: Long = 0
             var read: Int
-            val handler = Handler(Looper.getMainLooper())
+            //val handler = Handler(Looper.getMainLooper())
             while (mInPutStream.read(buffer).also { read = it } != -1) {
                 uploaded += read.toLong()
                 sink.write(buffer, 0, read)
-                // update progress on UI thread
-                handler.post(ProgressUpdater(uploaded, fileLength ?:0))
+                val percent = (100 * uploaded / (fileLength ?:0)).toInt()
+                if (percent == 100) {
+                    mListener?.onFinish()
+                } else {
+                    mListener?.onProgressUpdate(percent)
+                    Utils.log(this::class.java,"onProgressUpdate...$percent")
+                }
             }
         }
         catch (e : Exception){
@@ -49,17 +54,6 @@ class ProgressRequestBody(private val mFile: File?,private val mContentType : St
         }
         finally {
             mInPutStream?.close()
-        }
-    }
-
-    private inner class ProgressUpdater(private val mUploaded: Long, private val mTotal: Long) : Runnable {
-        override fun run() {
-            val percent = (100 * mUploaded / mTotal).toInt()
-            if (percent == 100) {
-                mListener?.onFinish()
-            } else {
-                mListener?.onProgressUpdate(percent)
-            }
         }
     }
     companion object {

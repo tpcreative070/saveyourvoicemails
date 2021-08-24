@@ -1,4 +1,4 @@
-package co.tpcreative.supersafe.common.services.download
+package co.tpcreative.saveyourvoicemails.common.services.download
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import okio.*

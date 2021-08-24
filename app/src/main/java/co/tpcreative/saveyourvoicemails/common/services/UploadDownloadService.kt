@@ -1,11 +1,12 @@
 package co.tpcreative.saveyourvoicemails.common.services
 
+import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.usecases.UploadFileFormDataVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UploadFileVoiceMailsUseCase
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.network.Resource
-import co.tpcreative.supersafe.common.services.upload.ProgressRequestBody
+import co.tpcreative.saveyourvoicemails.common.services.upload.ProgressRequestBody
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -15,9 +16,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
-import okio.BufferedSink
 import java.io.File
-import java.io.IOException
 
 class UploadDownloadService(private val uploadFileVoiceMailsUseCase: UploadFileVoiceMailsUseCase,private val uploadFileFormDataVoiceMailsUseCase: UploadFileFormDataVoiceMailsUseCase) {
     val TAG = this::class.java.simpleName
@@ -37,13 +36,9 @@ class UploadDownloadService(private val uploadFileVoiceMailsUseCase: UploadFileV
 //        }
 //    }
 
-    suspend fun uploadFile(item : UploadBody, mContent :  MutableMap<String?,Any?>?, listener: ProgressRequestBody.UploadCallbacks, mFilePath: File?) : Resource<ResponseBody> {
+    suspend fun uploadFile(item : UploadBody, mContent :  MutableMap<String?,Any?>?, listener: ProgressRequestBody.UploadCallbacks, mFilePath: File?) : Resource<BaseResponse> {
         return withContext(Dispatchers.IO){
             try {
-                val contentType = "application/json; charset=UTF-8".toMediaTypeOrNull()
-
-                val metaPart: MultipartBody.Part = MultipartBody.Part.create(Gson().toJson(mContent).toRequestBody(contentType))
-                //val dataPart: MultipartBody.Part = MultipartBody.Part.create(ProgressRequestBody(mFilePath,item.mimeType,listener))
                 val dataPart: MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file",item.fileTitle,ProgressRequestBody(mFilePath,item.mimeType,listener))
                 val userId : RequestBody = item.user_id.toRequestBody("text/plain".toMediaType())
                 val sessionToken : RequestBody = item.session_token.toRequestBody("text/plain".toMediaType())

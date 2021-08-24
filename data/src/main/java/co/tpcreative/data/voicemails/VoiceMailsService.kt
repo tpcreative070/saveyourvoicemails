@@ -1,5 +1,6 @@
 package co.tpcreative.data.voicemails
 
+import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.UploadBody
@@ -39,6 +40,6 @@ internal interface VoiceMailsService {
     @Multipart
     fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
                      @Part("session_token") session_token: RequestBody,@Part("fileTitle") fileTitle: RequestBody,@Part dataPart: MultipartBody.Part?,
-    ): Call<ResponseBody>
+    ): Call<BaseResponse>
 
 }
