@@ -29,7 +29,7 @@ interface VoiceMailsDataSource {
 
     fun forgotPassword(request :UserRequest) : UserResponse
 
-    fun deleteVoiceMails(request: VoiceMailsRequest) : VoiceMailsResponse
+    fun deleteVoiceMails(request: VoiceMailsRequest) : BaseResponse
 
     fun updateVoiceMails(request: VoiceMailsRequest) : BaseResponse
 

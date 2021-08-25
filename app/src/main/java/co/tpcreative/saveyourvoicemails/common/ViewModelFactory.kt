@@ -21,6 +21,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                     AudioFragmentViewModel(
                         GetVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         UpdateVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
+                        DeleteVoiceMailUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.getLogger(AudioFragmentViewModel::class),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher

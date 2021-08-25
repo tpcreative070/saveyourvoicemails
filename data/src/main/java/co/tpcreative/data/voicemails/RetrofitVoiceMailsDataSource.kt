@@ -93,7 +93,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
         }
     }
 
-    override fun deleteVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
+    override fun deleteVoiceMails(request: VoiceMailsRequest): BaseResponse {
         val response = voiceMailsService.deleteVoiceMails(request).execute()
         if (response.isSuccessful) {
             return response.body()!!

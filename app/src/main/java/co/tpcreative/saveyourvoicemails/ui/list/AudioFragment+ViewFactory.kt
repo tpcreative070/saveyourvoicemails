@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.common.view.addListOfDecoration
 import com.afollestad.materialdialogs.MaterialDialog
@@ -45,6 +46,16 @@ fun AudioFragment.updateTitle(){
     })
 }
 
+fun AudioFragment.deleteVoiceMail(){
+    viewModel.isLoading.postValue(true)
+    viewModel.deleteVoiceMail().observe(this, Observer { mResult ->
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.isLoading.postValue(false)
+            getData()
+        }
+    })
+}
+
 fun AudioFragment.enterVoiceMails(id : String) {
     val mMessage = "Voice Mails"
     val builder: MaterialDialog = MaterialDialog(this.requireContext())
@@ -63,5 +74,22 @@ fun AudioFragment.enterVoiceMails(id : String) {
         }
     val input: EditText = builder.getInputField()
     input.setPadding(0,50,0,20)
+    builder.show()
+}
+
+fun AudioFragment.askDeleteVoiceMail(id : String,voice : String) {
+    val builder: MaterialDialog = MaterialDialog(requireContext())
+        .title(text = getString(R.string.confirm))
+        .message(res = R.string.are_you_sure_you_want_delete_item)
+        .negativeButton(text = getString(R.string.cancel))
+        .positiveButton(text = getString(R.string.ok))
+        .cancelable(false)
+        .positiveButton {
+            viewModel.id = id
+            viewModel.voice = voice
+            deleteVoiceMail()
+        }
+        .negativeButton {
+        }
     builder.show()
 }

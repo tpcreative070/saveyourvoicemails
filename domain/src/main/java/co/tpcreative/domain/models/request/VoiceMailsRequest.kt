@@ -5,4 +5,5 @@ class VoiceMailsRequest {
     var session_token: String? = null
     var id: String? = null
     var title: String? = null
+    var voice : String? = null
 }

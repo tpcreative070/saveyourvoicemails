@@ -4,6 +4,7 @@ import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.VoiceMailsRequest
+import co.tpcreative.domain.usecases.DeleteVoiceMailUseCase
 import co.tpcreative.domain.usecases.GetVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UpdateVoiceMailsUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
@@ -17,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 class AudioFragmentViewModel(
     private val getVoiceMailsUseCase: GetVoiceMailsUseCase,
     private val updateVoiceMailsUseCase: UpdateVoiceMailsUseCase,
+    private val deleteVoiceMailUseCase: DeleteVoiceMailUseCase,
     private val logger: Logger,
     private val ioDispatcher: CoroutineDispatcher,
     private val mainDispatcher: CoroutineDispatcher
@@ -31,6 +33,10 @@ class AudioFragmentViewModel(
         }
 
     var id : String = ""
+        set(value){
+            field = value
+        }
+    var voice : String = ""
         set(value){
             field = value
         }
@@ -66,6 +72,28 @@ class AudioFragmentViewModel(
             if (mResult.error){
                 emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
             }else{
+                emit(Resource.success(mResult.message))
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while update voicem mail", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
+    }
+
+    fun deleteVoiceMail() = liveData(Dispatchers.IO){
+        try {
+            val mRequest = VoiceMailsRequest()
+            mRequest.user_id = Utils.getUserId()
+            mRequest.title = title
+            mRequest.id = id
+            mRequest.voice = voice
+            log("request ${Gson().toJson(mRequest)}")
+            val mResult = deleteVoiceMailUseCase(mRequest)
+            if (mResult.error){
+                log(mResult.message ?: "")
+                emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
+            }else{
+                log(mResult.message ?: "")
                 emit(Resource.success(mResult.message))
             }
         } catch (e: Exception) {

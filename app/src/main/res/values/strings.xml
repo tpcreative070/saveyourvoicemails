@@ -48,4 +48,6 @@
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure_you_want_delete_item">Are you sure want to delete this voice mail</string>
 </resources>

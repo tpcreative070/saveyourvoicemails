@@ -58,7 +58,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onClickItem(position: Int) {
         val mItem = dataSource[position]
-        val mDownloadItem = DownloadFileRequest(mItem.id,mItem.outputFolder,mItem.id)
+        val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice)
         context?.let { Navigator.moveToPlayer(it,mDownloadItem) }
     }
 
@@ -69,11 +69,11 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     override fun onEditItem(position: Int) {
         val mItem = dataSource[position]
         enterVoiceMails(mItem.id)
-        log("Edit....")
     }
 
     override fun onDeleteItem(position: Int) {
-
+        val mItem = dataSource[position]
+        askDeleteVoiceMail(mItem.id,mItem.voice)
     }
 
     private val dataSource : MutableList<AudioViewModel>

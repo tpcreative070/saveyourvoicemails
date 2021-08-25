@@ -53,7 +53,7 @@ internal interface VoiceMailsService {
     fun getVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/deleteMail")
-    fun deleteVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
+    fun deleteVoiceMails(@Body request: VoiceMailsRequest): Call<BaseResponse>
 
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/updatedTitle")
     fun updateVoiceMails(@Body request: VoiceMailsRequest): Call<BaseResponse>
