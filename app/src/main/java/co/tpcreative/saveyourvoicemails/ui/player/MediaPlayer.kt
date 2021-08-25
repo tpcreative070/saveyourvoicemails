@@ -11,5 +11,4 @@ interface MediaPlayer {
 
     fun releasePlayer()
 
-    fun setMediaSessionState(isActive: Boolean)
 }

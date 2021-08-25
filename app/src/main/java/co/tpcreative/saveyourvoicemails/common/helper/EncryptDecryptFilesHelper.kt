@@ -2,9 +2,11 @@ package co.tpcreative.saveyourvoicemails.common.helper
 
 import android.content.Context
 import android.os.Environment
+import co.tpcreative.domain.models.response.User
 import co.tpcreative.saveyourvoicemails.common.extension.encodeBase64
 import co.tpcreative.saveyourvoicemails.common.ImmutablePair
 import co.tpcreative.saveyourvoicemails.common.SizeUnit
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.Utils.log
 import co.tpcreative.saveyourvoicemails.common.encrypt.EncryptConfiguration
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
@@ -56,16 +58,13 @@ class EncryptDecryptFilesHelper {
     }
 
     private fun getSecretKey(): String? {
-//        val user: User? = Utils.getUserInfo()
-//        if (user != null) {
-//            if (user._id != null) {
-//                log(this::class.java, "Get secret key " + user._id)
-//                return user._id
-//            }
-//            log(this::class.java, "secret id is null")
-//        } else {
-//            log(this::class.java, "Get secret key null")
-//        }
+        val mKey = Utils.getUserUUID()
+        if (mKey != null) {
+            log(this::class.java, "Get secret key $mKey")
+            return mKey
+        } else {
+            log(this::class.java, "Get secret key null")
+        }
         return null
     }
 

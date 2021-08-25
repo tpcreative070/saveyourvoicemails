@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
@@ -57,7 +58,8 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onClickItem(position: Int) {
         val mItem = dataSource[position]
-        context?.let { Navigator.moveToPlayer(it,mItem.url) }
+        val mDownloadItem = DownloadFileRequest(mItem.id,mItem.outputFolder,mItem.id)
+        context?.let { Navigator.moveToPlayer(it,mDownloadItem) }
     }
 
     override fun onLongClickItem(position: Int) {

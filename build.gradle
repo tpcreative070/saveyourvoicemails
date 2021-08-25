@@ -93,7 +93,7 @@ subprojects {
     ext.fresco = "1.10.0"
     ext.androidxSecurityCrypto = "1.1.0-alpha03"
     ext.glide = "4.11.0"
-    ext.exoplayer = "2.8.4"
+    ext.exoplayer = "2.15.0"
     ext.timber = "4.7.1"
     ext.gson = "2.8.6"
     ext.servicesAuth = "19.2.0"

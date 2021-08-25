@@ -10,8 +10,12 @@ import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.saveyourvoicemails.common.PathUtil
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
+import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
 import co.tpcreative.saveyourvoicemails.common.extension.isFileExist
 import co.tpcreative.saveyourvoicemails.common.network.Status
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 
 fun ShareAct.initUI(){
@@ -98,7 +102,7 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                     }
                     val importFiles = ImportFilesModel( mimeTypeFile, path, 0, false,Utils.getUUId())
                     log(importFiles)
-                    uploadFile(mFile,importFiles)
+                    importingData(importFiles)
                 } else {
                     viewModel.isLoading.postValue(false)
                     finish()
@@ -115,16 +119,25 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
         finish()
     }
 }
+fun ShareAct.importingData(mData:ImportFilesModel) = CoroutineScope(Dispatchers.Main).launch{
+    val mResult = ServiceManager.getInstance()?.onImportData(mData)
+    when(mResult?.status){
+        Status.SUCCESS -> {
+            uploadFile(File(mResult.data),mData)
+        }
+        else -> mResult?.message?.let { log(it) }
+    }
+}
 
 
 fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel){
     val mutableMap = HashMap<String?,Any?>()
-    mutableMap.put("session_token","5f2fbe85e7019031f05825128b876fc4")
-    mutableMap.put("user_id","tpcreative.co@gmail.com")
-    mutableMap.put("fileTitle",mImport?.mimeTypeFile?.name!!)
+    mutableMap.put("session_token",Utils.getSessionToken())
+    mutableMap.put("user_id",Utils.getUserId())
+    mutableMap.put("fileTitle",mImport.mimeTypeFile?.name!!)
     val item = UploadBody()
-    item.session_token = "5f2fbe85e7019031f05825128b876fc4"
-    item.user_id = "tpcreative.co@gmail.com"
+    item.session_token = Utils.getSessionToken() ?: ""
+    item.user_id = Utils.getUserId() ?: ""
     item.fileTitle = mImport.mimeTypeFile?.name!!
     item.mimeType = mImport.mimeTypeFile?.mimeType!!
     viewModel.insertVoiceMails(item,mutableMap,mFile).observe(this,{ mResult ->

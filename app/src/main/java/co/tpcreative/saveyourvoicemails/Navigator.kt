@@ -2,10 +2,12 @@ package co.tpcreative.saveyourvoicemails
 
 import android.content.Context
 import android.content.Intent
+import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignInAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignUpAct
+import com.google.gson.Gson
 
 object Navigator {
     fun moveToSignIn(context : Context){
@@ -28,9 +30,9 @@ object Navigator {
     }
 
 
-    fun moveToPlayer(context : Context,url : String){
-        val intent : Intent = Intent(context,PlayerAct::class.java)
-        intent.putExtra(PlayerAct.AUDIO_URL_EXTRA,url)
+    fun moveToPlayer(context : Context,itemRequest : DownloadFileRequest){
+        val intent = Intent(context,PlayerAct::class.java)
+        intent.putExtra(PlayerAct.AUDIO_URL_EXTRA,Gson().toJson(itemRequest))
         context.startActivity(intent)
     }
 }

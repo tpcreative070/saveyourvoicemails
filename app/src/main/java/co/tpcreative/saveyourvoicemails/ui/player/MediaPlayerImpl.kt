@@ -4,15 +4,23 @@ import android.net.Uri
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import co.tpcreative.saveyourvoicemails.R
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.ExoPlayerFactory
+import co.tpcreative.saveyourvoicemails.common.encrypt.EncryptedFileDataSourceFactory
+import co.tpcreative.saveyourvoicemails.common.encrypt.EncryptedFileFromInternetDataSourceFactory
+import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
+import co.tpcreative.saveyourvoicemails.common.helper.EncryptDecryptFilesHelper
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
-import com.google.android.exoplayer2.source.ExtractorMediaSource
+import com.google.android.exoplayer2.extractor.ExtractorsFactory
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+import com.google.android.exoplayer2.upstream.DataSource
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.upstream.crypto.AesCipherDataSink
 import com.google.android.exoplayer2.util.Util
+import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 class MediaPlayerImpl : MediaPlayer {
 
@@ -22,26 +30,37 @@ class MediaPlayerImpl : MediaPlayer {
 
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var context: Context
-    private lateinit var mediaSession: MediaSessionCompat
-    private lateinit var stateBuilder: PlaybackStateCompat.Builder
-
+    private lateinit var mCipher: Cipher
+    private lateinit var mSecretKeySpec: SecretKeySpec
+    private lateinit var mIvParameterSpec: IvParameterSpec
     override fun play(url: String) {
+        try {
+            mCipher = EncryptDecryptFilesHelper.getInstance()?.getCipher(Cipher.DECRYPT_MODE)!!
+            mSecretKeySpec = SecretKeySpec(EncryptDecryptFilesHelper.configurationFile?.secretKey, SecurityUtil.AES_ALGORITHM)
+            mIvParameterSpec = IvParameterSpec(EncryptDecryptFilesHelper.configurationFile?.ivParameter)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
-        val userAgent = Util.getUserAgent(context, context.getString(R.string.record))
+        val dsf = DefaultDataSourceFactory(context, Util.getUserAgent(context, "ExoPlayerInfo"))
+        mCipher.init(Cipher.DECRYPT_MODE, mSecretKeySpec, mIvParameterSpec)
+        val mediaSource = ProgressiveMediaSource.Factory(EncryptedFileFromInternetDataSourceFactory(dsf.createDataSource(), mCipher)).createMediaSource(MediaItem.fromUri(Uri.parse(url)))
 
-        val mediaSource = ExtractorMediaSource.Factory(DefaultDataSourceFactory(context, userAgent))
-            .setExtractorsFactory(DefaultExtractorsFactory())
-            .createMediaSource(Uri.parse(url))
+//        val dataSourceFactory: DataSource.Factory = EncryptedFileDataSourceFactory(mCipher, mSecretKeySpec, mIvParameterSpec)
+//        val mediaSource = ProgressiveMediaSource.Factory(dataSourceFactory).createMediaSource(MediaItem.fromUri(Uri.parse(url)))
 
-        exoPlayer.prepare(mediaSource)
+        //val userAgent = Util.getUserAgent(context, context.getString(R.string.record))
+        //val mediaSource = ProgressiveMediaSource.Factory(DefaultDataSourceFactory(context,userAgent))
+        //       .createMediaSource(MediaItem.fromUri(Uri.parse(url)))
 
+        exoPlayer.setMediaSource(mediaSource)
+        exoPlayer.prepare()
         exoPlayer.playWhenReady = true
     }
 
     override fun getPlayerImpl(context: Context): ExoPlayer {
         this.context = context
         initializePlayer()
-        initializeMediaSession()
         return exoPlayer
     }
 
@@ -50,61 +69,10 @@ class MediaPlayerImpl : MediaPlayer {
         exoPlayer.release()
     }
 
-    override fun setMediaSessionState(isActive: Boolean) {
-        mediaSession.isActive = isActive
-    }
 
     private fun initializePlayer() {
-
-        val trackSelector = DefaultTrackSelector()
         val loadControl = DefaultLoadControl()
         val renderersFactory = DefaultRenderersFactory(context)
-
-        exoPlayer = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl)
-    }
-
-    private fun initializeMediaSession() {
-        mediaSession = MediaSessionCompat(context, TAG)
-        mediaSession.setFlags(
-            MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS or
-                    MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS
-        )
-        mediaSession.setMediaButtonReceiver(null)
-
-        stateBuilder = PlaybackStateCompat.Builder()
-            .setActions(
-                PlaybackStateCompat.ACTION_PLAY or
-                        PlaybackStateCompat.ACTION_PAUSE or
-                        PlaybackStateCompat.ACTION_PLAY_PAUSE or
-                        PlaybackStateCompat.ACTION_FAST_FORWARD or
-                        PlaybackStateCompat.ACTION_REWIND
-            )
-
-        mediaSession.setPlaybackState(stateBuilder.build())
-
-        mediaSession.setCallback(SessionCallback())
-
-        mediaSession.isActive = true
-    }
-
-    private inner class SessionCallback : MediaSessionCompat.Callback() {
-
-        private val SEEK_WINDOW_MILLIS = 10000
-
-        override fun onPlay() {
-            exoPlayer.playWhenReady = true
-        }
-
-        override fun onPause() {
-            exoPlayer.playWhenReady = false
-        }
-
-        override fun onRewind() {
-            exoPlayer.seekTo(exoPlayer.currentPosition - SEEK_WINDOW_MILLIS)
-        }
-
-        override fun onFastForward() {
-            exoPlayer.seekTo(exoPlayer.currentPosition + SEEK_WINDOW_MILLIS)
-        }
+        exoPlayer = SimpleExoPlayer.Builder(context, renderersFactory).setLoadControl(loadControl).build()
     }
 }

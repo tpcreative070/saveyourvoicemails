@@ -45,6 +45,10 @@ internal interface VoiceMailsService {
         @Part dataPart: MultipartBody.Part?,
     ): Call<BaseResponse>
 
+    @GET("saveyourvoicemails/voiceApp/uploads/{id}")
+    @Streaming
+    fun downloadFile(@Path("id") id: String?) : Call<ResponseBody>
+
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/getListVoiceMail")
     fun getVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 

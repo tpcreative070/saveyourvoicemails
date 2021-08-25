@@ -14,8 +14,7 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 
-class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, ivParameterSpec: IvParameterSpec?, listener: TransferListener<in EncryptedFileDataSource?>?) : DataSource {
-    private val mTransferListener: TransferListener<in EncryptedFileDataSource?>? = listener
+class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, ivParameterSpec: IvParameterSpec?) : DataSource {
     private var mInputStream: StreamingCipherInputStream? = null
     private var mUri: Uri? = null
     private var mBytesRemaining: Long = 0
@@ -25,13 +24,13 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
     private val mIvParameterSpec: IvParameterSpec? = ivParameterSpec
 
     @Throws(EncryptedFileDataSourceException::class)
-    override fun open(dataSpec: DataSpec?): Long {
+    override fun open(dataSpec: DataSpec): Long {
         // if we're open, we shouldn't need to open again, fast-fail
         if (mOpened) {
             return mBytesRemaining
         }
         // #getUri is part of the contract...
-        mUri = dataSpec?.uri
+        mUri = dataSpec.uri
         // put all our throwable work in a single block, wrap the error in a custom Exception
         try {
             setupInputStream()
@@ -43,7 +42,6 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
         // if we made it this far, we're open
         mOpened = true
         // notify
-        mTransferListener?.onTransferStart(this, dataSpec)
         // report
         return mBytesRemaining
     }
@@ -77,7 +75,7 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
     }
 
     @Throws(EncryptedFileDataSourceException::class)
-    override fun read(buffer: ByteArray?, offset: Int, readLength: Int): Int {
+    override fun read(buffer: ByteArray, offset: Int, readLength: Int): Int {
         // fast-fail if there's 0 quantity requested or we think we've already processed everything
         log(this::class.java,"reading...")
         if (readLength == 0) {
@@ -104,9 +102,6 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
         if (mBytesRemaining != C.LENGTH_UNSET.toLong()) {
             mBytesRemaining -= bytesRead.toLong()
         }
-        // notify
-        mTransferListener?.onBytesTransferred(this, bytesRead)
-        // report
         return bytesRead
     }
 
@@ -114,6 +109,9 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
         return if (mBytesRemaining == C.LENGTH_UNSET.toLong()) {
             bytesToRead
         } else Math.min(mBytesRemaining, bytesToRead.toLong()).toInt()
+    }
+
+    override fun addTransferListener(transferListener: TransferListener) {
     }
 
     override fun getUri(): Uri? {
@@ -131,7 +129,6 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
             mInputStream = null
             if (mOpened) {
                 mOpened = false
-                mTransferListener?.onTransferEnd(this)
             }
         }
     }

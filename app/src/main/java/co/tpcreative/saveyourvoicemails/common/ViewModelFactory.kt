@@ -5,11 +5,13 @@ import co.tpcreative.saveyourvoicemails.ui.list.AudioFragmentViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
+import co.tpcreative.saveyourvoicemails.common.services.download.ProgressResponseBody
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
+import co.tpcreative.saveyourvoicemails.ui.player.PlayerViewModel
 import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
-class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val serviceLocator: ServiceLocator,private val listener: ProgressResponseBody.ProgressResponseBodyListener?=null) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
@@ -46,7 +48,15 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(ShareViewModel::class),
-                        UploadDownloadService(UploadFileVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                        UploadDownloadService(DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                    )
+
+                isAssignableFrom(PlayerViewModel::class.java) ->
+                    PlayerViewModel(
+                        serviceLocator.ioDispatcher,
+                        serviceLocator.mainDispatcher,
+                        serviceLocator.getLogger(PlayerViewModel::class),
+                        UploadDownloadService(DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()

@@ -13,6 +13,7 @@ import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface VoiceMailsDataSource {
 
@@ -40,4 +41,6 @@ interface VoiceMailsDataSource {
     fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
                      @Part("session_token") session_token: RequestBody, @Part("fileTitle") fileTitle: RequestBody,
                      @Part dataPart: MultipartBody.Part?) : BaseResponse
+
+    fun downloadFileFormData(@Path("id") id: String?) : ResponseBody
 }

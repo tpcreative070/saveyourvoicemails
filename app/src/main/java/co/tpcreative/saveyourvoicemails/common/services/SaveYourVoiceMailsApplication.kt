@@ -4,13 +4,24 @@ import android.provider.Settings
 import androidx.multidex.MultiDexApplication
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
+import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
 
 class SaveYourVoiceMailsApplication : MultiDexApplication() {
+    private lateinit var saveYourVoiceMailsTemp: String
+    private lateinit var saveYourVoiceMailsPrivate : String
+    private lateinit var saveYourVoiceMails : String
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
         AppPrefs.initEncryptedPrefs(this)
+
+        saveYourVoiceMails = getExternalFilesDir(null)?.absolutePath + "/SaveYourVoiceMails/"
+
+        saveYourVoiceMailsTemp = saveYourVoiceMails + "temporary/"
+        saveYourVoiceMailsTemp.createDirectory()
+        saveYourVoiceMailsPrivate = saveYourVoiceMails + "private/"
+        saveYourVoiceMailsPrivate.createDirectory()
     }
 
     companion object{
@@ -23,6 +34,14 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
                 }
             }
         }
+    }
+
+    fun getTemporary() : String {
+        return saveYourVoiceMailsTemp
+    }
+
+    fun getPrivate() : String {
+        return  saveYourVoiceMailsPrivate
     }
 
     fun getUrl(): String {
