@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
-import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
-import co.tpcreative.saveyourvoicemails.common.services.download.ProgressResponseBody
 import co.tpcreative.saveyourvoicemails.databinding.ActivityShareBinding
 
 class ShareAct : BaseActivity() {

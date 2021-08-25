@@ -1,18 +1,17 @@
 package co.tpcreative.saveyourvoicemails.common.extension
 
-import android.os.Environment
 import android.util.Base64
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.EncryptDecryptFilesHelper
 import java.io.File
 
 /*This is for key pin*/
-fun String.createPin(content : String?) : Boolean?{
-    return EncryptDecryptFilesHelper.getInstance()?.createFile(this,content = content)
+fun String.createPin(content: String?) : Boolean?{
+    return EncryptDecryptFilesHelper.getInstance()?.createFile(this, content = content)
 }
 
-fun String.encryptTextByIdPKCS7(mode : Int) : String?{
-    return EncryptDecryptFilesHelper.getInstance()?.encryptTextPKCS7(this,mode)
+fun String.encryptTextByIdPKCS7(mode: Int) : String?{
+    return EncryptDecryptFilesHelper.getInstance()?.encryptTextPKCS7(this, mode)
 }
 
 fun String.readPin() : String? {

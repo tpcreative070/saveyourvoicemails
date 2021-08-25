@@ -1,18 +1,26 @@
 package co.tpcreative.saveyourvoicemails.ui.share
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.text.InputType
+import android.widget.EditText
 import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.domain.models.UploadBody
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.PathUtil
+import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
+import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import co.tpcreative.saveyourvoicemails.common.extension.isFileExist
 import co.tpcreative.saveyourvoicemails.common.network.Status
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.getInputField
+import com.afollestad.materialdialogs.input.input
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -123,33 +131,72 @@ fun ShareAct.importingData(mData:ImportFilesModel) = CoroutineScope(Dispatchers.
     val mResult = ServiceManager.getInstance()?.onImportData(mData)
     when(mResult?.status){
         Status.SUCCESS -> {
-            uploadFile(File(mResult.data),mData)
+            enterVoiceMails(File(mResult.data),mData)
         }
         else -> mResult?.message?.let { log(it) }
     }
 }
 
 
-fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel){
+fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel,title: String){
     val mutableMap = HashMap<String?,Any?>()
     mutableMap.put("session_token",Utils.getSessionToken())
     mutableMap.put("user_id",Utils.getUserId())
-    mutableMap.put("fileTitle",mImport.mimeTypeFile?.name!!)
+    mutableMap.put("fileTitle",title)
     val item = UploadBody()
     item.session_token = Utils.getSessionToken() ?: ""
     item.user_id = Utils.getUserId() ?: ""
-    item.fileTitle = mImport.mimeTypeFile?.name!!
+    item.fileTitle = title
     item.mimeType = mImport.mimeTypeFile?.mimeType!!
     viewModel.insertVoiceMails(item,mutableMap,mFile).observe(this,{ mResult ->
         when(mResult.status){
             Status.SUCCESS -> {
                 mResult.data?.let { log(it) }
+                savedVoiceMails()
+                mFile.delete()
+                SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
             }else ->{
             mResult.message?.let { log(it) }
+                finish()
             }
         }
     })
 }
+
+fun ShareAct.enterVoiceMails(mFile : File,mImport : ImportFilesModel) {
+    val mMessage = "Voice Mails"
+    val builder: MaterialDialog = MaterialDialog(this)
+        .title(text = mMessage)
+        .negativeButton(R.string.cancel)
+        .cancelable(true)
+        .cancelOnTouchOutside(false)
+        .negativeButton {
+            finish()
+        }
+        .positiveButton(R.string.send)
+        .input(hintRes = R.string.enter_title, inputType = (InputType.TYPE_CLASS_TEXT),maxLength = 100, allowEmpty = false){ dialog, text->
+            SingletonManagerProcessing.getInstance()?.onStartProgressing(this,R.string.uploading)
+            uploadFile(mFile,mImport,text.toString())
+        }
+    val input: EditText = builder.getInputField()
+    input.setPadding(0,50,0,20)
+    builder.show()
+}
+
+fun ShareAct.savedVoiceMails() {
+    val builder: MaterialDialog = MaterialDialog(this)
+        .title(text = getString(R.string.saved_voice_mails))
+        .message(res = R.string.saved_voice_mails_successfully)
+        .positiveButton(text = getString(R.string.ok))
+        .cancelable(false)
+        .positiveButton {
+            SaveYourVoiceMailsApplication.getInstance().getTemporary().deleteFile()
+            finish()
+        }
+    builder.show()
+}
+
+
 
 
 

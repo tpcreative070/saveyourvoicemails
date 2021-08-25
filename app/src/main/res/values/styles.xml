@@ -14,6 +14,20 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <style name="Theme.App.Share" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@android:color/holo_green_dark</item>
+        <item name="textInputStyle">@style/InputTextInputLayoutStyle</item>
+        <item name="errorTextColor">@color/secondaryDarkColorRed</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <!--Changed cursor color-->
     <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
         <item name="colorControlNormal">@color/white</item>

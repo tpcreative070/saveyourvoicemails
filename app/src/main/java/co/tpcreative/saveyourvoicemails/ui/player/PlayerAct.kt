@@ -113,11 +113,11 @@ class PlayerAct : BaseActivity() {
         }
 
         override fun onAttachmentElapsedTime(elapsed: Long) {
-            log("onAttachmentElapsedTime $elapsed")
+
         }
 
         override fun onAttachmentAllTimeForDownloading(all: Long) {
-            log("onAttachmentAllTimeForDownloading $all")
+
         }
 
         override fun onAttachmentRemainingTime(all: Long) {
@@ -129,9 +129,7 @@ class PlayerAct : BaseActivity() {
         }
 
         override fun onAttachmentTotalDownload(totalByte: Long, totalByteDownloaded: Long) {
-            log("onAttachmentTotalDownload $totalByteDownloaded")
+
         }
-
     }
-
 }

@@ -39,4 +39,11 @@
     <string name="key_user">key_user</string>
     <string name="key_mail365">key_mail365</string>
     <string name="key_session_token">key_session_token</string>
+    <string name="cancel">Cannel</string>
+    <string name="send">Send</string>
+    <string name="enter_title">Enter title</string>
+    <string name="saved_voice_mails">Saved Voice Mails</string>
+    <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
+    <string name="ok">Ok</string>
+    <string name="uploading">Uploading…</string>
 </resources>

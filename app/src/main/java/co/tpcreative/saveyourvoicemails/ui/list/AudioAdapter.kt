@@ -45,10 +45,12 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
 
     inner class ItemHolder(view: View) : BaseHolder<AudioViewModel>(view) {
         private val tvTitle : AppCompatTextView = itemView.findViewById(R.id.tvTitle)
+        private val tvCreatedDateTime : AppCompatTextView = itemView.findViewById(R.id.tvCreatedDateTime)
         private val rlItem : RelativeLayout = itemView.findViewById(R.id.rlItem)
         override fun bind(data: AudioViewModel, position: Int) {
             super.bind(data, position)
             tvTitle.text = data.title
+            tvCreatedDateTime.text = data.createdDateTime
             rlItem.setOnClickListener {
                 itemSelectedListener?.onClickItem(position)
             }

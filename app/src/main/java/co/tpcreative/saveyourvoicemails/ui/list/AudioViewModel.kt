@@ -24,6 +24,10 @@ class AudioViewModel {
          outputFolder + id
      }
 
+     val createdDateTime : String by lazy {
+         item.dateTime ?: ""
+     }
+
      private var  item : VoiceMail
      constructor(item : VoiceMail){
          this.item = item

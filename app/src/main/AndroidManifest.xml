@@ -20,7 +20,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.share.ShareAct">
+        <activity android:name=".ui.share.ShareAct"
+            android:theme="@style/Theme.App.Share">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />

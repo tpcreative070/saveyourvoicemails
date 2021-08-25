@@ -143,6 +143,7 @@ object Utils {
 
     fun getSessionToken() : String?{
         val mSessionToken = getSessionTokenObject()
+        log(this::class.java,mSessionToken)
         return mSessionToken?.session_token
     }
 
