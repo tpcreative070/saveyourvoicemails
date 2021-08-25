@@ -103,5 +103,4 @@ open class BaseAdapter<V, VH : BaseHolder<V>>(inflater: LayoutInflater) : Recycl
     companion object {
         private val TAG = BaseAdapter::class.java.simpleName
     }
-
 }

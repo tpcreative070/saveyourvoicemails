@@ -1,7 +1,7 @@
 package co.tpcreative.saveyourvoicemails.common
 import androidx.lifecycle.ViewModel
 import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
-import co.tpcreative.saveyourvoicemails.ui.list.AudioViewModel
+import co.tpcreative.saveyourvoicemails.ui.list.AudioFragmentViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
@@ -15,12 +15,12 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator) : ViewModelPr
     override fun <T : ViewModel?> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
-                isAssignableFrom(AudioViewModel::class.java) ->
-                    AudioViewModel(
+                isAssignableFrom(AudioFragmentViewModel::class.java) ->
+                    AudioFragmentViewModel(
                         GetVoiceMailsUseCase(
                             serviceLocator.voiceMailsDataSource
                         ),
-                        serviceLocator.getLogger(AudioViewModel::class),
+                        serviceLocator.getLogger(AudioFragmentViewModel::class),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher
                     )

@@ -13,21 +13,22 @@ import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplic
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 
-class AudioFragment : BaseFragment() {
+class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     var gridLayoutManager: NpaGridLayoutManager? = null
-    private lateinit var binding: FragmentAudioBinding
-
-    private val viewModel: AudioViewModel by viewModels {
+    lateinit var binding: FragmentAudioBinding
+    lateinit var adapter : AudioAdapter
+    val viewModel: AudioFragmentViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bindingEvent()
     }
 
     override fun work() {
         super.work()
+        initRecycleView(this.layoutInflater)
+        bindingEvent()
     }
 
     override fun getLayoutId(): Int {
@@ -40,9 +41,23 @@ class AudioFragment : BaseFragment() {
     }
 
     private fun bindingEvent(){
-        viewModel.getVoiceMail().observe(this, Observer { mResult ->
-            log(mResult)
+        viewModel.isLoading.observe(this, Observer {
+            if (it){
+                binding.progressBar.visibility = View.VISIBLE
+                log("loading...")
+            }else{
+                binding.progressBar.visibility = View.GONE
+                log("Hide loading...")
+            }
         })
+        getData()
     }
 
+    override fun onClickItem(position: Int) {
+
+    }
+
+    override fun onLongClickItem(position: Int) {
+
+    }
 }
