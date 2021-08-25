@@ -11,7 +11,8 @@
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/grey_700</item>
+        <item name="actionOverflowButtonStyle">@style/ToolbarStyle.Overflow</item>
     </style>
 
     <style name="Theme.App.Share" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -26,6 +27,12 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="ToolbarStyle.Overflow" parent="Widget.AppCompat.ActionButton.Overflow">
+        <!-- For toolbar menu -->
+        <item name="android:tint">@color/white</item>
+        <item name="background">@color/grey_600</item>
     </style>
 
     <!--Changed cursor color-->

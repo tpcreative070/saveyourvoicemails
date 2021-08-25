@@ -1,10 +1,10 @@
 package co.tpcreative.saveyourvoicemails.ui.list
 import android.content.Context
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.RelativeLayout
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.GridLayoutManager
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.adapter.BaseAdapter
@@ -41,12 +41,15 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
     interface ItemSelectedListener {
         fun onClickItem(position: Int)
         fun onLongClickItem(position: Int)
+        fun onEditItem(position: Int)
+        fun onDeleteItem(position: Int)
     }
 
     inner class ItemHolder(view: View) : BaseHolder<AudioViewModel>(view) {
         private val tvTitle : AppCompatTextView = itemView.findViewById(R.id.tvTitle)
         private val tvCreatedDateTime : AppCompatTextView = itemView.findViewById(R.id.tvCreatedDateTime)
         private val rlItem : RelativeLayout = itemView.findViewById(R.id.rlItem)
+        private val imgOverflow : AppCompatImageView = itemView.findViewById(R.id.imgOverflow)
         override fun bind(data: AudioViewModel, position: Int) {
             super.bind(data, position)
             tvTitle.text = data.title
@@ -54,8 +57,36 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
             rlItem.setOnClickListener {
                 itemSelectedListener?.onClickItem(position)
             }
+
+            imgOverflow.setOnClickListener {
+                showPopupMenu(it, R.menu.menu_voice_mails, position)
+            }
         }
     }
 
+    private fun showPopupMenu(view: View, menu: Int, position: Int) {
+        val popup = PopupMenu(context!!, view)
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(menu, popup.menu)
+        popup.setOnMenuItemClickListener(MyMenuItemClickListener(position))
+        popup.show()
+    }
 
+    internal inner class MyMenuItemClickListener(var position: Int) : PopupMenu.OnMenuItemClickListener {
+        override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
+            when (menuItem?.itemId) {
+                R.id.action_edit -> {
+                    itemSelectedListener?.onEditItem(position)
+                    return true
+                }
+                R.id.action_delete -> {
+                    itemSelectedListener?.onDeleteItem(position)
+                    return true
+                }
+                else -> {
+                }
+            }
+            return false
+        }
+    }
 }

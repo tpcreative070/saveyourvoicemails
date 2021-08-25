@@ -66,7 +66,15 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     }
 
-    val dataSource : MutableList<AudioViewModel>
+    override fun onEditItem(position: Int) {
+
+    }
+
+    override fun onDeleteItem(position: Int) {
+
+    }
+
+    private val dataSource : MutableList<AudioViewModel>
         get() {
             return adapter.getDataSource() ?: mutableListOf()
         }

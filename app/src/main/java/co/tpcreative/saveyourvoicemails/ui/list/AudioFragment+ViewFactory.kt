@@ -20,7 +20,6 @@ fun AudioFragment.initRecycleView(layoutInflater: LayoutInflater){
     }
 }
 
-
 fun AudioFragment.getData(){
     viewModel.isLoading.postValue(true)
     viewModel.getVoiceMail().observe(this, Observer { mResult ->

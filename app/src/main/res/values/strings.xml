@@ -46,4 +46,6 @@
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>
