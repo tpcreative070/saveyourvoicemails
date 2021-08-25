@@ -19,9 +19,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
             when {
                 isAssignableFrom(AudioFragmentViewModel::class.java) ->
                     AudioFragmentViewModel(
-                        GetVoiceMailsUseCase(
-                            serviceLocator.voiceMailsDataSource
-                        ),
+                        GetVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
+                        UpdateVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.getLogger(AudioFragmentViewModel::class),
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher

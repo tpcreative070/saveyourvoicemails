@@ -9,6 +9,10 @@ class AudioViewModel {
      }
 
      val id : String by lazy {
+         "${item.id}"
+     }
+
+     val voice : String by lazy {
          item.voice ?: ""
      }
 
@@ -21,7 +25,7 @@ class AudioViewModel {
      }
 
      val fullLocalPath : String by lazy {
-         outputFolder + id
+         outputFolder + voice
      }
 
      val createdDateTime : String by lazy {

@@ -31,7 +31,7 @@ interface VoiceMailsDataSource {
 
     fun deleteVoiceMails(request: VoiceMailsRequest) : VoiceMailsResponse
 
-    fun updateVoiceMails(request: VoiceMailsRequest) : VoiceMailsResponse
+    fun updateVoiceMails(request: VoiceMailsRequest) : BaseResponse
 
     fun getVoiceMails(request: VoiceMailsRequest) : VoiceMailsResponse
 

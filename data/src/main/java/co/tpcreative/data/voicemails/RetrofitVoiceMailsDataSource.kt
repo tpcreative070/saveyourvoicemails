@@ -102,7 +102,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
         }
     }
 
-    override fun updateVoiceMails(request: VoiceMailsRequest): VoiceMailsResponse {
+    override fun updateVoiceMails(request: VoiceMailsRequest): BaseResponse {
         val response = voiceMailsService.updateVoiceMails(request).execute()
         if (response.isSuccessful) {
             return response.body()!!

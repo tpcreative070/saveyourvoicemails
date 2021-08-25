@@ -67,7 +67,9 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onEditItem(position: Int) {
-
+        val mItem = dataSource[position]
+        enterVoiceMails(mItem.id)
+        log("Edit....")
     }
 
     override fun onDeleteItem(position: Int) {
