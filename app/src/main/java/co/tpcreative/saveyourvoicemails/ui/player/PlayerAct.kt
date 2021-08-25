@@ -8,7 +8,7 @@ import co.tpcreative.saveyourvoicemails.databinding.ActivityPlayerBinding
 class PlayerAct : BaseActivity(), VideoViewContract.View {
 
     companion object {
-        const val VIDEO_URL_EXTRA = "video_url_extra"
+        const val AUDIO_URL_EXTRA = "audio_url_extra"
     }
 
     private lateinit var presenter: VideoViewContract.Presenter
@@ -45,9 +45,9 @@ class PlayerAct : BaseActivity(), VideoViewContract.View {
     private fun init() {
         presenter = VideoViewPresenter(this)
 
-        val videoUrl = intent.getStringExtra(VIDEO_URL_EXTRA)
+        val videoUrl = intent.getStringExtra(AUDIO_URL_EXTRA)
 
-        //binding.playerView.player = presenter.getPlayer().getPlayerImpl(this)
+        binding.playerView.player = presenter.getPlayer().getPlayerImpl(this)
 
         presenter.play(videoUrl!!)
     }

@@ -3,6 +3,7 @@ package co.tpcreative.saveyourvoicemails
 import android.content.Context
 import android.content.Intent
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
+import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignInAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignUpAct
 
@@ -23,6 +24,13 @@ object Navigator {
 
     fun moveToSignUp(context : Context){
         val intent : Intent = Intent(context,SignUpAct::class.java)
+        context.startActivity(intent)
+    }
+
+
+    fun moveToPlayer(context : Context,url : String){
+        val intent : Intent = Intent(context,PlayerAct::class.java)
+        intent.putExtra(PlayerAct.AUDIO_URL_EXTRA,url)
         context.startActivity(intent)
     }
 }

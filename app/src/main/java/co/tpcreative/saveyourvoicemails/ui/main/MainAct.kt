@@ -1,16 +1,16 @@
 package co.tpcreative.saveyourvoicemails.ui.main
+
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
-import co.tpcreative.saveyourvoicemails.ui.list.AudioFragment
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.ActivityMainBinding
+import co.tpcreative.saveyourvoicemails.ui.list.AudioFragment
 import co.tpcreative.saveyourvoicemails.ui.me.MeFragment
 import co.tpcreative.saveyourvoicemails.ui.settings.SettingsFragment
 import com.pandora.bottomnavigator.BottomNavigator
@@ -54,8 +54,4 @@ class MainAct : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
-}
-
-class SampleFragment : Fragment() {
-
 }

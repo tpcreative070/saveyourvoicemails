@@ -30,7 +30,7 @@ class AudioFragmentViewModel(
                 emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
             }else{
                 val audioList = mResult.data?.map {
-                     AudioViewModel(it.title ?: "")
+                     AudioViewModel(it)
                 }
                 emit(Resource.success(audioList?.toMutableList()))
             }

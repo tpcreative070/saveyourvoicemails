@@ -3,6 +3,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.GridLayoutManager
 import co.tpcreative.saveyourvoicemails.R
@@ -43,11 +44,14 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
     }
 
     inner class ItemHolder(view: View) : BaseHolder<AudioViewModel>(view) {
-
-        val tvTitle : AppCompatTextView = itemView.findViewById(R.id.tvTitle)
+        private val tvTitle : AppCompatTextView = itemView.findViewById(R.id.tvTitle)
+        private val rlItem : RelativeLayout = itemView.findViewById(R.id.rlItem)
         override fun bind(data: AudioViewModel, position: Int) {
             super.bind(data, position)
             tvTitle.text = data.title
+            rlItem.setOnClickListener {
+                itemSelectedListener?.onClickItem(position)
+            }
         }
     }
 
