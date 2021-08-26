@@ -43,4 +43,6 @@ interface VoiceMailsDataSource {
                      @Part dataPart: MultipartBody.Part?) : BaseResponse
 
     fun downloadFileFormData(@Path("id") id: String?) : ResponseBody
+
+    fun downloadFileFormDataPost(request: VoiceMailsRequest) : ResponseBody
 }

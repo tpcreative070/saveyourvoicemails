@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.player
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
@@ -8,6 +9,7 @@ import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.encrypt.EncryptedFileDataSourceFactory
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
+import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import co.tpcreative.saveyourvoicemails.common.helper.EncryptDecryptFilesHelper
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -32,6 +34,7 @@ class PlayerAct : BaseActivity() {
     private lateinit var mCipher: Cipher
     private lateinit var mSecretKeySpec: SecretKeySpec
     private lateinit var mIvParameterSpec: IvParameterSpec
+    private var url : String? = null
     val viewModel : PlayerViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()),mProgressListener)
     }
@@ -54,6 +57,12 @@ class PlayerAct : BaseActivity() {
         exoPlayer.release()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        log("request delete $url")
+        url?.deleteFile()
+    }
+
     private fun init() {
         initializePlayer()
         val result = intent.getStringExtra(AUDIO_URL_EXTRA)
@@ -61,6 +70,7 @@ class PlayerAct : BaseActivity() {
         if (downloadRequest.isDownloaded){
             play(downloadRequest.fullLocalPath)
         }else{
+            url = downloadRequest.fullLocalPath
             downloadFile(downloadRequest)
         }
     }
@@ -102,10 +112,12 @@ class PlayerAct : BaseActivity() {
     private val mProgressListener = object : ProgressResponseBody.ProgressResponseBodyListener {
         override fun onAttachmentDownloadedSuccess() {
             log("onAttachmentDownloadedSuccess")
+            url = null
         }
 
         override fun onAttachmentDownloadedError(message: String?) {
-            log("onAttachmentDownloadedSuccess $message")
+            log("onAttachmentDownloadedError $message")
+            url = null
         }
 
         override fun onAttachmentDownloadUpdate(percent: Int) {

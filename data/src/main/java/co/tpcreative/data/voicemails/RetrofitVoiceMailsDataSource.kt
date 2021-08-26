@@ -145,4 +145,13 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
             throw Exception(response.message())
         }
     }
+
+    override fun downloadFileFormDataPost(request: VoiceMailsRequest): ResponseBody {
+        val response = voiceMailsService.downloadFilePost(request).execute()
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+            throw Exception(response.message())
+        }
+    }
 }

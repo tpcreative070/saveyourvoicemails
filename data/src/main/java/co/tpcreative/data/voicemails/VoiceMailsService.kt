@@ -49,6 +49,10 @@ internal interface VoiceMailsService {
     @Streaming
     fun downloadFile(@Path("id") id: String?) : Call<ResponseBody>
 
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/downloadFile")
+    @Streaming
+    fun downloadFilePost(@Body request: VoiceMailsRequest) : Call<ResponseBody>
+
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail/getListVoiceMail")
     fun getVoiceMails(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 

@@ -139,16 +139,14 @@ fun ShareAct.importingData(mData:ImportFilesModel) = CoroutineScope(Dispatchers.
 
 
 fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel,title: String){
-    val mutableMap = HashMap<String?,Any?>()
-    mutableMap.put("session_token",Utils.getSessionToken())
-    mutableMap.put("user_id",Utils.getUserId())
-    mutableMap.put("fileTitle",title)
     val item = UploadBody()
     item.session_token = Utils.getSessionToken() ?: ""
     item.user_id = Utils.getUserId() ?: ""
     item.fileTitle = title
     item.mimeType = mImport.mimeTypeFile?.mimeType!!
-    viewModel.insertVoiceMails(item,mutableMap,mFile).observe(this,{ mResult ->
+    item.fileName = mImport.mimeTypeFile?.name!!
+    item.extension = mImport.mimeTypeFile?.extension!!
+    viewModel.insertVoiceMails(item,mFile).observe(this,{ mResult ->
         when(mResult.status){
             Status.SUCCESS -> {
                 mResult.data?.let { log(it) }

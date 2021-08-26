@@ -11,6 +11,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private lateinit var saveYourVoiceMailsTemp: String
     private lateinit var saveYourVoiceMailsPrivate : String
     private lateinit var saveYourVoiceMails : String
+    private var isLive : Boolean = false
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
@@ -22,6 +23,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
         saveYourVoiceMailsTemp.createDirectory()
         saveYourVoiceMailsPrivate = saveYourVoiceMails + "private/"
         saveYourVoiceMailsPrivate.createDirectory()
+        isLive = true
     }
 
     companion object{
@@ -48,7 +50,11 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
         url = if (!BuildConfig.DEBUG) {
             SecurityUtil.url_live
         } else {
-            SecurityUtil.url_developer
+            if (isLive){
+                SecurityUtil.url_live
+            }else{
+                SecurityUtil.url_developer
+            }
         }
         return url
     }

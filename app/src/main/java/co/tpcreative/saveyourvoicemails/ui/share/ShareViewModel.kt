@@ -22,9 +22,9 @@ class ShareViewModel(private val ioDispatcher: CoroutineDispatcher,
                      private val uploadDownloadService: UploadDownloadService,
 ) : BaseViewModel<Empty>() {
 
-    fun insertVoiceMails(item : UploadBody, mContent :  MutableMap<String?,Any?>?, mFilePath: File?) = liveData(Dispatchers.IO ){
+    fun insertVoiceMails(item : UploadBody, mFilePath: File?) = liveData(Dispatchers.IO ){
         try {
-            val mResult = uploadDownloadService.uploadFile(item, mContent, mProgressUploading, mFilePath)
+            val mResult = uploadDownloadService.uploadFile(item, mProgressUploading, mFilePath)
             logger.debug("result: ${Gson().toJson(mResult.data.toString())}")
             when(mResult.status){
                 Status.SUCCESS ->{

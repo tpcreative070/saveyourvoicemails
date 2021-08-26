@@ -151,6 +151,7 @@ dependencies {
     implementation project(":data")
     implementation project(":domain")
     implementation project(":common")
+    implementation project(":androidlame")
 }
 
 /*Resolved duplicated for Google api client*/

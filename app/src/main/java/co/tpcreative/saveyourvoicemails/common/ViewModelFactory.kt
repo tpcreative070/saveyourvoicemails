@@ -48,7 +48,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(ShareViewModel::class),
-                        UploadDownloadService(DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
 
                 isAssignableFrom(PlayerViewModel::class.java) ->
@@ -56,7 +56,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(PlayerViewModel::class),
-                        UploadDownloadService(DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()
