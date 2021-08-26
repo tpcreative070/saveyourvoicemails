@@ -93,10 +93,10 @@ class AudioFragmentViewModel(
             val mResult = deleteVoiceMailUseCase(mRequest)
             if (mResult.error){
                 log(mResult.message ?: "")
-                (SaveYourVoiceMailsApplication.getInstance().getPrivate()+voice).deleteFile()
                 emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
             }else{
                 log(mResult.message ?: "")
+                (SaveYourVoiceMailsApplication.getInstance().getPrivate()+voice).deleteFile()
                 emit(Resource.success(mResult.message))
             }
         } catch (e: Exception) {
