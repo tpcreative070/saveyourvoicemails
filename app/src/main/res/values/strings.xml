@@ -58,4 +58,5 @@
     <string name="key_general">General</string>
     <string name="key_automatically_recorder_voice">Automatically record voice</string>
     <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone call</string>
+    <string name="no_voicemails">No Voicemails</string>
 </resources>

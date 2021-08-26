@@ -19,6 +19,14 @@
             android:clipToPadding="false"
             android:scrollbars="vertical"/>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:id="@+id/tvNoVoiceMails"
+            android:text="@string/no_voicemails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <ProgressBar
             android:layout_centerInParent="true"
             android:id="@+id/progress_bar"

@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.list
 import android.text.InputType
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.R
@@ -10,6 +11,7 @@ import co.tpcreative.saveyourvoicemails.common.view.addListOfDecoration
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +32,11 @@ fun AudioFragment.getData(){
     viewModel.isLoading.postValue(true)
     viewModel.getVoiceMail().observe(this, Observer { mResult ->
         CoroutineScope(Dispatchers.Main).launch {
+            if (mResult.data == null){
+                binding.tvNoVoiceMails.visibility = View.VISIBLE
+            }else{
+                binding.tvNoVoiceMails.visibility = View.GONE
+            }
             adapter.setDataSource(mResult.data)
             viewModel.isLoading.postValue(false)
         }
