@@ -13,6 +13,12 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
+        <item name="dialogMaterialTitle">@color/dialogMaterialTitle</item>
+        <item name="dialogMaterialContent">@color/dialogMaterialContent</item>
+        <item name="dialogMaterialButton">?attr/colorAccent</item>
+        <item name="md_color_title">@color/dialogMaterialTitle</item>
+        <item name="md_color_content">@color/dialogMaterialContent</item>
+        <item name="md_color_button_text">?attr/dialogMaterialButton</item>
     </style>
 
     <style name="Theme.App.Share" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -27,6 +33,12 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="dialogMaterialTitle">@color/dialogMaterialTitle</item>
+        <item name="dialogMaterialContent">@color/dialogMaterialContent</item>
+        <item name="dialogMaterialButton">?attr/colorAccent</item>
+        <item name="md_color_title">@color/dialogMaterialTitle</item>
+        <item name="md_color_content">@color/dialogMaterialContent</item>
+        <item name="md_color_button_text">?attr/dialogMaterialButton</item>
     </style>
 
     <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
