@@ -35,9 +35,14 @@ fun ShareAct.onHandlerIntent() {
         val action: String? = intent.action
         val type: String? = intent.type
         log("original type :$type")
+        val imageUri : Uri? = intent.getParcelableExtra(Intent.EXTRA_STREAM)
         if (Intent.ACTION_SEND == action && type != null) {
             handleSendSingleItem(intent)
-        } else {
+        }
+        else if (imageUri!=null){
+            handleSendSingleItem(intent)
+        }
+        else {
             log("Sending items is not existing")
         }
     } catch (e: Exception) {

@@ -6,12 +6,14 @@ import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioRecord
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.NotificationBarHelper
 import co.tpcreative.saveyourvoicemails.common.helper.ServiceHelper
+import co.tpcreative.saveyourvoicemails.ui.share.ShareAct
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -65,7 +67,7 @@ class SaveYourVoiceMailsService : Service() {
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            Utils.log(TAG,"Please turn on voice mal")
+            Utils.log(TAG, "Please turn on voice mal")
         }
 
         when(intent?.action){
@@ -88,6 +90,7 @@ class SaveYourVoiceMailsService : Service() {
                                 notification
                             )
                         }
+
                         override fun onPermissionRationaleShouldBeShown(
                             permissions: List<PermissionRequest?>?,
                             token: PermissionToken?
@@ -143,6 +146,7 @@ class SaveYourVoiceMailsService : Service() {
         super.onDestroy()
         isRecording = false
         recordingThread?.interrupt()
+        sendIntent()
         log("onDestroy")
     }
 
@@ -196,7 +200,8 @@ class SaveYourVoiceMailsService : Service() {
                 Utils.log(TAG, "bytes encoded=$bytesEncoded")
                 if (bytesEncoded > 0) {
                     try {
-                        Utils.log(TAG,"writing mp3 buffer to outputstream with $bytesEncoded bytes"
+                        Utils.log(
+                            TAG, "writing mp3 buffer to outputstream with $bytesEncoded bytes"
                         )
                         outputStream!!.write(mp3buffer, 0, bytesEncoded)
                     } catch (e: IOException) {
@@ -226,6 +231,14 @@ class SaveYourVoiceMailsService : Service() {
         audioRecord.release()
         Utils.log(TAG, "closing android lame")
         androidLame.close()
+    }
+
+    fun sendIntent(){
+        val intent = Intent(this, ShareAct::class.java)
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(File(file)));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 }
 
