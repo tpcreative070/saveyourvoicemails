@@ -156,10 +156,17 @@ fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel,title: String){
     viewModel.insertVoiceMails(item,mFile).observe(this,{ mResult ->
         when(mResult.status){
             Status.SUCCESS -> {
-                mResult.data?.let { log(it) }
-                savedVoiceMails()
-                mFile.delete()
-                SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
+                val inputPath = SaveYourVoiceMailsApplication.getInstance().getTemporary()
+                val inputFileName = item.fileName
+                val outputPath  = SaveYourVoiceMailsApplication.getInstance().getPrivate()
+                val outputFileName = mResult.data?.data?.name ?: ""
+                CoroutineScope(Dispatchers.Main).launch {
+                    ServiceManager.getInstance()?.moveFile(inputPath,inputFileName,outputPath,outputFileName)
+                    mResult.data?.let { log(it) }
+                    savedVoiceMails()
+                    mFile.delete()
+                    SingletonManagerProcessing.getInstance()?.onStopProgressing(this@uploadFile)
+                }
             }else ->{
             mResult.message?.let { log(it) }
                 finish()

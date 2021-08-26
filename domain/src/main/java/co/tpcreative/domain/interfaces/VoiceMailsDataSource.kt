@@ -6,6 +6,7 @@ import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
+import co.tpcreative.domain.models.response.ResponseUpload
 import co.tpcreative.domain.models.response.UserResponse
 import co.tpcreative.domain.models.response.VoiceMailsResponse
 import okhttp3.MultipartBody
@@ -40,7 +41,7 @@ interface VoiceMailsDataSource {
 
     fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
                      @Part("session_token") session_token: RequestBody, @Part("fileTitle") fileTitle: RequestBody,
-                     @Part dataPart: MultipartBody.Part?) : BaseResponse
+                     @Part dataPart: MultipartBody.Part?) : ResponseUpload
 
     fun downloadFileFormData(@Path("id") id: String?) : ResponseBody
 

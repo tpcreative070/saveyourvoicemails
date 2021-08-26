@@ -4,6 +4,7 @@ import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
+import co.tpcreative.domain.models.response.ResponseUpload
 import co.tpcreative.domain.usecases.DownloadFilePostVoiceMailsUseCase
 import co.tpcreative.domain.usecases.DownloadFileVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UploadFileFormDataVoiceMailsUseCase
@@ -60,7 +61,7 @@ class UploadDownloadService(private val downloadFilePostVoiceMailsUseCase: Downl
         }
     }
 
-    suspend fun uploadFile(item : UploadBody, listener: ProgressRequestBody.UploadCallbacks, mFilePath: File?) : Resource<BaseResponse> {
+    suspend fun uploadFile(item : UploadBody, listener: ProgressRequestBody.UploadCallbacks, mFilePath: File?) : Resource<ResponseUpload> {
         return withContext(Dispatchers.IO){
             try {
                 val dataPart: MultipartBody.Part = MultipartBody.Part.createFormData("uploaded_file",item.fileName,ProgressRequestBody(mFilePath,item.mimeType,listener))

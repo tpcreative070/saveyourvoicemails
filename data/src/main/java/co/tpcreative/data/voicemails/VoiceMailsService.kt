@@ -5,6 +5,7 @@ import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
+import co.tpcreative.domain.models.response.ResponseUpload
 import co.tpcreative.domain.models.response.UserResponse
 import co.tpcreative.domain.models.response.VoiceMailsResponse
 import okhttp3.MultipartBody
@@ -43,7 +44,7 @@ internal interface VoiceMailsService {
         @Part("session_token") session_token: RequestBody,
         @Part("fileTitle") fileTitle: RequestBody,
         @Part dataPart: MultipartBody.Part?,
-    ): Call<BaseResponse>
+    ): Call<ResponseUpload>
 
     @GET("saveyourvoicemails/voiceApp/uploads/{id}")
     @Streaming

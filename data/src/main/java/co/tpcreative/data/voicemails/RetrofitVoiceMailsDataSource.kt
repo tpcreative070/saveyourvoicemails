@@ -6,6 +6,7 @@ import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
+import co.tpcreative.domain.models.response.ResponseUpload
 import co.tpcreative.domain.models.response.UserResponse
 import co.tpcreative.domain.models.response.VoiceMailsResponse
 import com.google.gson.GsonBuilder
@@ -128,7 +129,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
         session_token: RequestBody,
         fileTitle: RequestBody,
         dataPart: MultipartBody.Part?
-    ): BaseResponse {
+    ): ResponseUpload {
         val response = voiceMailsService.uploadFileFormData(user_id,session_token,fileTitle,dataPart).execute()
         if (response.isSuccessful) {
             return response.body()!!
