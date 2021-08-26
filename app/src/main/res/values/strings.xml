@@ -34,6 +34,7 @@
     <string name="sign_in_with_facebook">Sign In With Facebook</string>
     <string name="me">Me</string>
     <string name="email">Email</string>
+    <string name="recorder">Recorder</string>
 
     <!-- TODO: user case -->
     <string name="key_user">key_user</string>
@@ -44,10 +45,17 @@
     <string name="enter_title">Enter title</string>
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
+    <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE</string>
+    <string name="alert">Alert</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="confirm">Confirm</string>
     <string name="are_you_sure_you_want_delete_item">Are you sure want to delete this voice mail</string>
+    <string name="key_account">Account</string>
+    <string name="key_upgrade">Upgrade</string>
+    <string name="key_general">General</string>
+    <string name="key_automatically_recorder_voice">Automatically record voice</string>
+    <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone call</string>
 </resources>

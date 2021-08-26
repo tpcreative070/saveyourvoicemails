@@ -8,6 +8,7 @@ class Constant {
             const val START_RECORDING = "START_RECORDING"
             const val STOP_RECORDING = "STOP_RECORDING"
             const val START_RECORDING_PHONE_CALL = "START_RECORDING_PHONE_CALL"
+            const val STOP_RECORDING_PHONE_CALL = "STOP_RECORDING_PHONE_CALL"
             const val EXIT_APP = "EXIT_APP"
             const val PAUSE_RECORD = "PAUSE_RECORD"
             const val RESUME_RECORD = "RESUME_RECORD"
@@ -19,6 +20,9 @@ class Constant {
             const val FILE_PATH = "FILE_PATH"
             const val TOOLS = "TOOLS"
             const val REQUEST_PERMISSION_CAM = "REQUEST_PERMISSION_CAM"
+            const val PHONE_NUMBER_TO_RECORD = "PHONE_NUMBER_TO_RECORD"
+            const val CALL_RECORD_PATH = "CALL_RECORD_PATH"
+            const val PHONE_CALL_NUMBER = "PHONE_CALL_NUMBER"
         }
     }
 

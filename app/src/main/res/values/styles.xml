@@ -19,6 +19,9 @@
         <item name="md_color_title">@color/dialogMaterialTitle</item>
         <item name="md_color_content">@color/dialogMaterialContent</item>
         <item name="md_color_button_text">?attr/dialogMaterialButton</item>
+        <item name="preference_icon">@color/material_gray_600</item>
+        <item name="preference_title">@color/material_gray_800</item>
+        <item name="preference_summary">@color/material_gray_600</item>
     </style>
 
     <style name="Theme.App.Share" parent="Theme.MaterialComponents.Light.DarkActionBar">

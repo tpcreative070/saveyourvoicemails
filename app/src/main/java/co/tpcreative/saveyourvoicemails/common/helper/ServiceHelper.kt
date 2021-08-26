@@ -65,9 +65,6 @@ class ServiceHelper : StateRecorderListener {
     }
 
     fun startRecord(){
-        if (myService != null){
-            myService?.startRecord()
-        }
     }
 
     fun stopRecord(){

@@ -7,15 +7,16 @@ import android.util.Patterns
 import android.webkit.MimeTypeMap
 import androidx.core.content.ContextCompat
 import co.tpcreative.domain.models.EnumFormatType
-import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.extension.getSessionTokenObject
 import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 import com.tapadoo.alerter.Alerter
 import org.apache.commons.io.FilenameUtils
+import java.io.File
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +38,7 @@ object Utils {
      private fun logMessage(TAG: String, message: String?) {
          if (BuildConfig.DEBUG) {
              if (message != null) {
-                 Log.d(TAG,message)
+                 Log.d(TAG, message)
              }
          }
      }
@@ -50,7 +51,8 @@ object Utils {
         Alerter.create(context)
             .setTitle(title!!)
             .setBackgroundColorInt(
-                ContextCompat.getColor(context, R.color.colorAccent))
+                ContextCompat.getColor(context, R.color.colorAccent)
+            )
             .setText(message)
             .setDuration(1000)
             .show()
@@ -101,25 +103,101 @@ object Utils {
         hashMap["image/jpeg"] = MimeTypeFile(".jpg", EnumFormatType.IMAGE, "image/jpeg")
         hashMap["image/png"] = MimeTypeFile(".png", EnumFormatType.IMAGE, "image/png")
         hashMap["image/gif"] = MimeTypeFile(".gif", EnumFormatType.IMAGE, "image/gif")
-        hashMap["application/msword"] = MimeTypeFile(".doc", EnumFormatType.FILES, "application/msword")
-        hashMap["application/vnd.openxmlformats-officedocument.wordprocessingml.document"] = MimeTypeFile(".docx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        hashMap["application/vnd.openxmlformats-officedocument.wordprocessingml.template"] = MimeTypeFile(".dotx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.wordprocessingml.template")
-        hashMap["application/vnd.ms-word.document.macroEnabled.12"] = MimeTypeFile(".dotm", EnumFormatType.FILES, "application/vnd.ms-word.document.macroEnabled.12")
-        hashMap["application/vnd.ms-excel"] = MimeTypeFile(".xls", EnumFormatType.FILES, "application/vnd.ms-excel")
-        hashMap["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] = MimeTypeFile(".xlsx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-        hashMap["application/vnd.openxmlformats-officedocument.spreadsheetml.template"] = MimeTypeFile(".xltx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.spreadsheetml.template")
-        hashMap["application/vnd.ms-excel.sheet.macroEnabled.12"] = MimeTypeFile(".xlsm", EnumFormatType.FILES, "application/vnd.ms-excel.sheet.macroEnabled.12")
-        hashMap["application/vnd.ms-excel.template.macroEnabled.12"] = MimeTypeFile(".xltm", EnumFormatType.FILES, "application/vnd.ms-excel.template.macroEnabled.12")
-        hashMap["application/vnd.ms-excel.addin.macroEnabled.12"] = MimeTypeFile(".xlam", EnumFormatType.FILES, "application/vnd.ms-excel.addin.macroEnabled.12")
-        hashMap["application/vnd.ms-excel.sheet.binary.macroEnabled.12"] = MimeTypeFile(".xlsb", EnumFormatType.FILES, "application/vnd.ms-excel.sheet.binary.macroEnabled.12")
-        hashMap["application/vnd.ms-powerpoint"] = MimeTypeFile(".ppt", EnumFormatType.FILES, "application/vnd.ms-powerpoint")
-        hashMap["application/vnd.openxmlformats-officedocument.presentationml.presentation"] = MimeTypeFile(".pptx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.presentationml.presentation")
-        hashMap["application/vnd.openxmlformats-officedocument.presentationml.template"] = MimeTypeFile(".potx", EnumFormatType.FILES, "application/vnd.openxmlformats-officedocument.presentationml.template")
-        hashMap["application/vnd.ms-powerpoint.addin.macroEnabled.12"] = MimeTypeFile(".ppsx", EnumFormatType.FILES, "application/vnd.ms-powerpoint.addin.macroEnabled.12")
-        hashMap["application/vnd.ms-powerpoint.presentation.macroEnabled.12t"] = MimeTypeFile(".pptm", EnumFormatType.FILES, "application/vnd.ms-powerpoint.presentation.macroEnabled.12")
-        hashMap["application/vnd.ms-powerpoint.template.macroEnabled.12"] = MimeTypeFile(".potm", EnumFormatType.FILES, "application/vnd.ms-powerpoint.template.macroEnabled.12")
-        hashMap["application/vnd.ms-powerpoint.slideshow.macroEnabled.12"] = MimeTypeFile(".ppsm", EnumFormatType.FILES, "application/vnd.ms-powerpoint.slideshow.macroEnabled.12")
-        hashMap["application/vnd.ms-access"] = MimeTypeFile(".mdb", EnumFormatType.FILES, "application/vnd.ms-access")
+        hashMap["application/msword"] = MimeTypeFile(
+            ".doc",
+            EnumFormatType.FILES,
+            "application/msword"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.wordprocessingml.document"] = MimeTypeFile(
+            ".docx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.wordprocessingml.template"] = MimeTypeFile(
+            ".dotx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.template"
+        )
+        hashMap["application/vnd.ms-word.document.macroEnabled.12"] = MimeTypeFile(
+            ".dotm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-word.document.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-excel"] = MimeTypeFile(
+            ".xls",
+            EnumFormatType.FILES,
+            "application/vnd.ms-excel"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"] = MimeTypeFile(
+            ".xlsx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.spreadsheetml.template"] = MimeTypeFile(
+            ".xltx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.template"
+        )
+        hashMap["application/vnd.ms-excel.sheet.macroEnabled.12"] = MimeTypeFile(
+            ".xlsm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-excel.sheet.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-excel.template.macroEnabled.12"] = MimeTypeFile(
+            ".xltm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-excel.template.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-excel.addin.macroEnabled.12"] = MimeTypeFile(
+            ".xlam",
+            EnumFormatType.FILES,
+            "application/vnd.ms-excel.addin.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-excel.sheet.binary.macroEnabled.12"] = MimeTypeFile(
+            ".xlsb",
+            EnumFormatType.FILES,
+            "application/vnd.ms-excel.sheet.binary.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-powerpoint"] = MimeTypeFile(
+            ".ppt",
+            EnumFormatType.FILES,
+            "application/vnd.ms-powerpoint"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.presentationml.presentation"] = MimeTypeFile(
+            ".pptx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+        )
+        hashMap["application/vnd.openxmlformats-officedocument.presentationml.template"] = MimeTypeFile(
+            ".potx",
+            EnumFormatType.FILES,
+            "application/vnd.openxmlformats-officedocument.presentationml.template"
+        )
+        hashMap["application/vnd.ms-powerpoint.addin.macroEnabled.12"] = MimeTypeFile(
+            ".ppsx",
+            EnumFormatType.FILES,
+            "application/vnd.ms-powerpoint.addin.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-powerpoint.presentation.macroEnabled.12t"] = MimeTypeFile(
+            ".pptm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-powerpoint.presentation.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-powerpoint.template.macroEnabled.12"] = MimeTypeFile(
+            ".potm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-powerpoint.template.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-powerpoint.slideshow.macroEnabled.12"] = MimeTypeFile(
+            ".ppsm",
+            EnumFormatType.FILES,
+            "application/vnd.ms-powerpoint.slideshow.macroEnabled.12"
+        )
+        hashMap["application/vnd.ms-access"] = MimeTypeFile(
+            ".mdb",
+            EnumFormatType.FILES,
+            "application/vnd.ms-access"
+        )
         return hashMap
     }
 
@@ -143,7 +221,7 @@ object Utils {
 
     fun getSessionToken() : String?{
         val mSessionToken = getSessionTokenObject()
-        log(this::class.java,mSessionToken)
+        log(this::class.java, mSessionToken)
         return mSessionToken?.session_token
     }
 
@@ -175,6 +253,43 @@ object Utils {
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return dateFormat.format(date)
+    }
+
+    fun getDate(): String? {
+        val cal = Calendar.getInstance()
+        val year = cal[Calendar.YEAR]
+        val month = cal[Calendar.MONTH] + 1
+        val day = cal[Calendar.DATE]
+        val date = "$day/$month/$year"
+        return date
+    }
+
+
+    fun getTime(): String? {
+        val cal = Calendar.getInstance()
+        val sec = cal[Calendar.SECOND]
+        val min = cal[Calendar.MINUTE]
+        val hr = cal[Calendar.HOUR_OF_DAY]
+        val time = hr.toString() + min.toString() + sec.toString()
+        return time
+    }
+
+    fun getClearTime(): String? {
+        val cal = Calendar.getInstance()
+        val sec = cal[Calendar.SECOND]
+        val min = cal[Calendar.MINUTE]
+        val hr = cal[Calendar.HOUR_OF_DAY]
+        val time = "$hr:$min:$sec"
+        return time
+    }
+
+    fun getPath(): String? {
+        val file =
+            File(SaveYourVoiceMailsApplication.getInstance().getTemporary())
+        if (!file.exists()) {
+            file.mkdir()
+        }
+        return file.absolutePath
     }
 
  }
