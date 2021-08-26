@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.common.encrypt
 import android.net.Uri
 import co.tpcreative.saveyourvoicemails.common.Utils.log
+import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DataSpec
@@ -37,6 +38,7 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
             skipToPosition(dataSpec)
             computeBytesRemaining(dataSpec)
         } catch (e: IOException) {
+            mUri?.path?.deleteFile()
             throw EncryptedFileDataSourceException(e)
         }
         // if we made it this far, we're open

@@ -10,7 +10,9 @@ import co.tpcreative.domain.usecases.UpdateVoiceMailsUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
+import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import co.tpcreative.saveyourvoicemails.common.network.Resource
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -91,6 +93,7 @@ class AudioFragmentViewModel(
             val mResult = deleteVoiceMailUseCase(mRequest)
             if (mResult.error){
                 log(mResult.message ?: "")
+                (SaveYourVoiceMailsApplication.getInstance().getPrivate()+voice).deleteFile()
                 emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
             }else{
                 log(mResult.message ?: "")

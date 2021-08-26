@@ -14,6 +14,8 @@ import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
+import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
+import co.tpcreative.saveyourvoicemails.common.extension.deleteDirectory
 import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import co.tpcreative.saveyourvoicemails.common.extension.isFileExist
 import co.tpcreative.saveyourvoicemails.common.network.Status
@@ -193,7 +195,10 @@ fun ShareAct.savedVoiceMails() {
         .positiveButton(text = getString(R.string.ok))
         .cancelable(false)
         .positiveButton {
-            SaveYourVoiceMailsApplication.getInstance().getTemporary().deleteFile()
+            SaveYourVoiceMailsApplication.getInstance().getTemporary().deleteDirectory()
+            SaveYourVoiceMailsApplication.getInstance().getRecorder().deleteDirectory()
+            SaveYourVoiceMailsApplication.getInstance().getTemporary().createDirectory()
+            SaveYourVoiceMailsApplication.getInstance().getRecorder().createDirectory()
             finish()
         }
     builder.show()

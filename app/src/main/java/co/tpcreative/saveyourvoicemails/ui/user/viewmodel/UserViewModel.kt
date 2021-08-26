@@ -134,6 +134,7 @@ class UserViewModel (
             }
         } catch (e: Exception) {
             logger.warn( "An error occurred while login user", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
     }
 
@@ -152,6 +153,7 @@ class UserViewModel (
             }
         } catch (e: Exception) {
             logger.warn( "An error occurred while login user", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
     }
 

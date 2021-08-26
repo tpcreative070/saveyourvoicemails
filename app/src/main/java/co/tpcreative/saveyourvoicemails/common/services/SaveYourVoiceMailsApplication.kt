@@ -11,6 +11,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private lateinit var saveYourVoiceMailsTemp: String
     private lateinit var saveYourVoiceMailsPrivate : String
     private lateinit var saveYourVoiceMails : String
+    private lateinit var saveYourVoiceMailsRecorder : String
     private var isLive : Boolean = false
     override fun onCreate() {
         super.onCreate()
@@ -23,6 +24,9 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
         saveYourVoiceMailsTemp.createDirectory()
         saveYourVoiceMailsPrivate = saveYourVoiceMails + "private/"
         saveYourVoiceMailsPrivate.createDirectory()
+
+        saveYourVoiceMailsRecorder = saveYourVoiceMails + "recorder/"
+        saveYourVoiceMailsRecorder.createDirectory()
         isLive = true
     }
 
@@ -40,6 +44,10 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
     fun getTemporary() : String {
         return saveYourVoiceMailsTemp
+    }
+
+    fun getRecorder(): String {
+        return saveYourVoiceMailsRecorder
     }
 
     fun getPrivate() : String {

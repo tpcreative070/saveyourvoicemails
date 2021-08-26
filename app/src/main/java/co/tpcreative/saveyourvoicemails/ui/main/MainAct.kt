@@ -27,6 +27,7 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.pandora.bottomnavigator.BottomNavigator
+import kotlinx.coroutines.CoroutineScope
 
 class MainAct : BaseActivity() {
     private lateinit var navigator: BottomNavigator
@@ -54,7 +55,6 @@ class MainAct : BaseActivity() {
             defaultTab = R.id.home,
             activity = this
         )
-        bindingEvent()
         requestPermissions()
     }
 
@@ -77,6 +77,7 @@ class MainAct : BaseActivity() {
                     if (!enabled) {
                         alertDialog()
                     }
+                    bindingEvent()
                 }
 
                 override fun onPermissionRationaleShouldBeShown(

@@ -233,7 +233,7 @@ class SaveYourVoiceMailsService : Service() {
         androidLame.close()
     }
 
-    fun sendIntent(){
+    private fun sendIntent(){
         val intent = Intent(this, ShareAct::class.java)
         intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(File(file)));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

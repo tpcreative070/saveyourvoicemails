@@ -285,7 +285,7 @@ object Utils {
 
     fun getPath(): String? {
         val file =
-            File(SaveYourVoiceMailsApplication.getInstance().getTemporary())
+            File(SaveYourVoiceMailsApplication.getInstance().getRecorder())
         if (!file.exists()) {
             file.mkdir()
         }
