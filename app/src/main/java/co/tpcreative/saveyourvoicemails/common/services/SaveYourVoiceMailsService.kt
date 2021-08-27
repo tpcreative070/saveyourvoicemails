@@ -9,6 +9,7 @@ import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
+import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.NotificationBarHelper
@@ -63,6 +64,9 @@ class SaveYourVoiceMailsService : Service() {
                 file = outputPath
                 recordingThread = Thread({ startRecording() }, "AudioRecorder Thread")
                 recordingThread?.start()
+                val notification =
+                        NotificationBarHelper.getInstance().updatedNotificationBar()
+                startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
                 Utils.log(TAG, "start record $file")
             }
         } catch (e: Exception) {
@@ -71,43 +75,13 @@ class SaveYourVoiceMailsService : Service() {
         }
 
         when(intent?.action){
-            Constant.ACTION.START_RECORDING_PHONE_CALL -> {
-                log("START_RECORDING_PHONE_CALL")
-                Dexter.withContext(this)
-                    .withPermissions(
-                        Manifest.permission.BIND_ACCESSIBILITY_SERVICE,
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.READ_PHONE_STATE,
-                        Manifest.permission.CALL_PHONE,
-                        Manifest.permission.PROCESS_OUTGOING_CALLS,
-                        Manifest.permission.MODIFY_AUDIO_SETTINGS
-                    ).withListener(object : MultiplePermissionsListener {
-                        override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                            val notification =
-                                NotificationBarHelper.getInstance().updatedNotificationBar()
-                            startForeground(
-                                Constant.ID_NOTIFICATION_FOREGROUND_SERVICE,
-                                notification
-                            )
-                        }
-
-                        override fun onPermissionRationaleShouldBeShown(
-                            permissions: List<PermissionRequest?>?,
-                            token: PermissionToken?
-                        ) { /* ... */
-                        }
-                    }).check()
-            }
             Constant.ACTION.STOP_RECORDING_PHONE_CALL -> {
                 isRecording = false
                 recordingThread?.interrupt()
-            }
-            Constant.ACTION.EXIT_APP -> {
-                log("exit app")
                 exitApp()
             }
             Constant.ACTION.START_HOME -> {
-                log("Home")
+               Navigator.moveToMain(this)
             }
         }
         return START_NOT_STICKY

@@ -8,16 +8,15 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <LinearLayout
             android:id="@+id/llMenu"
-            android:weightSum="3"
+            android:weightSum="2"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
-
+            android:layout_height="60dp">
             <RelativeLayout
+                android:gravity="center"
                 android:id="@+id/rlStopRecord"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -45,6 +44,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:gravity="center"
                 android:id="@+id/rlHome"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -52,13 +52,12 @@
                 <ImageView
                     android:tint="@color/white"
                     android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_record"
+                    android:src="@drawable/ic_grid"
                     android:id="@+id/imgHome"
                     android:layout_centerInParent="true"
                     android:layout_alignParentTop="true"
                     android:layout_width="20dp"
                     android:layout_height="20dp"/>
-
                 <TextView
                     android:layout_marginTop="3dp"
                     android:textSize="11dp"
@@ -70,44 +69,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlExit"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <ImageView
-                    android:tint="@color/white"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/ic_record"
-                    android:id="@+id/imgExit"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"/>
-
-                <TextView
-                    android:layout_marginTop="3dp"
-                    android:textSize="11dp"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:text="@string/exit"
-                    android:layout_below="@+id/imgExit"
-                    android:id="@+id/tvExit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
         </LinearLayout>
-        <RelativeLayout
-            android:layout_margin="5dp"
-            android:layout_below="@+id/llMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Chronometer
-                android:textColor="@color/white"
-                android:id="@+id/chronometer1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

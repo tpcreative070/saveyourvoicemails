@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
-import android.util.Log
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.extension.isAutoRecord
@@ -35,7 +34,6 @@ class PhoneStateReceiver : BroadcastReceiver() {
 
     private fun startRecording(context: Context, number: String?): String {
         Utils.log(TAG, "startRecording - trimNumber: $number")
-
         val time: String? = Utils.getTime()
         val date: String? = Utils.getDate()
         val path: String? = Utils.getPath()

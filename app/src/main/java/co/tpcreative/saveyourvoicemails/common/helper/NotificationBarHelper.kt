@@ -65,34 +65,17 @@ class NotificationBarHelper {
             action = Constant.ACTION.START_HOME
         }
 
-    private val recordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
-        .apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            action = Constant.ACTION.START_RECORDING
-        }
-
     private val recordPhoneCallIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
         .apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             action = Constant.ACTION.START_RECORDING_PHONE_CALL
         }
 
-    private val stopRecordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
-        .apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            action = Constant.ACTION.STOP_RECORDING
-        }
-
-    private val exitIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
-        .apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            action = Constant.ACTION.EXIT_APP
-        }
-
-    private val requestPermissionIntent = Intent(appContext, SaveYourVoiceMailsService::class.java).apply {
-        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        action = Constant.ACTION.START_RECORDING
-    }
+    private val stopPhoneCallRecordIntent = Intent(appContext, SaveYourVoiceMailsService::class.java)
+            .apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                action = Constant.ACTION.STOP_RECORDING_PHONE_CALL
+            }
 
     private val notifyCompatBuilder by lazy {
         initNotifyChanel()
@@ -104,36 +87,14 @@ class NotificationBarHelper {
     }
 
     fun createNotificationBar() : Notification {
-        val pendingRecord = PendingIntent.getService(
-            appContext,
-            0,
-            recordIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-        val pendingRecordPhoneCall = PendingIntent.getService(
-            appContext,
-            0,
-            recordPhoneCallIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
         val pendingHome = PendingIntent.getService(
             appContext,
             0,
             homeIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val pendingExit = PendingIntent.getService(
-            appContext,
-            0,
-            exitIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
-        remoteViews?.setOnClickPendingIntent(R.id.rlRecord, pendingRecord)
-        remoteViews?.setOnClickPendingIntent(R.id.rlRecordPhoneCall, pendingRecordPhoneCall)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
-        remoteViews?.setOnClickPendingIntent(R.id.rlExit, pendingExit)
         notifyCompatBuilder
             .setContent(remoteViews)
             .setSmallIcon(R.drawable.ic_record)
@@ -148,7 +109,7 @@ class NotificationBarHelper {
         val pendingStop = PendingIntent.getService(
             appContext,
             0,
-            stopRecordIntent,
+            stopPhoneCallRecordIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
         val pendingHome = PendingIntent.getService(
@@ -157,17 +118,9 @@ class NotificationBarHelper {
             homeIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val pendingExit = PendingIntent.getService(
-            appContext,
-            0,
-            exitIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar_recording)
         remoteViews?.setOnClickPendingIntent(R.id.rlStopRecord, pendingStop)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
-        remoteViews?.setOnClickPendingIntent(R.id.rlExit, pendingExit)
-        remoteViews?.setChronometer(R.id.chronometer1, SystemClock.elapsedRealtime(), null, true);
         notifyCompatBuilder
             .setContent(remoteViews)
             .setSmallIcon(R.drawable.ic_record)
