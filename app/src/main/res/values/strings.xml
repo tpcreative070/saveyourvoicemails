@@ -57,6 +57,13 @@
     <string name="key_upgrade">Upgrade</string>
     <string name="key_general">General</string>
     <string name="key_automatically_recorder_voice">Automatically record voice</string>
-    <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone call</string>
+    <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone calls</string>
+    <string name="key_permission">Permission</string>
+    <string name="key_detail_permission">For SaveYourVoicemails work properly, you need to allow some permissions</string>
     <string name="no_voicemails">No Voicemails</string>
+    <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
+    <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on recorder app connector to record calls on Android 10</string>
+    <string name="grant_permissions">Grant Permissions</string>
+    <string name="external_access_to_save_recording_to_mp3_files">External access to save recording to mp3 files</string>
+    <string name="manage_phone_calls_to_record_incoming_and_outgoing_calls">Manage phone calls to record incoming and outgoing calls</string>
 </resources>

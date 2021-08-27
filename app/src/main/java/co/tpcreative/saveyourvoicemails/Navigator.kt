@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
+import co.tpcreative.saveyourvoicemails.ui.permission.PermissionAct
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignInAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignUpAct
@@ -33,6 +34,11 @@ object Navigator {
     fun moveToPlayer(context : Context,itemRequest : DownloadFileRequest){
         val intent = Intent(context,PlayerAct::class.java)
         intent.putExtra(PlayerAct.AUDIO_URL_EXTRA,Gson().toJson(itemRequest))
+        context.startActivity(intent)
+    }
+
+    fun moveToPermission(context: Context){
+        val intent = Intent(context,PermissionAct::class.java)
         context.startActivity(intent)
     }
 }

@@ -12,10 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
+import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.EncryptedPreferenceDataStore
 import co.tpcreative.saveyourvoicemails.common.extension.instantiate
+import co.tpcreative.saveyourvoicemails.common.preference.MyPreference
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 import co.tpcreative.saveyourvoicemails.databinding.FragmentSettingsBinding
 
@@ -31,7 +34,7 @@ class SettingsFragment : BaseFragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(this::class.java.simpleName,"Calling apis")
+        log("Calling apis")
     }
 
 
@@ -55,6 +58,7 @@ class SettingsFragment : BaseFragment(){
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private var mPerMission: MyPreference? = null
 
         private fun createChangeListener(): Preference.OnPreferenceChangeListener? {
             return Preference.OnPreferenceChangeListener { preference, newValue -> true }
@@ -62,12 +66,19 @@ class SettingsFragment : BaseFragment(){
 
         private fun createActionPreferenceClickListener(): Preference.OnPreferenceClickListener? {
             return Preference.OnPreferenceClickListener { preference ->
+                if (preference is MyPreference){
+                    if (preference.key == getString(R.string.key_permission)){
+                        Navigator.moveToPermission(this.requireContext())
+                    }
+                }
                 true
             }
         }
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+            mPerMission = findPreference(getString(R.string.key_permission)) as MyPreference?
+            mPerMission?.onPreferenceClickListener = createActionPreferenceClickListener()
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

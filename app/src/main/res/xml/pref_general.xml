@@ -9,5 +9,12 @@
             android:summary="@string/key_detail_automatically_recorder_voice"
             android:key="@string/key_automatically_recorder_voice"
             android:title="@string/key_automatically_recorder_voice"/>
+
+        <co.tpcreative.saveyourvoicemails.common.preference.MyPreference
+            android:layout="@layout/custom_preferences_item"
+            android:icon="@drawable/ic_baseline_ballot_24"
+            android:summary="@string/key_detail_permission"
+            android:key="@string/key_permission"
+            android:title="@string/key_permission"/>
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_200"
+    tools:context=".ui.permission.PermissionAct">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@color/grey_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_15"
+            android:text="@string/key_detail_permission"
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/tvTitle"
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_200">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey_200"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_button_rounded_white"
+                    android:padding="10dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/imgManagePhoneCalls"
+                        android:text="@string/manage_phone_calls_to_record_incoming_and_outgoing_calls" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgManagePhoneCalls"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
+                        app:tint="@color/material_green_700" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_button_rounded_white"
+                    android:padding="10dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/imgAudioAccess"
+                        android:text="@string/microphone_access_for_audio_recording" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgAudioAccess"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
+                        app:tint="@color/material_green_700" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_button_rounded_white"
+                    android:padding="10dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/imgExternalAccess"
+                        android:text="@string/external_access_to_save_recording_to_mp3_files" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgExternalAccess"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
+                        app:tint="@color/material_green_700" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_button_rounded_white"
+                    android:padding="10dp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toStartOf="@+id/imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10"
+                        android:text="@string/turn_on_recorder_app_connector_to_record_calls_on_android_10" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
+                        app:tint="@color/material_green_700" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGrantPermissions"
+            android:layout_margin="20dp"
+            android:background="@drawable/bg_button_rounded"
+            android:layout_below="@+id/scrollView"
+            android:text="@string/grant_permissions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
