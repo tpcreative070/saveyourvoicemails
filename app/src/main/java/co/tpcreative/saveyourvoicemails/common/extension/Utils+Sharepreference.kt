@@ -61,6 +61,10 @@ fun Utils.isSignedIn() : Boolean {
     return false
 }
 
+fun Utils.isAutoRecord() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_automatically_recorder_voice),false)
+}
+
 fun getString(res: Int) : String{
     return SaveYourVoiceMailsApplication.getInstance().getString(res)
 }

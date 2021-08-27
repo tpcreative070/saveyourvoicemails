@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.debounce
 fun SignInAct.initUI(){
     lifecycleScope.launchWhenResumed {
         binding.textPutUserName.textChanges()
-            .debounce(300)
+            .debounce(200)
             .collect {
                 execute(it)
             }
     }
     lifecycleScope.launchWhenResumed {
         binding.textPutPassword.textChanges()
-            .debounce(300)
+            .debounce(200)
             .collect {
                 execute(it)
             }

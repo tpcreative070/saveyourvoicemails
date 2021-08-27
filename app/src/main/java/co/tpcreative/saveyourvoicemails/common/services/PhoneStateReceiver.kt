@@ -7,11 +7,15 @@ import android.telephony.TelephonyManager
 import android.util.Log
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
+import co.tpcreative.saveyourvoicemails.common.extension.isAutoRecord
 
 class PhoneStateReceiver : BroadcastReceiver() {
     private val TAG = PhoneStateReceiver::class.java
     override fun onReceive(context: Context, intent: Intent) {
         Utils.log(TAG, "PhoneStateReceiver - onReceive")
+        if (!Utils.isAutoRecord()){
+            return
+        }
         try {
             val extras = intent.extras
             val state = extras!!.getString(TelephonyManager.EXTRA_STATE)
