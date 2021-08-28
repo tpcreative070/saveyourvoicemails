@@ -1,11 +1,19 @@
 package co.tpcreative.saveyourvoicemails.common
+
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.net.Uri
+import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
 import android.webkit.MimeTypeMap
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
@@ -20,6 +28,7 @@ import java.io.File
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object Utils {
     const val FORMAT_TIME: String = "yyyy-MM-dd HH:mm:ss"
@@ -290,6 +299,28 @@ object Utils {
             file.mkdir()
         }
         return file.absolutePath
+    }
+
+    fun shareMultiple(files: File, context: Context) {
+        val uri : Uri
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+           uri = FileProvider.getUriForFile(
+               context,
+               BuildConfig.APPLICATION_ID + ".provider",
+               files
+           )
+        } else {
+           uri = Uri.fromFile(files)
+        }
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "*/*"
+        val resInfoList: List<ResolveInfo> = context.packageManager.queryIntentActivities(intent,PackageManager.MATCH_DEFAULT_ONLY)
+        for (resolveInfo in resInfoList) {
+            val packageName = resolveInfo.activityInfo.packageName
+            context.grantUriPermission(packageName, uri,Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        }
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)))
     }
 
  }

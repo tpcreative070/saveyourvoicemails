@@ -20,6 +20,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                 isAssignableFrom(AudioFragmentViewModel::class.java) ->
                     AudioFragmentViewModel(
                         GetVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)),
                         UpdateVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         DeleteVoiceMailUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.getLogger(AudioFragmentViewModel::class),

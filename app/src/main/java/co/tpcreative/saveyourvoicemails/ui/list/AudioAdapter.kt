@@ -43,6 +43,8 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
     interface ItemSelectedListener {
         fun onClickItem(position: Int)
         fun onLongClickItem(position: Int)
+        fun onDownloadItem(position: Int)
+        fun onShare(position : Int)
         fun onEditItem(position: Int)
         fun onDeleteItem(position: Int)
     }
@@ -77,6 +79,10 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
     internal inner class MyMenuItemClickListener(var position: Int) : PopupMenu.OnMenuItemClickListener {
         override fun onMenuItemClick(menuItem: MenuItem?): Boolean {
             when (menuItem?.itemId) {
+                R.id.action_download -> {
+                    itemSelectedListener?.onDownloadItem(position)
+                    return true
+                }
                 R.id.action_edit -> {
                     itemSelectedListener?.onEditItem(position)
                     return true
@@ -84,6 +90,9 @@ class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, infla
                 R.id.action_delete -> {
                     itemSelectedListener?.onDeleteItem(position)
                     return true
+                }
+                R.id.action_share -> {
+                    itemSelectedListener?.onShare(position)
                 }
                 else -> {
                 }

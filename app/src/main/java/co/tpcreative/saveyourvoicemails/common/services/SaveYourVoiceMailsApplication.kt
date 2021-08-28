@@ -1,5 +1,6 @@
 package co.tpcreative.saveyourvoicemails.common.services
 import android.annotation.SuppressLint
+import android.os.Environment
 import android.provider.Settings
 import androidx.multidex.MultiDexApplication
 import co.tpcreative.saveyourvoicemails.BuildConfig
@@ -12,6 +13,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private lateinit var saveYourVoiceMailsPrivate : String
     private lateinit var saveYourVoiceMails : String
     private lateinit var saveYourVoiceMailsRecorder : String
+    private lateinit var saveYourVoiceMailsDownload: String
     private var isLive : Boolean = false
     override fun onCreate() {
         super.onCreate()
@@ -27,6 +29,9 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
         saveYourVoiceMailsRecorder = saveYourVoiceMails + "recorder/"
         saveYourVoiceMailsRecorder.createDirectory()
+
+        saveYourVoiceMailsDownload = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "/SaveYourVoiceMails/"
+        saveYourVoiceMailsDownload.createDirectory()
         isLive = true
     }
 
@@ -44,6 +49,10 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
     fun getTemporary() : String {
         return saveYourVoiceMailsTemp
+    }
+
+    fun getDownload() : String {
+        return saveYourVoiceMailsDownload
     }
 
     fun getRecorder(): String {

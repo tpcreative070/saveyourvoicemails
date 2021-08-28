@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
+import com.tapadoo.alerter.Alerter
+import com.tapadoo.alerter.OnHideAlertListener
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
@@ -53,6 +57,20 @@ abstract class BaseFragment : Fragment() {
     protected fun remove() {}
     protected fun hide() {}
     protected open fun work() {}
+
+    fun onBasicAlertNotify(title: String? = "Warning", message: String?) {
+        activity?.let {
+            Alerter.create(it)
+                .setTitle(title!!)
+                .setBackgroundColorInt(
+                    ContextCompat.getColor(it, R.color.colorAccent))
+                .setText(message ?: "")
+                .setDuration(5000)
+                .setOnHideListener(OnHideAlertListener {
+                })
+                .show()
+        }
+    }
 
     var TAG : String = this::class.java.simpleName
 

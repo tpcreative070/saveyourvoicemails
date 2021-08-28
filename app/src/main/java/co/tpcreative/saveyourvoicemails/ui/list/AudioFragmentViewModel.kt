@@ -3,8 +3,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.usecases.DeleteVoiceMailUseCase
+import co.tpcreative.domain.usecases.DownloadFilePostVoiceMailsUseCase
 import co.tpcreative.domain.usecases.GetVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UpdateVoiceMailsUseCase
 import co.tpcreative.saveyourvoicemails.common.Event
@@ -12,13 +14,16 @@ import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
 import co.tpcreative.saveyourvoicemails.common.network.Resource
+import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
 class AudioFragmentViewModel(
     private val getVoiceMailsUseCase: GetVoiceMailsUseCase,
+    private val downloadService: UploadDownloadService,
     private val updateVoiceMailsUseCase: UpdateVoiceMailsUseCase,
     private val deleteVoiceMailUseCase: DeleteVoiceMailUseCase,
     private val logger: Logger,
@@ -42,6 +47,23 @@ class AudioFragmentViewModel(
         set(value){
             field = value
         }
+
+    fun downloadFile(downloadFileRequest: DownloadFileRequest) = liveData(Dispatchers.IO ){
+        try {
+            val mResult = downloadService.downloadFilePost(downloadFileRequest)
+            logger.debug("result: ${Gson().toJson(mResult.data.toString())}")
+            when(mResult.status){
+                Status.SUCCESS ->{
+                    emit(Resource.success(mResult))
+                }else ->{
+                emit(Resource.error(Utils.CODE_EXCEPTION, mResult.message ?: "",null))
+            }
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while login user", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
+    }
 
     fun getVoiceMail() = liveData(Dispatchers.IO){
         dataList.clear()

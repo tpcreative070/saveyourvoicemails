@@ -8,11 +8,13 @@ class DownloadFileRequest {
     val fileName : String
     val isDownloaded : Boolean
     val fullLocalPath : String
-    constructor(id : String,outputFolder : String,fileName : String){
+    val title : String
+    constructor(id : String,outputFolder : String,fileName : String,title : String){
         this.id = id
         this.outputFolder = outputFolder
         this.fileName = fileName
         this.fullLocalPath = outputFolder + id
         this.isDownloaded = File(this.fullLocalPath).exists()
+        this.title = title
     }
 }

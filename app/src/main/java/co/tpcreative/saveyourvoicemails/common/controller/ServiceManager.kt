@@ -1,9 +1,11 @@
 package co.tpcreative.saveyourvoicemails.common.controller
 
 import co.tpcreative.domain.models.ImportFilesModel
+import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.extension.createCipherFile
 import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
+import co.tpcreative.saveyourvoicemails.common.extension.isDirectoryExists
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import kotlinx.coroutines.Dispatchers
@@ -59,6 +61,33 @@ class ServiceManager {
             }
         }
     }
+
+    suspend fun exportingItems(mData : DownloadFileRequest) : Resource<File>{
+        return withContext(Dispatchers.IO){
+            try {
+                val mInput  = File(mData.fullLocalPath)
+                val mOutPut = File(SaveYourVoiceMailsApplication.getInstance().getDownload() + "/ ${mData.title}_${mData.fileName}")
+                if (!SaveYourVoiceMailsApplication.getInstance().getDownload().isDirectoryExists()){
+                    SaveYourVoiceMailsApplication.getInstance().getDownload().createDirectory()
+                }
+                try {
+                    mOutPut.createCipherFile(mOutPut,mInput,Cipher.DECRYPT_MODE)
+                    log("Exported completely")
+                    Resource.success(mOutPut)
+                } catch (e: Exception) {
+                    log("Cannot write to $e")
+                    Resource.error(Utils.CODE_EXCEPTION,e.message ?:"",null)
+                } finally {
+                    log("Finally")
+                }
+            }
+            catch (e : Exception){
+                e.printStackTrace()
+                Resource.error(Utils.CODE_EXCEPTION,e.message ?:"",null)
+            }
+        }
+    }
+
 
     suspend fun moveFile(inputPath: String, inputFile: String, outputPath: String,outputFile : String) : Resource<Boolean>{
         return withContext(Dispatchers.IO) {

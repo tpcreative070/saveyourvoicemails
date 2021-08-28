@@ -58,12 +58,24 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onClickItem(position: Int) {
         val mItem = dataSource[position]
-        val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice)
+        val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
         context?.let { Navigator.moveToPlayer(it,mDownloadItem) }
     }
 
     override fun onLongClickItem(position: Int) {
 
+    }
+
+    override fun onDownloadItem(position: Int) {
+        val mItem = dataSource[position]
+        val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
+        downloadFile(mDownloadItem,false)
+    }
+
+    override fun onShare(position: Int) {
+        val mItem = dataSource[position]
+        val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
+        downloadFile(mDownloadItem,true)
     }
 
     override fun onEditItem(position: Int) {
