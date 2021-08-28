@@ -62,11 +62,15 @@ class ServiceManager {
         }
     }
 
-    suspend fun exportingItems(mData : DownloadFileRequest) : Resource<File>{
+    suspend fun exportingItems(mData : DownloadFileRequest,isShared : Boolean) : Resource<File>{
         return withContext(Dispatchers.IO){
             try {
                 val mInput  = File(mData.fullLocalPath)
-                val mOutPut = File(SaveYourVoiceMailsApplication.getInstance().getDownload() + "/ ${mData.title}_${mData.fileName}")
+                var rootOutput = SaveYourVoiceMailsApplication.getInstance().getDownload()
+                if (isShared){
+                    rootOutput = SaveYourVoiceMailsApplication.getInstance().getRecorder()
+                }
+                val mOutPut = File(rootOutput + "/ ${mData.title}_${mData.fileName}")
                 if (!SaveYourVoiceMailsApplication.getInstance().getDownload().isDirectoryExists()){
                     SaveYourVoiceMailsApplication.getInstance().getDownload().createDirectory()
                 }

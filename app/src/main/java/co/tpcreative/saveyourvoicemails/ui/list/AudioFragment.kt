@@ -1,5 +1,4 @@
 package co.tpcreative.saveyourvoicemails.ui.list
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

@@ -50,16 +50,16 @@ fun AudioFragment.getData() {
 }
 
 
-fun AudioFragment.downloadFile(request: DownloadFileRequest,isShare : Boolean) {
+fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) {
     if (request.isDownloaded) {
         SingletonManagerProcessing.getInstance()?.onStartProgressing(activity, R.string.exporting)
         CoroutineScope(Dispatchers.Main).launch {
-            val mExport = ServiceManager.getInstance()?.exportingItems(request)
+            val mExport = ServiceManager.getInstance()?.exportingItems(request,isShared)
             when (mExport?.status) {
                 Status.SUCCESS -> {
                     val mPath = mExport.data?.absolutePath
                     log(mPath ?: "")
-                    if (isShare){
+                    if (isShared){
                         context?.let { mExport.data?.let { it1 ->
                             Utils.shareMultiple(
                                 it1, it)
@@ -81,12 +81,12 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShare : Boolean) {
                 Status.SUCCESS -> {
                     log("Download successfully ${request.fullLocalPath}")
                     CoroutineScope(Dispatchers.Main).launch {
-                        val mExport = ServiceManager.getInstance()?.exportingItems(request)
+                        val mExport = ServiceManager.getInstance()?.exportingItems(request,isShared)
                         when (mExport?.status) {
                             Status.SUCCESS -> {
                                 val mPath = mExport.data?.absolutePath
                                 log(mPath ?: "")
-                                if (isShare){
+                                if (isShared){
                                     context?.let { mExport.data?.let { it1 ->
                                         Utils.shareMultiple(
                                             it1, it)
