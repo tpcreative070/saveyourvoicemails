@@ -138,4 +138,6 @@ subprojects {
     ext.coroutinesCore =  "1.3.9"
     ext.coroutinesAndroid =  "1.4.1"
     ext.materialDialogsInput = "3.3.0"
+    ext.facebookLogin = "11.1.0"
+    ext.facebookCore = "11.1.0"
 }

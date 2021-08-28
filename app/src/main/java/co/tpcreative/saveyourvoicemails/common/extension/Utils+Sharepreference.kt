@@ -6,6 +6,7 @@ import co.tpcreative.domain.models.response.User
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
+import co.tpcreative.saveyourvoicemails.common.helper.EncryptDecryptFilesHelper
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 
@@ -59,6 +60,13 @@ fun Utils.isSignedIn() : Boolean {
         return it.isSignIn
     }
     return false
+}
+
+fun Utils.signOut(){
+    Utils.putUserPreShare(null)
+    Utils.putMail365PreShare(null)
+    Utils.putSessionTokenPreShare(null)
+    EncryptDecryptFilesHelper.getInstance()?.cleanUp()
 }
 
 fun Utils.isAutoRecord() : Boolean {

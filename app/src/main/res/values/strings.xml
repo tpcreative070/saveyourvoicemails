@@ -42,6 +42,7 @@
     <string name="key_session_token">key_session_token</string>
     <string name="cancel">Cannel</string>
     <string name="send">Send</string>
+    <string name="change">Change</string>
     <string name="enter_title">Enter title</string>
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
@@ -69,4 +70,8 @@
     <string name="manage_phone_calls_to_record_incoming_and_outgoing_calls">Manage phone calls to record incoming and outgoing calls</string>
     <string name="download">Download</string>
     <string name="share">Share</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="change_password">Change Password</string>
+    <string name="facebook_app_id">142773181347562</string>
+    <string name="fb_login_protocol_scheme">fb142773181347562</string>
 </resources>

@@ -11,8 +11,10 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
+import co.tpcreative.saveyourvoicemails.common.extension.isSignedIn
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.MyAccessibilityService
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -74,7 +76,9 @@ class MainAct : BaseActivity() {
                             MyAccessibilityService::class.java
                         )
                     if (!enabled) {
-                        alertDialog()
+                        if (Utils.isSignedIn()){
+                            alertDialog()
+                        }
                     }
                     bindingEvent()
                 }

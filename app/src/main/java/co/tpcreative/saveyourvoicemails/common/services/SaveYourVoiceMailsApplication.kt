@@ -7,6 +7,8 @@ import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
 import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 
 class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private lateinit var saveYourVoiceMailsTemp: String
@@ -17,6 +19,8 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private var isLive : Boolean = false
     override fun onCreate() {
         super.onCreate()
+        FacebookSdk.fullyInitialize();
+        AppEventsLogger.activateApp(this);
         INSTANCE = this
         AppPrefs.initEncryptedPrefs(this)
 

@@ -140,7 +140,7 @@ fun AudioFragment.enterVoiceMails(id: String) {
         .negativeButton {
 
         }
-        .positiveButton(R.string.send)
+        .positiveButton(R.string.change)
         .input(
             hintRes = R.string.enter_title,
             inputType = (InputType.TYPE_CLASS_TEXT),

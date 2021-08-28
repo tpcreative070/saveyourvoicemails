@@ -7,6 +7,7 @@ import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
 import co.tpcreative.saveyourvoicemails.common.services.download.ProgressResponseBody
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
+import co.tpcreative.saveyourvoicemails.ui.me.MeViewModel
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerViewModel
 import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
@@ -59,6 +60,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.getLogger(PlayerViewModel::class),
                         UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
+                isAssignableFrom(MeViewModel::class.java) ->
+                    MeViewModel()
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()
                 else -> throw IllegalArgumentException("unknown model class $modelClass")

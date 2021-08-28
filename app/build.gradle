@@ -147,6 +147,9 @@ dependencies {
     implementation "com.github.tapadoo:alerter:$androidAlerter"
     implementation "com.afollestad.material-dialogs:input:$materialDialogsInput"
     implementation "com.afollestad.material-dialogs:core:$materialDialogsInput"
+    implementation "com.facebook.android:facebook-core:$facebookCore"
+    implementation "com.facebook.android:facebook-login:$facebookLogin"
+
 
     implementation project(":data")
     implementation project(":domain")

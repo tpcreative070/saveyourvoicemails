@@ -1,41 +1,50 @@
 package co.tpcreative.saveyourvoicemails.ui.me
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
+import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
+import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import co.tpcreative.saveyourvoicemails.databinding.FragmentMeBinding
+import co.tpcreative.saveyourvoicemails.ui.list.AudioFragmentViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [MeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MeFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        Log.d(this::class.java.simpleName,"Calling apis")
+    lateinit var binding: FragmentMeBinding
+
+    val viewModel: MeViewModel by viewModels {
+        ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_me, container, false)
+    override fun work() {
+        super.work()
+        binding.btnSignOut.setOnClickListener {
+            signOut()
+        }
+        binding.btnChangePassword.setOnClickListener {
+
+        }
+    }
+
+    override fun getLayoutId(): Int {
+        return 0
+    }
+
+    override fun getLayoutId(inflater: LayoutInflater?, viewGroup: ViewGroup?): View? {
+        binding = FragmentMeBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     companion object {
@@ -52,8 +61,6 @@ class MeFragment : Fragment() {
         fun newInstance(param1: String, param2: String) =
                 MeFragment().apply {
                     arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
                     }
                 }
     }

@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/email">
             <com.google.android.material.textfield.TextInputEditText
+                android:singleLine="true"
                 android:id="@+id/textPutUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -47,6 +48,7 @@
             app:endIconMode="password_toggle"
             android:hint="@string/password">
             <com.google.android.material.textfield.TextInputEditText
+                android:singleLine="true"
                 android:id="@+id/textPutPassword"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
@@ -75,7 +77,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:onClick="@{() -> viewmodel.onSignInWithGoogleClicked()}"
+                android:id="@+id/btnSignInWithFacebook"
                 android:textSize="13sp"
                 android:layout_marginLeft="5dp"
                 android:textColor="@color/white"
