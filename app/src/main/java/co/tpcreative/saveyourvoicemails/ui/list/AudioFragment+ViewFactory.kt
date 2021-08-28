@@ -65,7 +65,7 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
                                 it1, it)
                         } }
                     }else{
-                        onBasicAlertNotify(message = "Downloaded file ${mPath}")
+                        onBasicAlertNotify(message = "Download folder: ${mExport.data?.name}")
                     }
                 }
                 else -> {
@@ -92,7 +92,7 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
                                             it1, it)
                                     } }
                                 }else{
-                                    onBasicAlertNotify(message = "Downloaded file ${mPath}")
+                                    onBasicAlertNotify(message = "Download folder: ${mExport.data?.name}")
                                 }
                             }
                             else -> {
