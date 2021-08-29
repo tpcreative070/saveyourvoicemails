@@ -20,7 +20,7 @@ interface VoiceMailsDataSource {
 
     fun searchUsers(query: String): SearchUsersResult
 
-    fun getUser(username: String): GitHubUser
+    fun getUser(request: UserRequest): BaseResponse
 
     fun signIn(request: UserRequest) : UserResponse
 

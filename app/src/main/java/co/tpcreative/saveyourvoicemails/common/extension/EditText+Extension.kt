@@ -3,6 +3,7 @@ package co.tpcreative.saveyourvoicemails.common.extension
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.annotation.CheckResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -25,4 +26,13 @@ fun EditText.textChanges(): Flow<Editable?> = callbackFlow {
     }
     addTextChangedListener(watcher)
     awaitClose { removeTextChangedListener(watcher) }
+}
+
+fun EditText.onDone(callback: () -> Unit) {
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            true
+        }
+        false
+    }
 }

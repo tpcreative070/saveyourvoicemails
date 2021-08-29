@@ -16,6 +16,7 @@ fun Utils.getUserInfo(): User? {
         if (value != null) {
             val mUser: User? = Gson().fromJson(value, User::class.java)
             if (mUser != null) {
+                log(this::class.java,mUser)
                 return mUser
             }
         }

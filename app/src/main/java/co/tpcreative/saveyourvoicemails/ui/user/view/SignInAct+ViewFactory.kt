@@ -33,6 +33,7 @@ fun SignInAct.initUI(){
     }
 
     binding.btnSignIn.setOnClickListener {
+        viewModel.user_id = viewModel.email
         signIn()
     }
 
@@ -51,6 +52,29 @@ private fun SignInAct.signIn(){
             }
             else -> {
                 onBasicAlertNotify(message = result.message)
+            }
+        }
+    })
+}
+
+private fun SignInAct.getUser(){
+    viewModel.isLoading.value = true
+    viewModel.getUser().observe(this, Observer { result ->
+        when (result.status) {
+            Status.SUCCESS -> {
+               log(result.data ?: "")
+                signIn()
+            }
+            else -> {
+                viewModel.signUp().observe(this, Observer { mResultSignUp ->
+                    when(mResultSignUp.status){
+                        Status.SUCCESS ->{
+                            signIn()
+                        }else ->{
+                            log(mResultSignUp.message ?:"")
+                        }
+                    }
+                })
             }
         }
     })
@@ -83,9 +107,16 @@ private fun SignInAct.signInWithFacebook(){
                             try {
                                 val jsonResult = mObject.toString()
                                 log("JSON Result$jsonResult")
+                                val id  = mObject?.getString("id")
                                 val email = mObject?.getString("email")
                                 if (email != null) {
-                                    //Do somethings here
+                                    log("id $id")
+                                    viewModel.user_id = id ?: email
+                                    viewModel.email = email
+                                    viewModel.password = id ?:""
+                                    viewModel.confirmPassword = id ?:""
+                                    viewModel.phoneNumber = "null"
+                                    getUser()
                                 } else {
                                     Toast.makeText(this@signInWithFacebook, "Could not find email", Toast.LENGTH_SHORT).show()
                                 }

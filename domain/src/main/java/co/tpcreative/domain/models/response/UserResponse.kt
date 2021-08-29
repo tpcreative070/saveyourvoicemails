@@ -30,6 +30,7 @@ class Mail365 {
 class User {
     var id = 0
     var contactNumber: String? = null
+    var user_id : String? = null
     var email: String? = null
     var status = 0
     var create_date: String? = null

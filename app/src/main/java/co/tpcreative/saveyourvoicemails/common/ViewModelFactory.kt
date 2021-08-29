@@ -30,6 +30,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                     )
                 isAssignableFrom(UserViewModel::class.java) ->
                     UserViewModel(
+                            GetUserUseCase(serviceLocator.voiceMailsDataSource),
                             SignUpUsersUseCase(serviceLocator.voiceMailsDataSource),
                             SignInUsersUseCase(serviceLocator.voiceMailsDataSource),
                             SearchUsersUseCase(

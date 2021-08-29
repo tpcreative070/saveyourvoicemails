@@ -40,8 +40,8 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
         }
     }
 
-    override fun getUser(username: String): GitHubUser {
-        val response = voiceMailsService.getUser(username).execute()
+    override fun getUser(request: UserRequest): BaseResponse {
+        val response = voiceMailsService.getUser(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {

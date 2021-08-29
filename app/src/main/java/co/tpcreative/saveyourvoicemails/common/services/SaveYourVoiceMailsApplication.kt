@@ -36,7 +36,7 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
         saveYourVoiceMailsDownload = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).absolutePath + "/SaveYourVoiceMails/"
         saveYourVoiceMailsDownload.createDirectory()
-        isLive = true
+        isLive = false
     }
 
     companion object{

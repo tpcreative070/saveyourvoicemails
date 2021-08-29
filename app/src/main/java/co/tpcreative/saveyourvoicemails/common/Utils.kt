@@ -220,7 +220,7 @@ object Utils {
 
     fun getUserId() : String? {
         val mUser =  getUserInfo()
-        return mUser?.email
+        return mUser?.user_id
     }
 
     fun getUserUUID() : String? {

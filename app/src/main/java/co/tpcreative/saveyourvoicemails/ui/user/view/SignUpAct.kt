@@ -1,5 +1,10 @@
 package co.tpcreative.saveyourvoicemails.ui.user.view
+import android.content.Context
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import co.tpcreative.domain.models.EnumValidationKey
@@ -8,6 +13,7 @@ import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.base.log
+import co.tpcreative.saveyourvoicemails.common.extension.onDone
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.databinding.ActivitySignUpBinding
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
@@ -63,12 +69,15 @@ class SignUpAct : BaseActivity() {
 
         viewModel.isLoading.observe(this,{ mResult ->
             if (mResult){
-                hideSoftKeyBoard(currentFocus)
                 SingletonManagerProcessing.getInstance()?.onStartProgressing(this,R.string.waiting)
             }else{
                 SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
             }
         })
+
+        binding.textPutPhoneNumber.onDone {
+            hideSoftKeyBoard(currentFocus)
+        }
 
         viewModel.putError(EnumValidationKey.EDIT_TEXT_EMAIL,"")
         viewModel.putError(EnumValidationKey.EDIT_PASSWORD, "")

@@ -37,6 +37,7 @@ fun SignUpAct.initUI(){
             }
     }
     binding.btnSignUp.setOnClickListener {
+        viewModel.user_id = viewModel.email
         signUp()
     }
 }
@@ -47,7 +48,7 @@ private fun SignUpAct.signUp(){
         viewModel.isLoading.value = false
         when(result.status){
             Status.SUCCESS ->{
-                onBasicAlertNotify(message = "You are successfully registered user",exit = true)
+                onBasicAlertNotify(title = "Alert",message = "You are successfully registered user",exit = true)
             }else ->{
             onBasicAlertNotify(message = result.message)
         }

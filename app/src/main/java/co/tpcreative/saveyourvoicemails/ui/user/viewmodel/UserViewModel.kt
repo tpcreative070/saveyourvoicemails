@@ -7,10 +7,7 @@ import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.UserRequest
-import co.tpcreative.domain.usecases.GetSearchHistoryUseCase
-import co.tpcreative.domain.usecases.SearchUsersUseCase
-import co.tpcreative.domain.usecases.SignInUsersUseCase
-import co.tpcreative.domain.usecases.SignUpUsersUseCase
+import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
@@ -25,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel (
+        private val getUserUseCase: GetUserUseCase,
         private val signUpUsersUseCase: SignUpUsersUseCase,
         private val signInUsersUseCase : SignInUsersUseCase,
         private val searchUsersUseCase: SearchUsersUseCase,
@@ -41,6 +39,11 @@ class UserViewModel (
     var requestForgotPassword = MutableLiveData<Event<Boolean>>()
 
     var requestLiveChat = MutableLiveData<Event<Boolean>>()
+
+    var user_id : String = ""
+        set(value){
+            field = value
+        }
 
     var email : String = ""
         set(value) {
@@ -119,9 +122,25 @@ class UserViewModel (
         }
     }
 
+    fun getUser() = liveData(Dispatchers.IO){
+        try {
+            val mUser = UserRequest(user_id,"null","null",null,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val result = getUserUseCase(mUser)
+            logger.debug("result: ${Gson().toJson(result)}")
+            if (result.error){
+                emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
+            }else{
+                emit(Resource.success(result))
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while login user", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
+    }
+
     fun signIn() = liveData(Dispatchers.IO){
         try {
-            val mUser = UserRequest(email,password,null,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val mUser = UserRequest(user_id,email,password,null,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             val result = signInUsersUseCase(mUser)
             logger.debug("result: ${Gson().toJson(result)}")
             if (result.error){
@@ -140,19 +159,17 @@ class UserViewModel (
 
     fun signUp() = liveData(Dispatchers.IO){
         try {
-            val mUser = UserRequest(email,password,null,phoneNumber,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            val mUser = UserRequest(user_id,email,password,null,phoneNumber,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
+            Utils.log(this@UserViewModel.javaClass,mUser)
             val result = signUpUsersUseCase(mUser)
-            logger.debug("result: ${Gson().toJson(result)}")
+            logger.debug("result ${Gson().toJson(result)}")
             if (result.error){
                 emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
             }else{
-                Utils.putUserPreShare(result.user)
-                Utils.putSessionTokenPreShare(result.session_token)
-                Utils.putMail365PreShare(result.mail365)
                 emit(Resource.success(result))
             }
         } catch (e: Exception) {
-            logger.warn( "An error occurred while login user", e)
+            logger.warn( "An error occurred while sign up user", e)
             emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
     }
