@@ -2,6 +2,8 @@ package co.tpcreative.saveyourvoicemails.common.services
 
 import co.tpcreative.domain.models.BaseResponse
 import co.tpcreative.saveyourvoicemails.common.Utils
+import co.tpcreative.saveyourvoicemails.common.extension.toJson
+import co.tpcreative.saveyourvoicemails.common.extension.toObjectMayBeNull
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import okhttp3.ResponseBody
 import retrofit2.HttpException
@@ -16,21 +18,43 @@ open class ResponseHandler {
         fun <T : Any> handleSuccess(data: T): Resource<T> {
             return Resource.success(data)
         }
+
+        fun <T : Any> handleErrorCode(code: Int): Resource<T> {
+            return Resource.error(code, getErrorMessage(code),null)
+        }
         fun <T : Any> handleException(e: Exception? = null): Resource<T> {
             return if (e is HttpException) {
                 val mBody: ResponseBody? = (e as HttpException?)?.response()?.errorBody()
                 val mCode = (e as HttpException?)?.response()?.code()
                 try {
                     val mMessage = mBody?.string()
-                    Utils.log(this::class.java,mMessage)
-                    Resource.error(mCode!!,mMessage!!, null)
+                    val mObject = mMessage?.toObjectMayBeNull(BaseResponse::class.java)
+                    Utils.log(ResponseHandler::class.java,mMessage)
+                    mObject?.let {
+                        getErrorCode(mCode!!)
+                        /*Code = 401 request to refresh user token*/
+                        Utils.log(ResponseHandler::class.java,"response code 0 $mCode")
+                        Resource.error(mCode,it.toJson(), null)
+                    } ?: run{
+                        val mDriveObject = mMessage?.toObjectMayBeNull(Any::class.java)
+                        Utils.log(ResponseHandler::class.java,"response code -1 $mCode")
+                        mDriveObject?.let {
+                            /*Code = 401 request to refresh access token*/
+                            if (mCode==401){
+                                Utils.log(ResponseHandler::class.java,"ServiceManager.getInstance()?.updatedDriveAccessToken()")
+                            }
+                            Utils.log(ResponseHandler::class.java,"response code $mCode")
+                        }
+                        Resource.error(mCode!!,mMessage ?: "Unknown", null)
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Utils.log(ResponseHandler::class.java,"response code 1 $mCode")
                     Resource.error(mCode!!,e.message!!, null)
                 }
             } else {
                 val mMessage = getErrorMessage(ErrorCodes.SocketTimeOut.code)
-                Utils.log(this::class.java,mMessage)
+                Utils.log(ResponseHandler::class.java,"response code 2 $e")
                 Resource.error(ErrorCodes.SocketTimeOut.code,mMessage, null)
             }
         }

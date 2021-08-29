@@ -25,6 +25,7 @@ class Mail365 {
     var grant_type: String? = null
     var created_date: String? = null
     var user_id: String? = null
+    var token_type: String? = null
 }
 
 class User {

@@ -1,22 +1,26 @@
 package co.tpcreative.domain.interfaces
 
-import co.tpcreative.domain.models.BaseResponse
-import co.tpcreative.domain.models.SearchUsersResult
-import co.tpcreative.domain.models.GitHubUser
-import co.tpcreative.domain.models.UploadBody
+import co.tpcreative.domain.models.*
+import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
-import co.tpcreative.domain.models.response.ResponseUpload
-import co.tpcreative.domain.models.response.UserResponse
-import co.tpcreative.domain.models.response.VoiceMailsResponse
+import co.tpcreative.domain.models.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.Part
-import retrofit2.http.Path
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.http.*
 
 interface VoiceMailsDataSource {
+
+    fun getLatestMail365(request : Mail365Request) : Mail365Response
+
+    fun sendEmailOutlook(url : String?,token: String?,body: EmailToken): Int
+
+    fun refreshEmailOutlook(url: String?,request: MutableMap<String?, Any?>): Mail365
+
+    fun addEmailToken(@Body request: Mail365Request?): BaseResponse
 
     fun searchUsers(query: String): SearchUsersResult
 

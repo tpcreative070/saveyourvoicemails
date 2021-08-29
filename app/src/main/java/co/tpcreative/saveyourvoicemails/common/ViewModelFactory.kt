@@ -4,6 +4,7 @@ import co.tpcreative.saveyourvoicemails.common.services.ServiceLocator
 import co.tpcreative.saveyourvoicemails.ui.list.AudioFragmentViewModel
 import androidx.lifecycle.ViewModelProvider
 import co.tpcreative.domain.usecases.*
+import co.tpcreative.saveyourvoicemails.common.services.EmailOutlookService
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
 import co.tpcreative.saveyourvoicemails.common.services.download.ProgressResponseBody
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
@@ -30,6 +31,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                     )
                 isAssignableFrom(UserViewModel::class.java) ->
                     UserViewModel(
+                            GetLatestOutlookUseCase(serviceLocator.voiceMailsDataSource),
+                            EmailOutlookViewModel(EmailOutlookService(SendEmailOutlookUseCase(serviceLocator.voiceMailsDataSource), RefreshEmailOutlookUseCase(serviceLocator.voiceMailsDataSource),AddEmailTokenUseCase(serviceLocator.voiceMailsDataSource))),
                             GetUserUseCase(serviceLocator.voiceMailsDataSource),
                             SignUpUsersUseCase(serviceLocator.voiceMailsDataSource),
                             SignInUsersUseCase(serviceLocator.voiceMailsDataSource),

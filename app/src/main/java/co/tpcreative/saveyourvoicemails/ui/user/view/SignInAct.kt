@@ -39,17 +39,6 @@ class SignInAct : BaseActivity() {
         )
         bindingEvent()
         initUI()
-
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                callbackmanager?.onActivityResult(
-                    result.resultCode,
-                    result.resultCode,
-                    data
-                )
-            }
-        }
     }
 
     private fun bindingEvent(){
@@ -105,6 +94,7 @@ class SignInAct : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        log("request code $requestCode, result code $resultCode")
         callbackmanager?.onActivityResult(
             requestCode,
             resultCode,

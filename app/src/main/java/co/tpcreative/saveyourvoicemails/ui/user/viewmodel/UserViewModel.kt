@@ -4,17 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
+import co.tpcreative.domain.models.EmailToken
+import co.tpcreative.domain.models.EnType
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.usecases.*
+import co.tpcreative.saveyourvoicemails.common.EmailOutlookViewModel
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
-import co.tpcreative.saveyourvoicemails.common.extension.putMail365PreShare
-import co.tpcreative.saveyourvoicemails.common.extension.putSessionTokenPreShare
-import co.tpcreative.saveyourvoicemails.common.extension.putUserPreShare
+import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.network.Resource
+import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
@@ -22,6 +25,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel (
+        private val getLatestOutlookUseCase: GetLatestOutlookUseCase,
+        private val emailOutlookService: EmailOutlookViewModel,
         private val getUserUseCase: GetUserUseCase,
         private val signUpUsersUseCase: SignUpUsersUseCase,
         private val signInUsersUseCase : SignInUsersUseCase,
@@ -174,12 +179,42 @@ class UserViewModel (
         }
     }
 
-    fun onSignUpClicked() = viewModelScope.launch(mainDispatcher) {
-        requestSignUp.value =  Event(true)
+    fun getLatestOutlook() = liveData(Dispatchers.IO){
+        try {
+            val mMail365Request = Mail365Request("null",email,"","")
+            val result = getLatestOutlookUseCase(mMail365Request)
+            logger.debug("result ${Gson().toJson(result)}")
+            if (result.error){
+                emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
+            }else{
+                Utils.putMail365PreShare(result.data)
+                Utils.putRequestCode(result.code)
+                emit(Resource.success(result))
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while get latest outlook", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
     }
 
-    fun onForgotPasswordClicked() = viewModelScope.launch(mainDispatcher) {
-        requestForgotPassword.value = Event(true)
+    fun sendEmailOutlook() = liveData(Dispatchers.IO){
+        try {
+            val result = emailOutlookService.sendEmail(EnType.FORGOT_PASSWORD,user_id)
+            when(result.status){
+                Status.SUCCESS->{
+                    emit(Resource.success(result.message ?:""))
+                }else -> {
+                  emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
+                }
+            }
+        } catch (e: Exception) {
+            logger.warn( "An error occurred while get latest outlook", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
+    }
+
+    fun onSignUpClicked() = viewModelScope.launch(mainDispatcher) {
+        requestSignUp.value =  Event(true)
     }
 
     fun onLiveChatClicked() = viewModelScope.launch(mainDispatcher) {

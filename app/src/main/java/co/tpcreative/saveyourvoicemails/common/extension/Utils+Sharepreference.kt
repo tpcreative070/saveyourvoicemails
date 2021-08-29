@@ -41,6 +41,20 @@ fun Utils.getSessionTokenObject(): SessionToken? {
     return null
 }
 
+fun Utils.getMail365(): Mail365? {
+    try {
+        val value: String? = AppPrefs.encryptedPrefs.read(getString(R.string.key_mail365), "")
+        if (value != null) {
+            val mMail365: Mail365? = Gson().fromJson(value, Mail365::class.java)
+            if (mMail365 != null) {
+                return mMail365
+            }
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return null
+}
 
 fun Utils.putUserPreShare(user: User?) {
      user?.isSignIn = true
@@ -49,6 +63,14 @@ fun Utils.putUserPreShare(user: User?) {
 
 fun Utils.putMail365PreShare(mail365 : Mail365?){
     AppPrefs.encryptedPrefs.write(getString(R.string.key_mail365), Gson().toJson(mail365))
+}
+
+fun Utils.putRequestCode(code : String?){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_request_code),code)
+}
+
+fun Utils.getRequestCode() : String?{
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_request_code),"null")
 }
 
 fun Utils.putSessionTokenPreShare(sessionToken: SessionToken?){

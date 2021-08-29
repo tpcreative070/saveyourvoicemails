@@ -38,12 +38,14 @@
 
     <!-- TODO: user case -->
     <string name="key_user">key_user</string>
+    <string name="key_request_code">key_request_code</string>
     <string name="key_mail365">key_mail365</string>
     <string name="key_session_token">key_session_token</string>
     <string name="cancel">Cannel</string>
     <string name="send">Send</string>
     <string name="change">Change</string>
     <string name="enter_title">Enter title</string>
+    <string name="enter_your_email">Enter your email</string>
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE</string>
@@ -74,4 +76,13 @@
     <string name="change_password">Change Password</string>
     <string name="facebook_app_id">142773181347562</string>
     <string name="fb_login_protocol_scheme">fb142773181347562</string>
+
+    <!--Email Token -->
+
+    <string name="key_refresh_token">refresh_token</string>
+    <string name="key_access_token">access_token</string>
+    <string name="key_client_id">client_id</string>
+    <string name="key_redirect_uri">redirect_uri</string>
+    <string name="key_grant_type">grant_type</string>
+    <string name="url_graph_microsoft">https://graph.microsoft.com/</string>
 </resources>

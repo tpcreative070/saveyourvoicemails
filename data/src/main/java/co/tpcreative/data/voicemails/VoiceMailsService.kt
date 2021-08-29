@@ -1,13 +1,12 @@
 package co.tpcreative.data.voicemails
 
 import co.tpcreative.domain.models.BaseResponse
-import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.EmailToken
 import co.tpcreative.domain.models.SearchUsersResult
+import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
-import co.tpcreative.domain.models.response.ResponseUpload
-import co.tpcreative.domain.models.response.UserResponse
-import co.tpcreative.domain.models.response.VoiceMailsResponse
+import co.tpcreative.domain.models.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -15,6 +14,21 @@ import retrofit2.Call
 import retrofit2.http.*
 
 internal interface VoiceMailsService {
+
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail365/getLatestOutlook")
+    fun getLatestOutlook(@Body request: Mail365Request): Call<Mail365Response>
+
+    @Headers("Accept: application/json")
+    @POST()
+    fun sendEmailOutlook(@Url url : String?, @Header("Authorization") token: String?, @Body body: EmailToken): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST
+    fun refreshEmailOutlook(@Url url: String?, @FieldMap request: MutableMap<String?, Any?>): Call<Mail365>
+
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/mail365/addOutlook")
+    fun onAddEmailToken(@Body request: Mail365Request?): Call<BaseResponse>
 
     @GET("search/users")
     fun searchUsers(@Query("q") query: String): Call<SearchUsersResult>

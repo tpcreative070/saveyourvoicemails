@@ -1,19 +1,22 @@
 package co.tpcreative.data.voicemails
+import android.util.Log
 import co.tpcreative.data.BuildConfig
 import co.tpcreative.domain.interfaces.VoiceMailsDataSource
 import co.tpcreative.domain.models.BaseResponse
+import co.tpcreative.domain.models.EmailToken
 import co.tpcreative.domain.models.SearchUsersResult
 import co.tpcreative.domain.models.GitHubUser
+import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
-import co.tpcreative.domain.models.response.ResponseUpload
-import co.tpcreative.domain.models.response.UserResponse
-import co.tpcreative.domain.models.response.VoiceMailsResponse
+import co.tpcreative.domain.models.response.*
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -149,6 +152,41 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
 
     override fun downloadFileFormDataPost(request: VoiceMailsRequest): ResponseBody {
         val response = voiceMailsService.downloadFilePost(request).execute()
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+            throw Exception(response.message())
+        }
+    }
+
+    override fun getLatestMail365(request: Mail365Request): Mail365Response {
+        val response = voiceMailsService.getLatestOutlook(request).execute()
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+            throw Exception(response.message())
+        }
+    }
+
+    override fun sendEmailOutlook(url: String?, token: String?, body: EmailToken): Int {
+        val response = voiceMailsService.sendEmailOutlook(url,token,body).execute()
+        if (response.isSuccessful){
+            return response.code()
+        }
+        return response.code()
+    }
+
+    override fun refreshEmailOutlook(url: String?, request: MutableMap<String?, Any?>): Mail365 {
+        val response = voiceMailsService.refreshEmailOutlook(url,request).execute()
+        if (response.isSuccessful) {
+            return response.body()!!
+        } else {
+            throw Exception(response.message())
+        }
+    }
+
+    override fun addEmailToken(request: Mail365Request?): BaseResponse {
+        val response = voiceMailsService.onAddEmailToken(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {
