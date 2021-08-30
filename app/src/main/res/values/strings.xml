@@ -56,7 +56,7 @@
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
     <string name="please_turn_on_recording">Do you want to turn on recording feature, in the case you coud not forward voicemails?</string>
     <string name="alert">Alert</string>
-    <string name="find_enable_Voicemails">Find and enable the Voicemails Recoders app</string>
+    <string name="find_enable_Voicemails">Find and enable the Voicemails Recoder app</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
@@ -74,7 +74,7 @@
     <string name="key_detail_permission">For SaveYourVoicemails to work properly, the permissions below have to be granted. Please click "Grant Permissions" to see if permissions are on.</string>
     <string name="no_voicemails">No Voicemails</string>
     <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
-    <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on recorder app connector to record calls on Android 10</string>
+    <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on Voicemails Recorder app to record calls on Android 10 and later</string>
     <string name="grant_permissions">Granted Permissions</string>
     <string name="external_access_to_save_recording_to_mp3_files">External access to save recording to mp3 files</string>
     <string name="manage_phone_calls_to_record_incoming_and_outgoing_calls">Manage phone calls to record incoming and outgoing calls</string>
