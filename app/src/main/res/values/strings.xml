@@ -37,6 +37,7 @@
     <string name="me">Me</string>
     <string name="email">Email</string>
     <string name="recorder">Recorder</string>
+    <string name="voicemails_recorder">Voicemails Recorder</string>
     <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
     <string name="live_chat_url">https://sites.google.com/view/saveyourvoicemailslivechat/home</string>
 
@@ -53,7 +54,9 @@
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
+    <string name="please_turn_on_recording">Do you want to turn on recording?</string>
     <string name="alert">Alert</string>
+    <string name="find_enable_Voicemails">Find and enable the Voicemails Recoders app</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
@@ -61,17 +64,18 @@
     <string name="confirm">Confirm</string>
     <string name="exporting">Exporting…</string>
     <string name="are_you_sure_you_want_delete_item">Are you sure want to delete this voice mail</string>
+    <string name="key_already_asked_recording">key_already_asked_recording</string>
     <string name="key_account">Account</string>
     <string name="key_upgrade">Upgrade</string>
     <string name="key_general">General</string>
     <string name="key_automatically_recorder_voice">Automatically record voice</string>
     <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone calls</string>
     <string name="key_permission">Permission</string>
-    <string name="key_detail_permission">For SaveYourVoicemails work properly, you need to allow some permissions</string>
+    <string name="key_detail_permission">For SaveYourVoicemails to work properly, the permissions below have to be granted. Please click "Grant Permissions" to see if permissions are on.</string>
     <string name="no_voicemails">No Voicemails</string>
     <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
     <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on recorder app connector to record calls on Android 10</string>
-    <string name="grant_permissions">Grant Permissions</string>
+    <string name="grant_permissions">Granted Permissions</string>
     <string name="external_access_to_save_recording_to_mp3_files">External access to save recording to mp3 files</string>
     <string name="manage_phone_calls_to_record_incoming_and_outgoing_calls">Manage phone calls to record incoming and outgoing calls</string>
     <string name="download">Download</string>

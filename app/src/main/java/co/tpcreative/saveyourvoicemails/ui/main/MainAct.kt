@@ -14,7 +14,10 @@ import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
+import co.tpcreative.saveyourvoicemails.common.extension.isAlreadyAskRecording
 import co.tpcreative.saveyourvoicemails.common.extension.isSignedIn
+import co.tpcreative.saveyourvoicemails.common.extension.putAlreadyAskRecording
+import co.tpcreative.saveyourvoicemails.common.extension.putRecord
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.MyAccessibilityService
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -23,6 +26,7 @@ import co.tpcreative.saveyourvoicemails.ui.list.AudioFragment
 import co.tpcreative.saveyourvoicemails.ui.me.MeFragment
 import co.tpcreative.saveyourvoicemails.ui.settings.SettingsFragment
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -75,7 +79,9 @@ class MainAct : BaseActivity() {
                             this@MainAct,
                             MyAccessibilityService::class.java
                         )
-                    if (!enabled) {
+                    if (enabled) {
+                        alertAskRecording()
+                    }else{
                         if (Utils.isSignedIn()){
                             alertDialog()
                         }
@@ -94,8 +100,8 @@ class MainAct : BaseActivity() {
 
     private fun alertDialog() {
         val builder: MaterialDialog = MaterialDialog(this)
-            .title(text = getString(R.string.alert))
-            .message(res = R.string.please_turn_on_service)
+            .title(text = getString(R.string.find_enable_Voicemails))
+            .customView(R.layout.dialog_custom)
             .positiveButton(text = getString(R.string.ok))
             .cancelable(false)
             .positiveButton {
@@ -105,6 +111,25 @@ class MainAct : BaseActivity() {
         builder.show()
     }
 
+    private fun alertAskRecording() {
+        if (Utils.isAlreadyAskRecording()){
+            return
+        }
+        val builder: MaterialDialog = MaterialDialog(this)
+            .title(text = getString(R.string.alert))
+            .message(res = R.string.please_turn_on_recording)
+            .positiveButton(text = getString(R.string.ok))
+            .negativeButton(text = getString(R.string.cancel))
+            .cancelable(false)
+            .positiveButton {
+                Utils.putRecord(true)
+                Utils.putAlreadyAskRecording(true)
+            }
+            .negativeButton {
+                Utils.putAlreadyAskRecording(true)
+            }
+        builder.show()
+    }
 
     fun isAccessibilityServiceEnabled(context: Context, accessibilityService: Class<*>?): Boolean {
         val expectedComponentName = ComponentName(context, accessibilityService!!)

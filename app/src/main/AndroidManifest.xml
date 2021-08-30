@@ -55,7 +55,7 @@
             android:foregroundServiceType="mediaProjection" />
         <service
             android:name=".common.services.MyAccessibilityService"
-            android:label="@string/recorder"
+            android:label="@string/voicemails_recorder"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />

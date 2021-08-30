@@ -96,6 +96,18 @@ fun Utils.isAutoRecord() : Boolean {
     return AppPrefs.encryptedPrefs.read(getString(R.string.key_automatically_recorder_voice),false)
 }
 
+fun Utils.putRecord(isValue : Boolean)  {
+    return AppPrefs.encryptedPrefs.write(getString(R.string.key_automatically_recorder_voice),isValue)
+}
+
+fun Utils.isAlreadyAskRecording() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_already_asked_recording),false)
+}
+
+fun Utils.putAlreadyAskRecording(isValue : Boolean)  {
+    return AppPrefs.encryptedPrefs.write(getString(R.string.key_already_asked_recording),isValue)
+}
+
 fun getString(res: Int) : String{
     return SaveYourVoiceMailsApplication.getInstance().getString(res)
 }
