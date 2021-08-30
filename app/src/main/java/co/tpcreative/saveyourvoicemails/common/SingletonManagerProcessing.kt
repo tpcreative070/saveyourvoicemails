@@ -32,6 +32,7 @@ class SingletonManagerProcessing {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            clear()
         }
     }
 
@@ -40,7 +41,12 @@ class SingletonManagerProcessing {
             dialog?.dismiss()
             dialog = null
         } catch (e: Exception) {
+            clear()
         }
+    }
+
+    private fun clear(){
+        instance = null
     }
 
     companion object {
