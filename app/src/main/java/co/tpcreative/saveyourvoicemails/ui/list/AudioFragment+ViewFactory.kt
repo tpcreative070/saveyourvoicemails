@@ -3,14 +3,17 @@ package co.tpcreative.saveyourvoicemails.ui.list
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
+import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.common.view.addListOfDecoration
@@ -19,8 +22,32 @@ import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@ExperimentalStdlibApi
+fun AudioFragment.initUI(){
+    lifecycleScope.launchWhenResumed {
+        binding.edtSearch.textChanges()
+            .debounce(200)
+            .collect {
+                execute(it)
+            }
+    }
+
+    binding.edtSearch.setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            hideSoftKeyBoard(activity?.currentFocus)
+        }
+        true
+    }
+
+    binding.imgClear.setOnClickListener {
+        binding.edtSearch.setText("")
+        hideSoftKeyBoard(activity?.currentFocus)
+    }
+}
 fun AudioFragment.initRecycleView(layoutInflater: LayoutInflater) {
     try {
         gridLayoutManager = NpaGridLayoutManager(this.context, AudioAdapter.SPAN_COUNT_ONE)
@@ -171,4 +198,19 @@ fun AudioFragment.askDeleteVoiceMail(id: String, voice: String) {
         .negativeButton {
         }
     builder.show()
+}
+
+
+@ExperimentalStdlibApi
+private fun AudioFragment.execute(s: CharSequence?) {
+    if (binding.edtSearch == activity?.currentFocus){
+        viewModel.searchText = s.toString()
+        if (viewModel.searchText.isNotEmpty()){
+            binding.imgClear.visibility = View.VISIBLE
+        }else{
+            binding.imgClear.visibility = View.INVISIBLE
+        }
+    }else{
+        log("Nothing")
+    }
 }

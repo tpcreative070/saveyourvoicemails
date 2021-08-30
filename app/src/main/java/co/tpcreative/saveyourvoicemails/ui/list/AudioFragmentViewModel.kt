@@ -1,4 +1,5 @@
 package co.tpcreative.saveyourvoicemails.ui.list
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
@@ -48,6 +49,25 @@ class AudioFragmentViewModel(
             field = value
         }
 
+    @ExperimentalStdlibApi
+    var searchText : String = ""
+        set(value){
+            field = value
+            searchText()
+        }
+
+    var searchData : MutableLiveData<MutableList<AudioViewModel>> =  MutableLiveData<MutableList<AudioViewModel>>()
+
+    @ExperimentalStdlibApi
+    private fun searchText(){
+        val mResult = dataList.filter { it.title.lowercase().contains(searchText.lowercase())}
+        if (searchText.isEmpty()){
+            searchData.value = dataList
+        }else{
+            searchData.value = mResult.toMutableList()
+        }
+    }
+
     fun downloadFile(downloadFileRequest: DownloadFileRequest) = liveData(Dispatchers.IO ){
         try {
             val mResult = downloadService.downloadFilePost(downloadFileRequest)
@@ -77,7 +97,8 @@ class AudioFragmentViewModel(
                 val audioList = mResult.data?.map {
                      AudioViewModel(it)
                 }
-                emit(Resource.success(audioList?.toMutableList()))
+                dataList.addAll(audioList!!)
+                emit(Resource.success(audioList.toMutableList()))
             }
         } catch (e: Exception) {
             logger.warn( "An error occurred while login user", e)

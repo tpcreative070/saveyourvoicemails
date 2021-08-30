@@ -3,17 +3,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
 import co.tpcreative.saveyourvoicemails.common.base.log
+import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
 
 class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     var gridLayoutManager: NpaGridLayoutManager? = null
@@ -27,8 +32,10 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
         super.onCreate(savedInstanceState)
     }
 
+    @ExperimentalStdlibApi
     override fun work() {
         super.work()
+        initUI()
         initRecycleView(this.layoutInflater)
         bindingEvent()
     }
@@ -51,6 +58,16 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
                 binding.progressBar.visibility = View.GONE
                 log("Hide loading...")
             }
+        })
+
+        viewModel.searchData.observe(this, Observer { mResult ->
+            if (mResult.size==0) {
+                binding.tvNoVoiceMails.visibility = View.VISIBLE
+            } else {
+                binding.tvNoVoiceMails.visibility = View.GONE
+            }
+            adapter.setDataSource(mResult)
+
         })
         getData()
     }

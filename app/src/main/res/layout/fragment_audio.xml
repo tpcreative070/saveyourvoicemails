@@ -12,7 +12,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/llSearch"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_centerInParent="true"
+                android:background="@drawable/bg_button_rounded_edittext"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/grey_600"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:id="@+id/edtSearch"
+                android:hint="@string/search"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:visibility="invisible"
+                android:layout_marginEnd="10dp"
+                android:id="@+id/imgClear"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@drawable/ic_baseline_clear_24"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+        </RelativeLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/llSearch"
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
