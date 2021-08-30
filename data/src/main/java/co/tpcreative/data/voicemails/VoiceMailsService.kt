@@ -42,6 +42,9 @@ internal interface VoiceMailsService {
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
     fun signUp(@Body request: UserRequest): Call<UserResponse>
 
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/changePassword")
+    fun changePassword(@Body request: UserRequest): Call<UserResponse>
+
     @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/signUp")
     fun signUp(@Body request: VoiceMailsRequest): Call<VoiceMailsResponse>
 

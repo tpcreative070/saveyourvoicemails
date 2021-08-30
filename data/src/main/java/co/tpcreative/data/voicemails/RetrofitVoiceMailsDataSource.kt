@@ -80,7 +80,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
     }
 
     override fun changePassword(request: UserRequest): UserResponse {
-        val response = voiceMailsService.signUp(request).execute()
+        val response = voiceMailsService.changePassword(request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {

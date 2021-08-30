@@ -3,6 +3,7 @@ package co.tpcreative.saveyourvoicemails
 import android.content.Context
 import android.content.Intent
 import co.tpcreative.domain.models.request.DownloadFileRequest
+import co.tpcreative.saveyourvoicemails.ui.changepassword.ChangePasswordAct
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import co.tpcreative.saveyourvoicemails.ui.permission.PermissionAct
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
@@ -41,4 +42,10 @@ object Navigator {
         val intent = Intent(context,PermissionAct::class.java)
         context.startActivity(intent)
     }
+
+    fun moveToChangePassword(context: Context){
+        val intent = Intent(context,ChangePasswordAct::class.java)
+        context.startActivity(intent)
+    }
+
 }

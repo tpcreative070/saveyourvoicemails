@@ -45,6 +45,11 @@ class UserViewModel (
 
     var requestLiveChat = MutableLiveData<Event<Boolean>>()
 
+    var isFacebook : Boolean = false
+        set(value){
+            field = value
+        }
+
     var user_id : String = ""
         set(value){
             field = value
@@ -151,6 +156,7 @@ class UserViewModel (
             if (result.error){
                 emit(Resource.error(Utils.CODE_EXCEPTION, result.message ?: "",null))
             }else{
+                result.user?.isFacebook = isFacebook
                 Utils.putUserPreShare(result.user)
                 Utils.putSessionTokenPreShare(result.session_token)
                 Utils.putMail365PreShare(result.mail365)

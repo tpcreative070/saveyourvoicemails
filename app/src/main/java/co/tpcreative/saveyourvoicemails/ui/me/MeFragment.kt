@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
+import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.FragmentMeBinding
@@ -34,7 +37,11 @@ class MeFragment : BaseFragment() {
             signOut()
         }
         binding.btnChangePassword.setOnClickListener {
-
+            Navigator.moveToChangePassword(requireContext())
+        }
+        val mUser = Utils.getUserInfo()
+        if (mUser?.isFacebook == true){
+            binding.btnChangePassword.visibility = View.GONE
         }
     }
 

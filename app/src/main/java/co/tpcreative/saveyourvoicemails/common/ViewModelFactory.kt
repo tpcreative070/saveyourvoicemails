@@ -7,6 +7,7 @@ import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.services.EmailOutlookService
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
 import co.tpcreative.saveyourvoicemails.common.services.download.ProgressResponseBody
+import co.tpcreative.saveyourvoicemails.ui.changepassword.ChangePasswordViewModel
 import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
 import co.tpcreative.saveyourvoicemails.ui.me.MeViewModel
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerViewModel
@@ -63,6 +64,10 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(PlayerViewModel::class),
                         UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                    )
+                isAssignableFrom(ChangePasswordViewModel::class.java) ->
+                    ChangePasswordViewModel(
+                        ChangePasswordUserUseCase(serviceLocator.voiceMailsDataSource)
                     )
                 isAssignableFrom(MeViewModel::class.java) ->
                     MeViewModel()

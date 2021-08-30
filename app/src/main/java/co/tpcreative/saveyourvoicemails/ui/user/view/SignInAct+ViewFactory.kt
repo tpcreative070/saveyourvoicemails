@@ -45,10 +45,12 @@ fun SignInAct.initUI(){
 
     binding.btnSignIn.setOnClickListener {
         viewModel.user_id = viewModel.email
+        viewModel.isFacebook = false
         signIn()
     }
 
     binding.btnSignInWithFacebook.setOnClickListener {
+        viewModel.isFacebook = true
         signInWithFacebook()
     }
 

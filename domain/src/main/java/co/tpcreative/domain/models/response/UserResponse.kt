@@ -38,5 +38,6 @@ class User {
     var name: String? = null
     var uuid : String? = null
     var isSignIn : Boolean = false
+    var isFacebook : Boolean = false
 }
 
