@@ -1,11 +1,20 @@
 package co.tpcreative.saveyourvoicemails.ui.permission
 import android.Manifest
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
+import android.text.TextUtils
+import android.view.View
 import androidx.core.content.ContextCompat
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
+import co.tpcreative.saveyourvoicemails.common.services.MyAccessibilityService
 import co.tpcreative.saveyourvoicemails.databinding.ActivityPermissionBinding
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -14,7 +23,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 
 class PermissionAct : BaseActivity() {
     private lateinit var binding: ActivityPermissionBinding
-    private var isRequestGrant : Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPermissionBinding.inflate(layoutInflater)
@@ -23,10 +31,12 @@ class PermissionAct : BaseActivity() {
         binding.btnGrantPermissions.setOnClickListener {
             requestPermissions()
         }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED) {
-            binding.imgAudioAccess.setImageLevel(R.drawable.ic_baseline_dangerous_24)
+        if (isAccessibilityServiceEnabled(this@PermissionAct,  MyAccessibilityService::class.java)){
+            binding.btnGrantPermissions.visibility = View.INVISIBLE
+            binding.imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10.setImageDrawable(ContextCompat.getDrawable(this@PermissionAct,R.drawable.ic_baseline_check_circle_outline_24))
+        }else{
+            binding.imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10.setImageDrawable(ContextCompat.getDrawable(this@PermissionAct,R.drawable.ic_baseline_dangerous_24))
+            binding.btnGrantPermissions.visibility = View.VISIBLE
         }
     }
 
@@ -41,7 +51,12 @@ class PermissionAct : BaseActivity() {
                 Manifest.permission.READ_CALL_LOG
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-
+                    if (isAccessibilityServiceEnabled(this@PermissionAct,  MyAccessibilityService::class.java)){
+                        binding.imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10.setImageDrawable(ContextCompat.getDrawable(this@PermissionAct,R.drawable.ic_baseline_check_circle_outline_24))
+                    }else{
+                        binding.imgTurnOnRecorderAppConnectorToRecordCallsOnAndroid10.setImageDrawable(ContextCompat.getDrawable(this@PermissionAct,R.drawable.ic_baseline_dangerous_24))
+                        alertDialog()
+                    }
                 }
                 override fun onPermissionRationaleShouldBeShown(
                     permissions: List<PermissionRequest>,
@@ -51,4 +66,38 @@ class PermissionAct : BaseActivity() {
             })
             .check()
     }
+
+    private fun isAccessibilityServiceEnabled(context: Context, accessibilityService: Class<*>?): Boolean {
+        val expectedComponentName = ComponentName(context, accessibilityService!!)
+        val enabledServicesSetting =
+            Settings.Secure.getString(
+                context.contentResolver,
+                Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+            )
+                ?: return false
+        val colonSplitter = TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledService = ComponentName.unflattenFromString(componentNameString)
+            if (enabledService != null && enabledService == expectedComponentName) return true
+        }
+        return false
+    }
+
+    private fun alertDialog() {
+        val builder: MaterialDialog = MaterialDialog(this)
+            .title(text = getString(R.string.find_enable_Voicemails))
+            .customView(R.layout.dialog_custom)
+            .positiveButton(text = getString(R.string.ok))
+            .cancelable(false)
+            .positiveButton {
+                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                startActivity(intent)
+                finish()
+            }
+        builder.show()
+    }
+
+
 }

@@ -54,7 +54,7 @@
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
-    <string name="please_turn_on_recording">Do you want to turn on recording?</string>
+    <string name="please_turn_on_recording">Do you want to turn on recording feature, in the case you coud not forward voicemails?</string>
     <string name="alert">Alert</string>
     <string name="find_enable_Voicemails">Find and enable the Voicemails Recoders app</string>
     <string name="ok">Ok</string>

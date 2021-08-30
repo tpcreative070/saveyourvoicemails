@@ -53,8 +53,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
-                        app:tint="@color/material_green_700" />
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -75,8 +74,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
-                        app:tint="@color/material_green_700" />
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -97,8 +95,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
-                        app:tint="@color/material_green_700" />
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -119,8 +116,7 @@
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"
-                        app:tint="@color/material_green_700" />
+                        app:srcCompat="@drawable/ic_baseline_check_circle_outline_24"/>
                 </RelativeLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
