@@ -91,7 +91,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_marginTop="10dp"
-            android:onClick="@{() -> viewmodel.onSignUpClicked()}"
+            android:id="@+id/btnSignUp"
             android:textColor="@color/white"
             android:text="@string/create_new_account"
             android:layout_width="match_parent"
@@ -107,9 +107,9 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btnLiveChat"
             android:layout_marginTop="10dp"
             android:textColor="@color/white"
-            android:onClick="@{() -> viewmodel.onLiveChatClicked()}"
             android:background="@null"
             android:text="@string/live_chat"
             android:layout_width="wrap_content"

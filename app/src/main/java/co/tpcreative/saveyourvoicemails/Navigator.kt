@@ -1,8 +1,12 @@
 package co.tpcreative.saveyourvoicemails
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import co.tpcreative.domain.models.request.DownloadFileRequest
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.ui.changepassword.ChangePasswordAct
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import co.tpcreative.saveyourvoicemails.ui.permission.PermissionAct
@@ -46,6 +50,24 @@ object Navigator {
     fun moveToChangePassword(context: Context){
         val intent = Intent(context,ChangePasswordAct::class.java)
         context.startActivity(intent)
+    }
+
+    fun openWebSites(url: String?,context: Activity) {
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        i.setPackage("com.android.chrome")
+        try {
+            context.startActivity(i)
+        } catch (e: ActivityNotFoundException) {
+            // Chrome is probably not installed
+            // Try with the default browser
+            try {
+                i.setPackage(null)
+                context.startActivity(i)
+            } catch (ex: Exception) {
+                Utils.onAlertNotify(context ,"Can not open the link")
+            }
+        }
     }
 
 }

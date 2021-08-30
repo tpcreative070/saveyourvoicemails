@@ -30,5 +30,14 @@
             android:text="@string/sign_out"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/btnSignOut"
+            android:id="@+id/btnLiveChat"
+            android:background="@drawable/bg_button_rounded"
+            android:text="@string/live_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

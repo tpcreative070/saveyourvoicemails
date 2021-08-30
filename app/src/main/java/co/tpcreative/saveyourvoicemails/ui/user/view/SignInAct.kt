@@ -42,18 +42,6 @@ class SignInAct : BaseActivity() {
     }
 
     private fun bindingEvent(){
-        viewModel.requestSignUp.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let { username ->
-                Navigator.moveToSignUp(this)
-            }
-        })
-
-        viewModel.requestForgotPassword.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let { value ->
-                log(value)
-            }
-        })
-
         viewModel.errorMessages.observe(this, { mResult ->
             mResult?.let {
                 log(mResult)

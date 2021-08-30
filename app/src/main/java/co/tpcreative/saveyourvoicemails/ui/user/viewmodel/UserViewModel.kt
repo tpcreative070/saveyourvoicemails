@@ -39,12 +39,6 @@ class UserViewModel (
 
     val requestSignUp = MutableLiveData<Event<Boolean>>()
 
-    val requestSignInWithGoogle = MutableLiveData<Event<Boolean>>()
-
-    var requestForgotPassword = MutableLiveData<Event<Boolean>>()
-
-    var requestLiveChat = MutableLiveData<Event<Boolean>>()
-
     var isFacebook : Boolean = false
         set(value){
             field = value
@@ -217,17 +211,5 @@ class UserViewModel (
             logger.warn( "An error occurred while get latest outlook", e)
             emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
-    }
-
-    fun onSignUpClicked() = viewModelScope.launch(mainDispatcher) {
-        requestSignUp.value =  Event(true)
-    }
-
-    fun onLiveChatClicked() = viewModelScope.launch(mainDispatcher) {
-        requestLiveChat.value = Event(true)
-    }
-
-    fun onSignInWithGoogleClicked() = viewModelScope.launch(mainDispatcher) {
-        requestSignInWithGoogle.value = Event(true)
     }
 }

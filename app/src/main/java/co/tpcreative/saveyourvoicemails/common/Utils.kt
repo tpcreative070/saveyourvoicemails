@@ -323,4 +323,13 @@ object Utils {
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)))
     }
 
- }
+    fun onAlertNotify(activity: Activity, message: String) {
+        Alerter.create(activity)
+            .setTitle("Alert")
+            .setBackgroundColorInt(ContextCompat.getColor(activity, R.color.colorAccent))
+            .setText(message)
+            .show()
+    }
+
+
+}

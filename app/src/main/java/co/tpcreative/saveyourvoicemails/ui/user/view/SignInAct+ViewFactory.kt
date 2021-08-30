@@ -57,6 +57,14 @@ fun SignInAct.initUI(){
     binding.btnForgotPassword.setOnClickListener {
         enterYourEmail()
     }
+
+    binding.btnSignUp.setOnClickListener {
+        Navigator.moveToSignUp(this)
+    }
+
+    binding.btnLiveChat.setOnClickListener {
+        Navigator.openWebSites(getString(R.string.live_chat_url),this)
+    }
 }
 
 private fun SignInAct.sendEmail(){

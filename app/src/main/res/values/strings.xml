@@ -37,6 +37,8 @@
     <string name="me">Me</string>
     <string name="email">Email</string>
     <string name="recorder">Recorder</string>
+    <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
+    <string name="live_chat_url">https://sites.google.com/view/saveyourvoicemailslivechat/home</string>
 
     <!-- TODO: user case -->
     <string name="key_user">key_user</string>
@@ -50,7 +52,7 @@
     <string name="enter_your_email">Enter your email</string>
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
-    <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE</string>
+    <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
     <string name="alert">Alert</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
