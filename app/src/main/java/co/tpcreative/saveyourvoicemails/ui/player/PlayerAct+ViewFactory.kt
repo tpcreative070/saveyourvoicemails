@@ -13,7 +13,7 @@ fun PlayerAct.downloadFile(downloadFileRequest: DownloadFileRequest){
     viewModel.downloadFile(downloadFileRequest).observe(this, Observer {  mResult ->
         when(mResult.status){
             Status.SUCCESS ->{
-                SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
+                SingletonManagerProcessing.getInstance()?.onStopProgressing()
                 play(downloadFileRequest.fullLocalPath)
             }else ->{
                 log("Error occurred downloading")

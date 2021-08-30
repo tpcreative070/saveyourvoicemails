@@ -165,7 +165,7 @@ fun ShareAct.uploadFile(mFile : File,mImport : ImportFilesModel,title: String){
                     mResult.data?.let { log(it) }
                     savedVoiceMails()
                     mFile.delete()
-                    SingletonManagerProcessing.getInstance()?.onStopProgressing(this@uploadFile)
+                    SingletonManagerProcessing.getInstance()?.onStopProgressing()
                 }
             }else ->{
             mResult.message?.let { log(it) }

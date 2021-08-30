@@ -100,7 +100,7 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
                 }
             }
         }
-        SingletonManagerProcessing.getInstance()?.onStopProgressing(activity)
+        SingletonManagerProcessing.getInstance()?.onStopProgressing()
     } else {
         SingletonManagerProcessing.getInstance()?.onStartProgressing(activity, R.string.exo_download_downloading)
         viewModel.downloadFile(request).observe(this, Observer { mResult ->
@@ -132,7 +132,7 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
                     log(mResult.message ?: "")
                 }
             }
-            SingletonManagerProcessing.getInstance()?.onStopProgressing(activity)
+            SingletonManagerProcessing.getInstance()?.onStopProgressing()
         })
     }
 }

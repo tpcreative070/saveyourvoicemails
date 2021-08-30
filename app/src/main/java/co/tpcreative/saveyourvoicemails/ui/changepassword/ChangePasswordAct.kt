@@ -59,7 +59,7 @@ class ChangePasswordAct : BaseActivity() {
             if (mResult){
                 SingletonManagerProcessing.getInstance()?.onStartProgressing(this, R.string.waiting)
             }else{
-                SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
+                SingletonManagerProcessing.getInstance()?.onStopProgressing()
             }
         })
 

@@ -36,7 +36,7 @@ class SingletonManagerProcessing {
         }
     }
 
-    fun onStopProgressing(activity: Activity?)  = CoroutineScope(Dispatchers.Main).launch{
+    fun onStopProgressing()  = CoroutineScope(Dispatchers.Main).launch{
         try {
             dialog?.dismiss()
             dialog = null

@@ -53,7 +53,7 @@ class PlayerAct : BaseActivity() {
         super.onStop()
         exoPlayer.stop()
         exoPlayer.release()
-        SingletonManagerProcessing.getInstance()?.onStopProgressing(this)
+        SingletonManagerProcessing.getInstance()?.onStopProgressing()
     }
 
     private fun init() {
