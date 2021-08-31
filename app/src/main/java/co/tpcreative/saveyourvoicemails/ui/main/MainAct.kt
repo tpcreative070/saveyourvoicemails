@@ -1,13 +1,17 @@
 package co.tpcreative.saveyourvoicemails.ui.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils.SimpleStringSplitter
+import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
@@ -27,13 +31,14 @@ import co.tpcreative.saveyourvoicemails.ui.me.MeFragment
 import co.tpcreative.saveyourvoicemails.ui.settings.SettingsFragment
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.pandora.bottomnavigator.BottomNavigator
-import kotlinx.coroutines.CoroutineScope
 
 class MainAct : BaseActivity() {
     private lateinit var navigator: BottomNavigator
@@ -76,13 +81,13 @@ class MainAct : BaseActivity() {
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                     val enabled: Boolean = isAccessibilityServiceEnabled(
-                            this@MainAct,
-                            MyAccessibilityService::class.java
-                        )
+                        this@MainAct,
+                        MyAccessibilityService::class.java
+                    )
                     if (enabled) {
                         alertAskRecording()
-                    }else{
-                        if (Utils.isSignedIn()){
+                    } else {
+                        if (Utils.isSignedIn()) {
                             alertDialog()
                         }
                     }
@@ -108,6 +113,13 @@ class MainAct : BaseActivity() {
                 val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
                 startActivity(intent)
             }
+        val customView: View = builder.getCustomView()
+        val imgGuide : AppCompatImageView = customView.findViewById(R.id.imgGuide)
+        Glide
+            .with(this)
+            .asGif()
+            .load(R.raw.guide_turn_on_service_dark_animation)
+            .into(imgGuide);
         builder.show()
     }
 

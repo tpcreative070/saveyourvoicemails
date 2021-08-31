@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
@@ -15,6 +16,8 @@ import co.tpcreative.saveyourvoicemails.common.services.MyAccessibilityService
 import co.tpcreative.saveyourvoicemails.databinding.ActivityPermissionBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -96,6 +99,13 @@ class PermissionAct : BaseActivity() {
                 startActivity(intent)
                 finish()
             }
+        val customView: View = builder.getCustomView()
+        val imgGuide : AppCompatImageView = customView.findViewById(R.id.imgGuide)
+        Glide
+            .with(this)
+            .asGif()
+            .load(R.raw.guide_turn_on_service_dark_animation)
+            .into(imgGuide);
         builder.show()
     }
 
