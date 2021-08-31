@@ -14,9 +14,9 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            app:srcCompat="@drawable/guide_turn_on_service"
+            app:srcCompat="@drawable/guide_turn_on_service_dark"
             android:layout_centerInParent="true"
-            android:layout_width="500dp"
-            android:layout_height="500dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

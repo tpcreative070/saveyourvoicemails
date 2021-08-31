@@ -82,7 +82,7 @@ subprojects {
     ext.constraintlayout = "2.1.0"
     ext.appMultidex = "2.0.1"
     ext.appPercent = "1.0.0"
-    ext.appCompileSdkVersion = "30"
+    ext.appCompileSdkVersion = 30
     ext.appBuildToolsVersion = "30.0.3"
     ext.appTargetSdkVersion = 30
     ext.build_versions_java_version = 1.8
