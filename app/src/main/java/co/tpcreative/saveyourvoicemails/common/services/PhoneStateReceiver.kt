@@ -19,12 +19,10 @@ class PhoneStateReceiver : BroadcastReceiver() {
             val extras = intent.extras
             val state = extras!!.getString(TelephonyManager.EXTRA_STATE)
              if (state == TelephonyManager.EXTRA_STATE_OFFHOOK) {
-                val phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
-                val recPath = startRecording(context, phoneNumber)
+                val recPath = startRecording(context, "097155109")
                 Utils.log(TAG, "recPath : $recPath")
             } else if (state == TelephonyManager.EXTRA_STATE_IDLE) {
-                val phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
-                stopRecording(context, phoneNumber)
+                stopRecording(context, "097155109")
             }
             Utils.log(TAG, "PhoneStateReceiver - onReceive: $state")
         } catch (e: Exception) {
