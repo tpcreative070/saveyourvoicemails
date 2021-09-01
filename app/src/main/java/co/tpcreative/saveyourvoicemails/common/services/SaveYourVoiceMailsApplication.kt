@@ -9,6 +9,9 @@ import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
+import org.solovyev.android.checkout.Billing
+import org.solovyev.android.checkout.Billing.DefaultConfiguration
+
 
 class SaveYourVoiceMailsApplication : MultiDexApplication() {
     private lateinit var saveYourVoiceMailsTemp: String
@@ -51,6 +54,16 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
         }
     }
 
+    private val mBilling = Billing(this, object : DefaultConfiguration() {
+        override fun getPublicKey(): String {
+            return SecurityUtil.API
+        }
+    })
+
+    fun getBilling(): Billing {
+        return mBilling
+    }
+
     fun getTemporary() : String {
         return saveYourVoiceMailsTemp
     }
@@ -82,8 +95,10 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
     @SuppressLint("HardwareIds")
     fun getDeviceId() : String{
-        return Settings.Secure.getString(applicationContext.contentResolver,
-                Settings.Secure.ANDROID_ID)
+        return Settings.Secure.getString(
+            applicationContext.contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
     }
 
 }

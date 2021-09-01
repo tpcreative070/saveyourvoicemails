@@ -40,6 +40,7 @@
     <string name="voicemails_recorder">Voicemails Recorder</string>
     <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
     <string name="live_chat_url">https://sites.google.com/view/saveyourvoicemailslivechat/home</string>
+    <string name="key_voicemails_version">Voicemails: %1$s</string>
 
     <!-- TODO: user case -->
     <string name="key_user">key_user</string>
@@ -71,7 +72,9 @@
     <string name="key_automatically_recorder_voice">Automatically record voice</string>
     <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone calls</string>
     <string name="key_permission">Permission</string>
+    <string name="key_version">Version</string>
     <string name="key_detail_permission">For SaveYourVoicemails to work properly, the permissions below have to be granted. Please click "Grant Permissions" to see if permissions are on.</string>
+    <string name="key_subscription_one_year">co.tpcreative.saveyourvoicemails.oneyear</string>
     <string name="no_voicemails">No Voicemails</string>
     <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
     <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on Voicemails Recorder app to record calls on Android 10 and later</string>

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
@@ -59,6 +60,7 @@ class SettingsFragment : BaseFragment(){
 
     class SettingsFragment : PreferenceFragmentCompat() {
         private var mPerMission: MyPreference? = null
+        private var mVersion: MyPreference? = null
 
         private fun createChangeListener(): Preference.OnPreferenceChangeListener? {
             return Preference.OnPreferenceChangeListener { preference, newValue -> true }
@@ -79,6 +81,12 @@ class SettingsFragment : BaseFragment(){
             super.onCreate(savedInstanceState)
             mPerMission = findPreference(getString(R.string.key_permission)) as MyPreference?
             mPerMission?.onPreferenceClickListener = createActionPreferenceClickListener()
+
+            /*Version*/
+            mVersion = findPreference(getString(R.string.key_version)) as MyPreference?
+            mVersion?.onPreferenceChangeListener = createChangeListener()
+            mVersion?.onPreferenceClickListener = createActionPreferenceClickListener()
+            mVersion?.summary = String.format(getString(R.string.key_voicemails_version), BuildConfig.VERSION_NAME)
         }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

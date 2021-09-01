@@ -16,5 +16,12 @@
             android:summary="@string/key_detail_permission"
             android:key="@string/key_permission"
             android:title="@string/key_permission"/>
+
+        <co.tpcreative.saveyourvoicemails.common.preference.MyPreference
+            android:layout="@layout/custom_preferences_item"
+            android:icon="@drawable/ic_baseline_margin_24"
+            android:key="@string/key_version"
+            android:title="@string/key_version"/>
+
     </androidx.preference.PreferenceCategory>
 </androidx.preference.PreferenceScreen>

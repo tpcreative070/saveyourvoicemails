@@ -1,7 +1,6 @@
 package co.tpcreative.saveyourvoicemails.ui.main
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -11,7 +10,6 @@ import android.text.TextUtils.SimpleStringSplitter
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
@@ -39,12 +37,19 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.pandora.bottomnavigator.BottomNavigator
+import org.solovyev.android.checkout.Checkout
+import org.solovyev.android.checkout.Inventory
+
 
 class MainAct : BaseActivity() {
     private lateinit var navigator: BottomNavigator
     private lateinit var binding: ActivityMainBinding
 
-
+    val mCheckout = Checkout.forActivity(
+        this,
+        SaveYourVoiceMailsApplication.getInstance().getBilling()
+    )
+    var mInventory: Inventory? = null
     private val viewModel: MainActViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
@@ -54,6 +59,7 @@ class MainAct : BaseActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        initUI()
 
         navigator = BottomNavigator.onCreate(
             fragmentContainer = R.id.fragment_container,
@@ -125,6 +131,7 @@ class MainAct : BaseActivity() {
 
     private fun alertAskRecording() {
         if (Utils.isAlreadyAskRecording()){
+            startSubscription()
             return
         }
         val builder: MaterialDialog = MaterialDialog(this)
@@ -171,4 +178,16 @@ class MainAct : BaseActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
     }
+
+
+    override fun onDestroy() {
+        mCheckout.stop()
+        super.onDestroy()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        mCheckout.onActivityResult(requestCode, resultCode, data)
+    }
+
 }

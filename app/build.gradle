@@ -93,8 +93,6 @@ dependencies {
     /*Adding detect extension files*/
     implementation "commons-io:commons-io:$commonsIO"
     /*In app purchase*/
-    //implementation project(':checkoutlibrary')
-    implementation "com.anjlab.android.iab.v3:library:$v3Library"
     /*Even Bus*/
     implementation "org.greenrobot:eventbus:$eventbus"
     /*Animation textview*/
@@ -138,6 +136,7 @@ dependencies {
     implementation "com.facebook.android:facebook-login:$facebookLogin"
     implementation "com.github.bumptech.glide:glide:$glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide"
+    implementation "org.solovyev.android:checkout:$androidCheckout"
 
 
     implementation project(":data")
