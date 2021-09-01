@@ -55,9 +55,9 @@
     <string name="saved_voice_mails">Saved Voice Mails</string>
     <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
-    <string name="please_turn_on_recording">Do you want to turn on recording feature, in the case you coud not forward voicemails?</string>
+    <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice". This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app.</string>
     <string name="alert">Alert</string>
-    <string name="find_enable_Voicemails">Find and enable the Voicemails Recoder app</string>
+    <string name="find_enable_Voicemails">In "Settings", Click "Accessibility". Then Click "Installed Services". Then turn on "Voicemails Recorder". </string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>

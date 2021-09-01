@@ -111,21 +111,14 @@ class MainAct : BaseActivity() {
 
     private fun alertDialog() {
         val builder: MaterialDialog = MaterialDialog(this)
-            .title(text = getString(R.string.find_enable_Voicemails))
-            .customView(R.layout.dialog_custom)
+            .title(text = getString(R.string.alert))
+            .message(res = R.string.find_enable_Voicemails)
             .positiveButton(text = getString(R.string.ok))
             .cancelable(false)
             .positiveButton {
                 val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
                 startActivity(intent)
             }
-        val customView: View = builder.getCustomView()
-        val imgGuide : AppCompatImageView = customView.findViewById(R.id.imgGuide)
-        Glide
-            .with(this)
-            .asGif()
-            .load(R.raw.guide_turn_on_service_dark_animation)
-            .into(imgGuide);
         builder.show()
     }
 
