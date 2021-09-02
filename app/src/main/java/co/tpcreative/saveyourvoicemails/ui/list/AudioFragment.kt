@@ -9,9 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
 import co.tpcreative.saveyourvoicemails.common.base.log
+import co.tpcreative.saveyourvoicemails.common.extension.getIsSubscribed
 import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -19,11 +21,17 @@ import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
+import org.solovyev.android.checkout.ActivityCheckout
+import org.solovyev.android.checkout.Checkout
+import org.solovyev.android.checkout.Inventory
 
 class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     var gridLayoutManager: NpaGridLayoutManager? = null
     lateinit var binding: FragmentAudioBinding
     lateinit var adapter : AudioAdapter
+
+    lateinit var mCheckout: ActivityCheckout
+    var mInventory: Inventory? = null
     val viewModel: AudioFragmentViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
@@ -35,6 +43,10 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     @ExperimentalStdlibApi
     override fun work() {
         super.work()
+        mCheckout = Checkout.forActivity(
+            requireActivity(),
+            SaveYourVoiceMailsApplication.getInstance().getBilling()
+        )
         initUI()
         initRecycleView(this.layoutInflater)
         bindingEvent()
@@ -73,6 +85,10 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onClickItem(position: Int) {
+        if (!Utils.getIsSubscribed()){
+            startSubscription()
+            return
+        }
         val mItem = dataSource[position]
         val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
         context?.let { Navigator.moveToPlayer(it,mDownloadItem) }
@@ -83,25 +99,46 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onDownloadItem(position: Int) {
+        if (!Utils.getIsSubscribed()){
+            startSubscription()
+            return
+        }
         val mItem = dataSource[position]
         val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
         downloadFile(mDownloadItem,false)
     }
 
     override fun onShare(position: Int) {
+        if (!Utils.getIsSubscribed()){
+            startSubscription()
+            return
+        }
         val mItem = dataSource[position]
         val mDownloadItem = DownloadFileRequest(mItem.voice,mItem.outputFolder,mItem.voice,mItem.title)
         downloadFile(mDownloadItem,true)
     }
 
     override fun onEditItem(position: Int) {
+        if (!Utils.getIsSubscribed()){
+            startSubscription()
+            return
+        }
         val mItem = dataSource[position]
         enterVoiceMails(mItem.id)
     }
 
     override fun onDeleteItem(position: Int) {
+        if (!Utils.getIsSubscribed()){
+            startSubscription()
+            return
+        }
         val mItem = dataSource[position]
         askDeleteVoiceMail(mItem.id,mItem.voice)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mCheckout.stop()
     }
 
     private val dataSource : MutableList<AudioViewModel>

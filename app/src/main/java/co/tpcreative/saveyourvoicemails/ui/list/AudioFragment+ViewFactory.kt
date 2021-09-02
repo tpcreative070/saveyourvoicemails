@@ -13,18 +13,24 @@ import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
+import co.tpcreative.saveyourvoicemails.common.extension.getIsSubscribed
+import co.tpcreative.saveyourvoicemails.common.extension.getString
+import co.tpcreative.saveyourvoicemails.common.extension.putSubscription
 import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.common.view.addListOfDecoration
+import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
+import org.solovyev.android.checkout.*
 
 @ExperimentalStdlibApi
 fun AudioFragment.initUI(){
@@ -47,6 +53,7 @@ fun AudioFragment.initUI(){
         binding.edtSearch.setText("")
         hideSoftKeyBoard(activity?.currentFocus)
     }
+    initCheckout()
 }
 fun AudioFragment.initRecycleView(layoutInflater: LayoutInflater) {
     try {
@@ -212,5 +219,59 @@ private fun AudioFragment.execute(s: CharSequence?) {
         }
     }else{
         log("Nothing")
+    }
+}
+
+
+private fun AudioFragment.initCheckout(){
+    mCheckout.start()
+    mCheckout.createPurchaseFlow(PurchaseListener())
+    mInventory = mCheckout.makeInventory()
+    mInventory?.load(
+        Inventory.Request.create()
+            .loadAllPurchases()
+            .loadSkus(ProductTypes.SUBSCRIPTION, getString(R.string.key_subscription_one_year)),
+        InventoryCallback()
+    )
+}
+
+fun AudioFragment.startSubscription(){
+    if (Utils.getIsSubscribed()){
+        return
+    }
+    mCheckout.whenReady(object : Checkout.EmptyListener() {
+        override fun onReady(requests: BillingRequests) {
+            requests.purchase(ProductTypes.SUBSCRIPTION,getString(R.string.key_subscription_one_year), null, mCheckout.purchaseFlow)
+        }
+    })
+}
+
+private class PurchaseListener : EmptyRequestListener<Purchase>() {
+    override fun onSuccess(purchase: Purchase) {
+        // here you can process the loaded purchase
+        Utils.putSubscription(true)
+        Utils.log(this::class.java, "result ${Gson().toJson(purchase)}")
+    }
+
+    override fun onError(response: Int, e: Exception) {
+        // handle errors here
+        Utils.log(this::class.java, "Error occurred ${e.message}")
+    }
+}
+
+private class InventoryCallback : Inventory.Callback {
+    override fun onLoaded(products: Inventory.Products) {
+        // your code here
+        val mProduct = products.get(ProductTypes.SUBSCRIPTION)
+        val mPurchased = mProduct.getPurchaseInState(
+            getString(R.string.key_subscription_one_year),
+            Purchase.State.PURCHASED)
+        if (mPurchased!=null){
+            Utils.putSubscription(true)
+        }else{
+            Utils.putSubscription(false)
+        }
+        Utils.log(this::class.java, "this is product ${Gson().toJson(mProduct)}")
+        Utils.log(this::class.java, products)
     }
 }

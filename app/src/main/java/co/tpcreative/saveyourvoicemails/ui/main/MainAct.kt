@@ -114,8 +114,7 @@ class MainAct : BaseActivity() {
     }
 
     private fun alertAskRecording() {
-        if (Utils.isAlreadyAskRecording() || Utils.isAutoRecord()){
-            startSubscription()
+        if (Utils.isAutoRecord()){
             return
         }
         val builder: MaterialDialog = MaterialDialog(this)
