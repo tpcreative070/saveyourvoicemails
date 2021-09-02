@@ -1,9 +1,13 @@
 package co.tpcreative.saveyourvoicemails.ui.list
+import android.annotation.SuppressLint
 import co.tpcreative.domain.models.response.VoiceMail
-import co.tpcreative.saveyourvoicemails.common.extension.isFileExist
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
-class AudioViewModel {
+class AudioViewModel(private var item: VoiceMail) {
      val title : String by lazy {
          item.title ?: ""
      }
@@ -29,11 +33,14 @@ class AudioViewModel {
      }
 
      val createdDateTime : String by lazy {
-         item.dateTime ?: ""
+         convertUTCToLocalTime(item.dateTime ?: "")
      }
 
-     private var  item : VoiceMail
-     constructor(item : VoiceMail){
-         this.item = item
-     }
+    private fun convertUTCToLocalTime(timestamp: String) : String{
+        val df = SimpleDateFormat(Utils.FORMAT_TIME, Locale.ENGLISH)
+        df.timeZone = TimeZone.getTimeZone("MST")
+        val date = df.parse(timestamp)
+        df.timeZone = TimeZone.getDefault()
+        return df.format(date)
+    }
 }
