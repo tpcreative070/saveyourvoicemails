@@ -39,7 +39,7 @@
     <string name="recorder">Recorder</string>
     <string name="voicemails_recorder">Voicemails Recorder</string>
     <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
-    <string name="live_chat_url">https://sites.google.com/view/saveyourvoicemailslivechat/home</string>
+    <string name="live_chat_url">https://saveyourvoicemailnow.wixsite.com/savevoicemails</string>
     <string name="key_voicemails_version">Voicemails: %1$s</string>
 
     <!-- TODO: user case -->
