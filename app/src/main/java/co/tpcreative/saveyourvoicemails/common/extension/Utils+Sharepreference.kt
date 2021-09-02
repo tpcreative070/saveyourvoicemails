@@ -108,6 +108,14 @@ fun Utils.putAlreadyAskRecording(isValue : Boolean)  {
     return AppPrefs.encryptedPrefs.write(getString(R.string.key_already_asked_recording),isValue)
 }
 
+fun Utils.putSubscription(isValue : Boolean){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_subscription),isValue)
+}
+
+fun Utils.getIsSubscribed() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_subscription),false)
+}
+
 fun getString(res: Int) : String{
     return SaveYourVoiceMailsApplication.getInstance().getString(res)
 }

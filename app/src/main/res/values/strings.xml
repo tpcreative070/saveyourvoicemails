@@ -65,6 +65,7 @@
     <string name="confirm">Confirm</string>
     <string name="exporting">Exporting…</string>
     <string name="are_you_sure_you_want_delete_item">Are you sure want to delete this voice mail</string>
+    <string name="key_subscription">key_subscription</string>
     <string name="key_already_asked_recording">key_already_asked_recording</string>
     <string name="key_account">Account</string>
     <string name="key_upgrade">Upgrade</string>

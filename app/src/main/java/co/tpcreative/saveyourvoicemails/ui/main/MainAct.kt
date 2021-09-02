@@ -7,19 +7,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils.SimpleStringSplitter
-import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
-import co.tpcreative.saveyourvoicemails.common.extension.isAlreadyAskRecording
-import co.tpcreative.saveyourvoicemails.common.extension.isSignedIn
-import co.tpcreative.saveyourvoicemails.common.extension.putAlreadyAskRecording
-import co.tpcreative.saveyourvoicemails.common.extension.putRecord
+import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.MyAccessibilityService
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -28,9 +23,6 @@ import co.tpcreative.saveyourvoicemails.ui.list.AudioFragment
 import co.tpcreative.saveyourvoicemails.ui.me.MeFragment
 import co.tpcreative.saveyourvoicemails.ui.settings.SettingsFragment
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.customview.customView
-import com.afollestad.materialdialogs.customview.getCustomView
-import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -122,7 +114,7 @@ class MainAct : BaseActivity() {
     }
 
     private fun alertAskRecording() {
-        if (Utils.isAlreadyAskRecording()){
+        if (Utils.isAlreadyAskRecording() || Utils.isAutoRecord()){
             startSubscription()
             return
         }
