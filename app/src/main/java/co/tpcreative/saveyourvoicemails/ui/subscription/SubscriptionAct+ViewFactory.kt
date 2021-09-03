@@ -15,7 +15,19 @@ fun SubscriptionAct.initUI(){
 
 private fun SubscriptionAct.initCheckout(){
     mCheckout.start()
-    mCheckout.createPurchaseFlow(PurchaseListener())
+    mCheckout.createPurchaseFlow(object  : EmptyRequestListener<Purchase>() {
+        override fun onSuccess(purchase: Purchase) {
+            super.onSuccess(purchase)
+            Utils.putSubscription(true)
+            Utils.log(this::class.java, "result ${Gson().toJson(purchase)}")
+            finish()
+        }
+        override fun onError(response: Int, e: java.lang.Exception) {
+            super.onError(response, e)
+            Utils.log(this::class.java, "Error occurred ${e.message}")
+            finish()
+        }
+    })
     mInventory = mCheckout.makeInventory()
     mInventory?.load(
         Inventory.Request.create()
@@ -34,19 +46,6 @@ fun SubscriptionAct.startSubscription(){
             requests.purchase(ProductTypes.SUBSCRIPTION,getString(R.string.key_subscription_one_year), null, mCheckout.purchaseFlow)
         }
     })
-}
-
-private class PurchaseListener : EmptyRequestListener<Purchase>() {
-    override fun onSuccess(purchase: Purchase) {
-        // here you can process the loaded purchase
-        Utils.putSubscription(true)
-        Utils.log(this::class.java, "result ${Gson().toJson(purchase)}")
-    }
-
-    override fun onError(response: Int, e: Exception) {
-        // handle errors here
-        Utils.log(this::class.java, "Error occurred ${e.message}")
-    }
 }
 
 private class InventoryCallback : Inventory.Callback {
