@@ -1,5 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.list
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
@@ -19,6 +22,7 @@ import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
+import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import org.solovyev.android.checkout.ActivityCheckout
@@ -30,8 +34,6 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     lateinit var binding: FragmentAudioBinding
     lateinit var adapter : AudioAdapter
 
-    lateinit var mCheckout: ActivityCheckout
-    var mInventory: Inventory? = null
     val viewModel: AudioFragmentViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
@@ -43,10 +45,6 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     @ExperimentalStdlibApi
     override fun work() {
         super.work()
-        mCheckout = Checkout.forActivity(
-            requireActivity(),
-            SaveYourVoiceMailsApplication.getInstance().getBilling()
-        )
         initUI()
         initRecycleView(this.layoutInflater)
         bindingEvent()
@@ -86,7 +84,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onClickItem(position: Int) {
         if (!Utils.getIsSubscribed()){
-            startSubscription()
+            alertDialog()
             return
         }
         val mItem = dataSource[position]
@@ -100,7 +98,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onDownloadItem(position: Int) {
         if (!Utils.getIsSubscribed()){
-            startSubscription()
+            alertDialog()
             return
         }
         val mItem = dataSource[position]
@@ -110,7 +108,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onShare(position: Int) {
         if (!Utils.getIsSubscribed()){
-            startSubscription()
+            alertDialog()
             return
         }
         val mItem = dataSource[position]
@@ -120,7 +118,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onEditItem(position: Int) {
         if (!Utils.getIsSubscribed()){
-            startSubscription()
+            alertDialog()
             return
         }
         val mItem = dataSource[position]
@@ -129,7 +127,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onDeleteItem(position: Int) {
         if (!Utils.getIsSubscribed()){
-            startSubscription()
+            alertDialog()
             return
         }
         val mItem = dataSource[position]
@@ -138,7 +136,19 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        mCheckout.stop()
+        log("Destroy...")
+    }
+
+    private fun alertDialog() {
+        val builder: MaterialDialog = MaterialDialog(requireActivity())
+                .title(text = getString(R.string.confirm))
+                .message(res = R.string.description_subscription)
+                .positiveButton(text = getString(R.string.yes))
+                .cancelable(false)
+                .positiveButton {
+                   Navigator.moveSubscription(requireContext())
+                }
+        builder.show()
     }
 
     private val dataSource : MutableList<AudioViewModel>

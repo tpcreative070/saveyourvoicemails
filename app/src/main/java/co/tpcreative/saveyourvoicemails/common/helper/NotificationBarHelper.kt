@@ -11,6 +11,7 @@ import android.os.SystemClock
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -124,6 +125,7 @@ class NotificationBarHelper {
         notifyCompatBuilder
             .setContent(remoteViews)
             .setSmallIcon(R.drawable.ic_record)
+                .setColor(ContextCompat.getColor(appContext,R.color.colorAccent))
             .setCategory(NotificationCompat.CATEGORY_SERVICE)
             .setOnlyAlertOnce(true)
             .setAutoCancel(true)

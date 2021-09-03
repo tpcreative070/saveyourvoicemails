@@ -58,6 +58,8 @@
     <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice". This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app.</string>
     <string name="alert">Alert</string>
     <string name="find_enable_Voicemails">In "Settings", Click "Accessibility". Then Click "Installed Services". Then turn on "Voicemails Recorder". </string>
+    <string name="description_subscription">Click YES to try the SaveYourVoicemails app FREE for 7 days!</string>
+    <string name="yes">Yes</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
