@@ -12,6 +12,7 @@ import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import co.tpcreative.saveyourvoicemails.ui.permission.PermissionAct
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
 import co.tpcreative.saveyourvoicemails.ui.subscription.SubscriptionAct
+import co.tpcreative.saveyourvoicemails.ui.trim.TrimAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignInAct
 import co.tpcreative.saveyourvoicemails.ui.user.view.SignUpAct
 import com.google.gson.Gson
@@ -55,6 +56,12 @@ object Navigator {
 
     fun moveSubscription(context : Context){
         val intent = Intent(context,SubscriptionAct::class.java)
+        context.startActivity(intent)
+    }
+
+    fun moveToTrim(context: Context,url : String){
+        val intent = Intent(context,TrimAct::class.java)
+        intent.putExtra(TrimAct.AUDIO_URL_EXTRA,url)
         context.startActivity(intent)
     }
 

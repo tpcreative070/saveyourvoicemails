@@ -21,8 +21,10 @@
         android:theme="@style/Theme.App"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.subscription.SubscriptionAct"
-            android:theme="@style/Theme.App.Share"></activity>
+        <activity android:name=".ui.trim.TrimAct"></activity>
+        <activity
+            android:name=".ui.subscription.SubscriptionAct"
+            android:theme="@style/Theme.App.Share" />
         <activity android:name=".ui.changepassword.ChangePasswordAct" />
         <activity android:name=".ui.permission.PermissionAct" />
         <activity

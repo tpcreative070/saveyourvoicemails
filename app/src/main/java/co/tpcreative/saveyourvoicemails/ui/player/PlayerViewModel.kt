@@ -8,6 +8,7 @@ import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.domain.models.response.VoiceMail
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
+import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -25,6 +26,12 @@ class PlayerViewModel(private val ioDispatcher: CoroutineDispatcher,
 ) : BaseViewModel<Empty>() {
 
 
+    private lateinit var downloadRequest : DownloadFileRequest
+
+    fun setDownloadRequest(request: DownloadFileRequest){
+        this.downloadRequest = request
+    }
+
     fun downloadFile(downloadFileRequest: DownloadFileRequest) = liveData(
         Dispatchers.IO ){
         try {
@@ -39,6 +46,15 @@ class PlayerViewModel(private val ioDispatcher: CoroutineDispatcher,
             }
         } catch (e: Exception) {
             logger.warn( "An error occurred while login user", e)
+            emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
+        }
+    }
+
+    fun trimFile() = liveData(Dispatchers.IO) {
+        try {
+            val mResult = ServiceManager.getInstance()?.exportingItems(downloadRequest,true)
+            emit(Resource.success(mResult?.data?.absolutePath))
+        }catch (e : Exception){
             emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
     }

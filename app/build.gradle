@@ -143,6 +143,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":common")
     implementation project(":androidlame")
+    implementation project(":trimmerlibrary")
 }
 
 /*Resolved duplicated for Google api client*/

@@ -28,7 +28,7 @@ class PlayerAct : BaseActivity() {
         const val AUDIO_URL_EXTRA = "audio_url_extra"
     }
 
-    private lateinit var binding: ActivityPlayerBinding
+    lateinit var binding: ActivityPlayerBinding
     private lateinit var exoPlayer: ExoPlayer
     private lateinit var mCipher: Cipher
     private lateinit var mSecretKeySpec: SecretKeySpec
@@ -42,7 +42,8 @@ class PlayerAct : BaseActivity() {
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        init()
+        initUI()
+        initPlayer()
     }
 
     override fun onPause() {
@@ -51,15 +52,20 @@ class PlayerAct : BaseActivity() {
 
     override fun onStop() {
         super.onStop()
-        exoPlayer.stop()
-        exoPlayer.release()
         SingletonManagerProcessing.getInstance()?.onStopProgressing()
+        exoPlayer.stop()
     }
 
-    private fun init() {
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer.release()
+    }
+
+    private fun initPlayer() {
         initializePlayer()
         val result = intent.getStringExtra(AUDIO_URL_EXTRA)
         val downloadRequest = Gson().fromJson(result,DownloadFileRequest::class.java)
+        viewModel.setDownloadRequest(downloadRequest)
         if (downloadRequest.isDownloaded){
             play(downloadRequest.fullLocalPath)
         }else{

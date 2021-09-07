@@ -32,7 +32,7 @@ private class InventoryCallback : Inventory.Callback {
         val mProduct = products.get(ProductTypes.SUBSCRIPTION)
         val mPurchased = mProduct.getPurchaseInState(getString(R.string.key_subscription_one_year),Purchase.State.PURCHASED)
         if (mPurchased!=null){
-            Utils.putSubscription(true)
+            Utils.putSubscription( mPurchased.autoRenewing)
         }else{
             Utils.putSubscription(false)
         }
