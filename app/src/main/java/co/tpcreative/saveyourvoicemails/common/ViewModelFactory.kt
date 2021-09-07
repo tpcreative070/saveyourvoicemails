@@ -12,6 +12,7 @@ import co.tpcreative.saveyourvoicemails.ui.main.MainActViewModel
 import co.tpcreative.saveyourvoicemails.ui.me.MeViewModel
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerViewModel
 import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
+import co.tpcreative.saveyourvoicemails.ui.trim.TrimViewModel
 import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 
 class ViewModelFactory(private val serviceLocator: ServiceLocator,private val listener: ProgressResponseBody.ProgressResponseBodyListener?=null) : ViewModelProvider.NewInstanceFactory() {
@@ -73,6 +74,8 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                     MeViewModel()
                 isAssignableFrom(MainActViewModel::class.java) ->
                     MainActViewModel()
+                isAssignableFrom(TrimViewModel::class.java) ->
+                    TrimViewModel(UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)))
                 else -> throw IllegalArgumentException("unknown model class $modelClass")
             }
         } as T

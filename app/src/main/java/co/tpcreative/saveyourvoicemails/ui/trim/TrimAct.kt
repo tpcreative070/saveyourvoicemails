@@ -16,11 +16,19 @@ import android.view.*
 import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.viewModels
+import co.tpcreative.domain.models.EnumFormatType
+import co.tpcreative.domain.models.ImportFilesModel
+import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
+import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.base.log
+import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.ActivityTrimBinding
+import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.trimmerlibrary.*
 import java.io.File
 import java.io.PrintWriter
@@ -32,6 +40,10 @@ class TrimAct : BaseActivity() , MarkerView.MarkerListener,
 WaveformView.WaveformListener{
 
     lateinit var binding: ActivityTrimBinding
+    val viewModel : TrimViewModel by viewModels {
+        ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
+    }
+
     companion object {
         const val AUDIO_URL_EXTRA = "audio_url_extra"
     }
@@ -854,7 +866,7 @@ WaveformView.WaveformListener{
         return Utils.createTrimFile(title.toString()+System.currentTimeMillis(),extension)
     }
 
-    private fun saveRingtone(title: CharSequence) {
+    fun saveRingtone(title: CharSequence) {
         val startTime: Double = mWaveformView!!.pixelsToSeconds(mStartPos)
         val endTime: Double = mWaveformView!!.pixelsToSeconds(mEndPos)
         val startFrame: Int = mWaveformView!!.secondsToFrames(startTime)
@@ -977,25 +989,31 @@ WaveformView.WaveformListener{
         duration: Int
     ) {
        log("afterSavingRingtone")
+        val mFile = File(outPath)
+        val mimeTypeFile: MimeTypeFile? = Utils.mediaTypeSupport()[mFile.extension]
+        mimeTypeFile?.name = title.toString()
+        val importFiles = ImportFilesModel( mimeTypeFile, outPath, 0, false,Utils.getUUId())
+        importingData(importFiles)
     }
 
     private fun onSave() {
         if (mIsPlaying) {
             handlePause()
         }
-        val handler: Handler = @SuppressLint("HandlerLeak")
-        object : Handler() {
-            override fun handleMessage(response: Message) {
-                val newTitle = response.obj as CharSequence
-                mNewFileKind = response.arg1
-                saveRingtone(newTitle)
-            }
-        }
-        val message = Message.obtain(handler)
-        val dlog = FileSaveDialog(
-            this, resources, mTitle!!, message
-        )
-        dlog.show()
+//        val handler: Handler = @SuppressLint("HandlerLeak")
+//        object : Handler() {
+//            override fun handleMessage(response: Message) {
+//                val newTitle = response.obj as CharSequence
+//                mNewFileKind = response.arg1
+//                saveRingtone(newTitle)
+//            }
+//        }
+//        val message = Message.obtain(handler)
+//        val dlog = FileSaveDialog(
+//            this, resources, mTitle!!, message
+//        )
+//        dlog.show()
+        enterTrimTitle(mTitle!!)
     }
 
     private val mPlayListener: View.OnClickListener = View.OnClickListener { onPlay(mStartPos) }
