@@ -415,7 +415,7 @@ class SoundFile  {
     @Throws(IOException::class)
     fun WriteFile(outputFile: File?, startFrame: Int, numFrames: Int) {
         val startTime = startFrame.toFloat() * samplesPerFrame / sampleRate
-        val endTime = (startFrame + numFrames) as Float * samplesPerFrame / sampleRate
+        val endTime = (startFrame + numFrames).toFloat() * samplesPerFrame / sampleRate
         WriteFile(outputFile, startTime, endTime)
     }
 
@@ -596,7 +596,7 @@ class SoundFile  {
     @Throws(IOException::class)
     fun WriteWAVFile(outputFile: File?, startFrame: Int, numFrames: Int) {
         val startTime = startFrame.toFloat() * samplesPerFrame / sampleRate
-        val endTime = (startFrame + numFrames) as Float * samplesPerFrame / sampleRate
+        val endTime = (startFrame + numFrames).toFloat() * samplesPerFrame / sampleRate
         WriteWAVFile(outputFile, startTime, endTime)
     }
 

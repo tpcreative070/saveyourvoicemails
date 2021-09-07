@@ -17,6 +17,7 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseActivity
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.databinding.ActivityTrimBinding
@@ -849,56 +850,8 @@ WaveformView.WaveformListener{
         showFinalAlert(e, resources.getText(messageResourceId))
     }
 
-    private fun makeRingtoneFilename(title: CharSequence, extension: String): String? {
-        var externalRootDir = Environment.getExternalStorageDirectory().path
-        if (!externalRootDir.endsWith("/")) {
-            externalRootDir += "/"
-        }
-        val subdir: String = when (mNewFileKind) {
-            FileSaveDialog.FILE_KIND_MUSIC ->             // TODO(nfaralli): can directly use Environment.getExternalStoragePublicDirectory(
-                // Environment.DIRECTORY_MUSIC).getPath() instead
-                "media/audio/music/"
-            FileSaveDialog.FILE_KIND_ALARM -> "media/audio/alarms/"
-            FileSaveDialog.FILE_KIND_NOTIFICATION -> "media/audio/notifications/"
-            FileSaveDialog.FILE_KIND_RINGTONE -> "media/audio/ringtones/"
-            else -> "media/audio/music/"
-        }
-        var parentdir = externalRootDir + subdir
-
-        // Create the parent directory
-        val parentDirFile = File(parentdir)
-        parentDirFile.mkdirs()
-
-        // If we can't write to that special path, try just writing
-        // directly to the sdcard
-        if (!parentDirFile.isDirectory) {
-            parentdir = externalRootDir
-        }
-
-        // Turn the title into a filename
-        var filename = ""
-        for (i in title.indices) {
-            if (Character.isLetterOrDigit(title[i])) {
-                filename += title[i]
-            }
-        }
-
-        // Try to make the filename unique
-        var path: String? = null
-        for (i in 0..99) {
-            var testPath: String
-            if (i > 0) testPath = parentdir + filename + i + extension else testPath =
-                parentdir + filename + extension
-            try {
-                val f = RandomAccessFile(File(testPath), "r")
-                f.close()
-            } catch (e: Exception) {
-                // Good, the file didn't exist
-                path = testPath
-                break
-            }
-        }
-        return path
+    private fun makeRingtoneFilename(title: CharSequence, extension: String): String {
+        return Utils.createTrimFile(title.toString()+System.currentTimeMillis(),extension)
     }
 
     private fun saveRingtone(title: CharSequence) {
@@ -920,9 +873,9 @@ WaveformView.WaveformListener{
         mSaveSoundFileThread = object : Thread() {
             override fun run() {
                 // Try AAC first.
-                var outPath = makeRingtoneFilename(title, ".m4a")
+                var outPath = makeRingtoneFilename(title, ".mp3")
                 if (outPath == null) {
-                    val runnable: Runnable =
+                    val runnable =
                         Runnable { showFinalAlert(Exception(), R.string.no_unique_filename) }
                     mHandler!!.post(runnable)
                     return

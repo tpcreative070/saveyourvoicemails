@@ -18,6 +18,7 @@ import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
+import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
 import co.tpcreative.saveyourvoicemails.common.extension.getSessionTokenObject
 import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -331,5 +332,10 @@ object Utils {
             .show()
     }
 
+    fun createTrimFile(name : String,extension : String) : String{
+        val root = SaveYourVoiceMailsApplication.getInstance().getRecorder() + name+extension
+        val mFile = File(root)
+        return mFile.absolutePath
+    }
 
 }
