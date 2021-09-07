@@ -761,7 +761,7 @@ WaveformView.WaveformListener{
 
     private fun formatDecimal(x: Double): String {
         var xWhole = x.toInt()
-        var xFrac = (100 * (x - xWhole) + 0.5)
+        var xFrac = (100 * (x - xWhole) + 0.5).toInt()
         if (xFrac >= 100) {
             xWhole++ //Round up
             xFrac -= 100 //Now we need the remainder after the round up
