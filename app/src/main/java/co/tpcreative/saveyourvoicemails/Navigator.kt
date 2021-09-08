@@ -59,9 +59,10 @@ object Navigator {
         context.startActivity(intent)
     }
 
-    fun moveToTrim(context: Context,url : String){
+    fun moveToTrim(context: Context,url : String,title : String){
         val intent = Intent(context,TrimAct::class.java)
         intent.putExtra(TrimAct.AUDIO_URL_EXTRA,url)
+        intent.putExtra(TrimAct.AUDIO_TITLE_EXTRA,title)
         context.startActivity(intent)
     }
 

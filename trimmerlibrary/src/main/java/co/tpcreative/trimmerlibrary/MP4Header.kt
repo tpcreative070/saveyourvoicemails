@@ -766,9 +766,6 @@ class MP4Header(sampleRate: Int, numChannels: Int, frame_size: IntArray?, bitrat
 
     // Creates a new MP4Header object that should be used to generate an .m4a file header.
     init {
-        if (frame_size == null || frame_size.size < 2 || frame_size[0] != 2) {
-            //TODO(nfaralli): log something here
-        }
         mSampleRate = sampleRate
         mChannels = numChannels
         mFrameSize = frame_size

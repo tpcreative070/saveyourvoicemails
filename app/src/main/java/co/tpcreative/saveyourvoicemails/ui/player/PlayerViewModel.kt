@@ -53,10 +53,12 @@ class PlayerViewModel(private val ioDispatcher: CoroutineDispatcher,
     fun trimFile() = liveData(Dispatchers.IO) {
         try {
             val mResult = ServiceManager.getInstance()?.exportingItems(downloadRequest,true)
-            emit(Resource.success(mResult?.data?.absolutePath))
+            emit(Resource.success(TrimObject(mResult?.data?.absolutePath,downloadRequest.title)))
         }catch (e : Exception){
             emit(Resource.error(Utils.CODE_EXCEPTION, e.message ?: "",null))
         }
     }
+
+    data class TrimObject(val path: String?, val title: String)
 }
 

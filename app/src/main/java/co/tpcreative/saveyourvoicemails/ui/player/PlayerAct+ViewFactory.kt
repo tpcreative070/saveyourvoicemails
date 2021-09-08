@@ -21,8 +21,9 @@ fun PlayerAct.trimFile(){
         when(mResult.status){
             Status.SUCCESS ->{
                 SingletonManagerProcessing.getInstance()?.onStopProgressing()
-                val mPath = mResult.data
-                Navigator.moveToTrim(this,mPath?:"")
+                val mPath = mResult.data?.path
+                val mTitle = mResult.data?.title
+                Navigator.moveToTrim(this,mPath?:"",mTitle ?:"")
                 log(mPath ?:"")
             }else ->{
             log("Error occurred downloading")

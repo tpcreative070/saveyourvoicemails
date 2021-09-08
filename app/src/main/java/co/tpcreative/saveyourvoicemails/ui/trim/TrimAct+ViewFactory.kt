@@ -47,12 +47,12 @@ fun TrimAct.enterTrimTitle(fileName : String) {
 }
 
 
-fun TrimAct.importingData(mData:ImportFilesModel) = CoroutineScope(Dispatchers.Main).launch{
+fun TrimAct.importingData(mData:ImportFilesModel,title : String) = CoroutineScope(Dispatchers.Main).launch{
     val mResult = ServiceManager.getInstance()?.onImportData(mData)
     when(mResult?.status){
         Status.SUCCESS -> {
             SingletonManagerProcessing.getInstance()?.onStartProgressing(this@importingData,R.string.uploading)
-            uploadFile(File(mData.path),mData,mData.mimeTypeFile?.name!!)
+            uploadFile(File(mResult.data),mData,title)
         }
         else -> mResult?.message?.let { log(it) }
     }

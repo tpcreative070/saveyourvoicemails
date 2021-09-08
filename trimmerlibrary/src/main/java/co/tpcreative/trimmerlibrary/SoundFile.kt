@@ -4,6 +4,7 @@ import android.media.*
 import android.os.Build
 import android.os.Environment
 import android.util.Log
+import androidx.annotation.RequiresApi
 import java.io.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -412,6 +413,7 @@ class SoundFile  {
     }
 
     // should be removed in the near future...
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Throws(IOException::class)
     fun WriteFile(outputFile: File?, startFrame: Int, numFrames: Int) {
         val startTime = startFrame.toFloat() * samplesPerFrame / sampleRate
@@ -419,19 +421,19 @@ class SoundFile  {
         WriteFile(outputFile, startTime, endTime)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     @Throws(IOException::class)
     fun WriteFile(outputFile: File?, startTime: Float, endTime: Float) {
-        val startOffset = (startTime * sampleRate).toInt() * 2 * channels
+        val startOffset: Int = (startTime * sampleRate).toInt() * 2 * channels
         var numSamples = ((endTime - startTime) * sampleRate).toInt()
         // Some devices have problems reading mono AAC files (e.g. Samsung S3). Making it stereo.
         val numChannels = if (channels == 1) 2 else channels
+
         val mimeType = "audio/mp4a-latm"
         val bitrate = 64000 * numChannels // rule of thumb for a good quality: 64kbps per channel.
+
         var codec: MediaCodec? = MediaCodec.createEncoderByType(mimeType)
-        val format = MediaFormat.createAudioFormat(
-            mimeType,
-            sampleRate, numChannels
-        )
+        val format = MediaFormat.createAudioFormat(mimeType, sampleRate, numChannels)
         format.setInteger(MediaFormat.KEY_BIT_RATE, bitrate)
         codec!!.configure(format, null, null, MediaCodec.CONFIGURE_FLAG_ENCODE)
         codec.start()
@@ -439,16 +441,21 @@ class SoundFile  {
         // Get an estimation of the encoded data based on the bitrate. Add 10% to it.
         var estimatedEncodedSize = ((endTime - startTime) * (bitrate / 8) * 1.1).toInt()
         var encodedBytes = ByteBuffer.allocate(estimatedEncodedSize)
-        val inputBuffers = codec.inputBuffers
-        var outputBuffers = codec.outputBuffers
+//        val inputBuffers = codec.inputBuffers
+//        var outputBuffers = codec.outputBuffers
         val info = MediaCodec.BufferInfo()
         var done_reading = false
         var presentation_time: Long = 0
+
         val frame_size = 1024 // number of samples per frame per channel for an mp4 (AAC) stream.
+
         var buffer = ByteArray(frame_size * numChannels * 2) // a sample is coded with a short.
+
         mDecodedBytes!!.position(startOffset)
         numSamples += 2 * frame_size // Adding 2 frames, Cf. priming frames for AAC.
+
         var tot_num_frames = 1 + numSamples / frame_size // first AAC frame = 2 bytes
+
         if (numSamples % frame_size != 0) {
             tot_num_frames++
         }
@@ -457,6 +464,7 @@ class SoundFile  {
         var num_frames = 0
         var num_samples_left = numSamples
         var encodedSamplesSize = 0 // size of the output buffer containing the encoded samples.
+
         var encodedSamples: ByteArray? = null
         while (true) {
             // Feed the samples to the encoder.
@@ -469,8 +477,9 @@ class SoundFile  {
                     )
                     done_reading = true
                 } else {
-                    inputBuffers[inputBufferIndex].clear()
-                    if (buffer.size > inputBuffers[inputBufferIndex].remaining()) {
+                    codec.getInputBuffer(inputBufferIndex)?.clear()
+                    //inputBuffers[inputBufferIndex].clear()
+                    if (buffer.size > codec.getInputBuffer(inputBufferIndex)!!.remaining()) {
                         // Input buffer is smaller than one frame. This should never happen.
                         continue
                     }
@@ -495,7 +504,7 @@ class SoundFile  {
                         }
                     }
                     num_samples_left -= frame_size
-                    inputBuffers[inputBufferIndex].put(buffer)
+                    codec.getInputBuffer(inputBufferIndex)!!.put(buffer)
                     presentation_time = (num_frames++ * frame_size * 1e6 / sampleRate).toLong()
                     codec.queueInputBuffer(
                         inputBufferIndex, 0, buffer.size, presentation_time, 0
@@ -513,8 +522,8 @@ class SoundFile  {
                     encodedSamplesSize = info.size
                     encodedSamples = ByteArray(encodedSamplesSize)
                 }
-                outputBuffers[outputBufferIndex][encodedSamples, 0, info.size]
-                outputBuffers[outputBufferIndex].clear()
+                codec.getOutputBuffer(outputBufferIndex)!![encodedSamples, 0, info.size]
+                codec.getOutputBuffer(outputBufferIndex)!!.clear()
                 codec.releaseOutputBuffer(outputBufferIndex, false)
                 if (encodedBytes.remaining() < info.size) {  // Hopefully this should not happen.
                     estimatedEncodedSize = (estimatedEncodedSize * 1.2).toInt() // Add 20%.
@@ -526,8 +535,6 @@ class SoundFile  {
                     encodedBytes.position(position)
                 }
                 encodedBytes.put(encodedSamples, 0, info.size)
-            } else if (outputBufferIndex == MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED) {
-                outputBuffers = codec.outputBuffers
             } else if (outputBufferIndex == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                 // Subsequent data will conform to new format.
                 // We could check that codec.getOutputFormat(), which is the new output format,

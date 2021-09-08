@@ -1,14 +1,11 @@
 package co.tpcreative.saveyourvoicemails.ui.trim
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
-import android.os.Message
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
@@ -17,7 +14,6 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.activity.viewModels
-import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.R
@@ -28,13 +24,12 @@ import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.ActivityTrimBinding
-import co.tpcreative.saveyourvoicemails.ui.share.ShareViewModel
 import co.tpcreative.trimmerlibrary.*
 import java.io.File
 import java.io.PrintWriter
-import java.io.RandomAccessFile
 import java.io.StringWriter
 import java.util.*
+
 
 class TrimAct : BaseActivity() , MarkerView.MarkerListener,
 WaveformView.WaveformListener{
@@ -46,6 +41,7 @@ WaveformView.WaveformListener{
 
     companion object {
         const val AUDIO_URL_EXTRA = "audio_url_extra"
+        const val AUDIO_TITLE_EXTRA = "audio_title_extra"
     }
 
     private var mLoadingLastUpdateTime: Long = 0
@@ -57,9 +53,7 @@ WaveformView.WaveformListener{
     private var mSoundFile: SoundFile? = null
     private var mFile: File? = null
     private var mFilename: String? = null
-    private var mArtist: String? = null
-    private var mTitle: String? = null
-    private var mNewFileKind = 0
+    private var mTitleName : String? = null
     private var mWaveformView: WaveformView? = null
     private var mStartMarker: MarkerView? = null
     private var mEndMarker: MarkerView? = null
@@ -139,6 +133,7 @@ WaveformView.WaveformListener{
         // they create.
 
         mFilename = intent.getStringExtra(AUDIO_URL_EXTRA)
+        mTitleName = intent.getStringExtra(AUDIO_TITLE_EXTRA)
         mSoundFile = null
         mKeyDown = false
         mHandler = Handler()
@@ -491,16 +486,7 @@ WaveformView.WaveformListener{
 
     private fun loadFromFile() {
         mFile = File(mFilename)
-        val metadataReader = SongMetadataReader(
-            this, mFilename!!
-        )
-        mTitle = metadataReader.mTitle
-        mArtist = metadataReader.mArtist
-        var titleLabel = mTitle
-        if (mArtist != null && mArtist!!.isNotEmpty()) {
-            titleLabel += " - $mArtist"
-        }
-        title = titleLabel
+        title = mTitleName
         mLoadingLastUpdateTime = getCurrentTime()
         mLoadingKeepGoing = true
         mFinishActivity = false
@@ -863,7 +849,7 @@ WaveformView.WaveformListener{
     }
 
     private fun makeRingtoneFilename(title: CharSequence, extension: String): String {
-        return Utils.createTrimFile(title.toString()+System.currentTimeMillis(),extension)
+        return Utils.createTrimFile(title.toString() + System.currentTimeMillis(), extension)
     }
 
     fun saveRingtone(title: CharSequence) {
@@ -885,15 +871,8 @@ WaveformView.WaveformListener{
         mSaveSoundFileThread = object : Thread() {
             override fun run() {
                 // Try AAC first.
-                var outPath = makeRingtoneFilename(title, ".mp3")
-                if (outPath == null) {
-                    val runnable =
-                        Runnable { showFinalAlert(Exception(), R.string.no_unique_filename) }
-                    mHandler!!.post(runnable)
-                    return
-                }
-                var outFile = File(outPath)
-                var fallbackToWAV = false
+                val outPath = makeRingtoneFilename(title, ".mp3")
+                val outFile = File(outPath)
                 try {
                     // Write the new file
                     mSoundFile!!.WriteFile(outFile, startFrame, endFrame - startFrame)
@@ -906,67 +885,6 @@ WaveformView.WaveformListener{
                     e.printStackTrace(PrintWriter(writer))
                     log("Error: Failed to create $outPath")
                     log(writer.toString())
-                    fallbackToWAV = true
-                }
-
-                // Try to create a .wav file if creating a .m4a file failed.
-                if (fallbackToWAV) {
-                    outPath = makeRingtoneFilename(title, ".wav")
-                    if (outPath == null) {
-                        val runnable: Runnable =
-                            Runnable { showFinalAlert(Exception(), R.string.no_unique_filename) }
-                        mHandler!!.post(runnable)
-                        return
-                    }
-                    outFile = File(outPath)
-                    try {
-                        // create the .wav file
-                        mSoundFile!!.WriteWAVFile(outFile, startFrame, endFrame - startFrame)
-                    } catch (e: Exception) {
-                        // Creating the .wav file also failed. Stop the progress dialog, show an
-                        // error message and exit.
-                        mProgressDialog!!.dismiss()
-                        if (outFile.exists()) {
-                            outFile.delete()
-                        }
-                        mInfoContent = e.toString()
-                        runOnUiThread { mInfo!!.text = mInfoContent }
-                        val errorMessage: CharSequence
-                        if ((e.message != null
-                                    && (e.message == "No space left on device"))
-                        ) {
-                            errorMessage = resources.getText(R.string.no_space_error)
-                        } else {
-                            errorMessage = resources.getText(R.string.write_error)
-                        }
-                        val runnable =
-                            Runnable { showFinalAlert(e, errorMessage) }
-                        mHandler!!.post(runnable)
-                        return
-                    }
-                }
-
-                // Try to load the new file to make sure it worked
-                try {
-                    val listener: SoundFile.ProgressListener = object : SoundFile.ProgressListener {
-                        override fun reportProgress(frac: Double): Boolean {
-                            // Do nothing - we're not going to try to
-                            // estimate when reloading a saved sound
-                            // since it's usually fast, but hard to
-                            // estimate anyway.
-                            return true // Keep going
-                        }
-                    }
-                    SoundFile.create(outPath, listener)
-                } catch (e: Exception) {
-                    mProgressDialog!!.dismiss()
-                    e.printStackTrace()
-                    mInfoContent = e.toString()
-                    runOnUiThread { mInfo!!.text = mInfoContent }
-                    val runnable =
-                        Runnable { showFinalAlert(e, resources.getText(R.string.write_error)) }
-                    mHandler!!.post(runnable)
-                    return
                 }
                 mProgressDialog!!.dismiss()
                 val finalOutPath: String = outPath
@@ -988,32 +906,20 @@ WaveformView.WaveformListener{
         outPath: String,
         duration: Int
     ) {
-       log("afterSavingRingtone")
+        log("Duration : $duration")
+       log("afterSavingRingtone $outPath")
         val mFile = File(outPath)
         val mimeTypeFile: MimeTypeFile? = Utils.mediaTypeSupport()[mFile.extension]
-        mimeTypeFile?.name = title.toString()
-        val importFiles = ImportFilesModel( mimeTypeFile, outPath, 0, false,Utils.getUUId())
-        importingData(importFiles)
+        mimeTypeFile?.name = title.toString() + mimeTypeFile?.extension
+        val importFiles = ImportFilesModel(mimeTypeFile, outPath, 0, false, Utils.getUUId())
+        importingData(importFiles,title.toString())
     }
 
     private fun onSave() {
         if (mIsPlaying) {
             handlePause()
         }
-//        val handler: Handler = @SuppressLint("HandlerLeak")
-//        object : Handler() {
-//            override fun handleMessage(response: Message) {
-//                val newTitle = response.obj as CharSequence
-//                mNewFileKind = response.arg1
-//                saveRingtone(newTitle)
-//            }
-//        }
-//        val message = Message.obtain(handler)
-//        val dlog = FileSaveDialog(
-//            this, resources, mTitle!!, message
-//        )
-//        dlog.show()
-        enterTrimTitle(mTitle!!)
+        enterTrimTitle(mTitleName!!)
     }
 
     private val mPlayListener: View.OnClickListener = View.OnClickListener { onPlay(mStartPos) }
