@@ -52,13 +52,13 @@
     <string name="change">Change</string>
     <string name="enter_title">Enter title</string>
     <string name="enter_your_email">Enter your email</string>
-    <string name="saved_voice_mails">Saved Voice Mails</string>
-    <string name="saved_voice_mails_successfully">Saved Voice Mails Successfully</string>
+    <string name="saved_voice_mails">Voicemail Saved!</string>
+    <string name="saved_voice_mails_successfully">Voicemail Saved Successfully!</string>
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
     <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice" within the Save Your Voicemails app\'s Settings (gear icon on bottom right). This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app. Remember to turn this off after saving your voicemails; otherwise, all of your calls will be recorded.</string>
     <string name="alert">Alert</string>
     <string name="find_enable_Voicemails">In "Settings", Click "Accessibility". Then Click "Installed Services". Then turn on "Voicemails Recorder". </string>
-    <string name="description_subscription">Click YES to try the SaveYourVoicemails app FREE for 7 days!</string>
+    <string name="description_subscription">Click YES to try the SaveYourVoicemails app FREE for 3 days!</string>
     <string name="yes">Yes</string>
     <string name="ok">Ok</string>
     <string name="uploading">Uploading…</string>
@@ -76,7 +76,7 @@
     <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone calls</string>
     <string name="key_permission">Permission</string>
     <string name="key_version">Version</string>
-    <string name="key_detail_permission">For SaveYourVoicemails to work properly, the permissions below have to be granted. Please click "Grant Permissions" to see if permissions are on.</string>
+    <string name="key_detail_permission">The following permissions have been granted</string>
     <string name="key_subscription_one_year">co.tpcreative.saveyourvoicemails.oneyear</string>
     <string name="no_voicemails">No Voicemails</string>
     <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
