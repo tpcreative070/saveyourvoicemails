@@ -2,6 +2,7 @@ package co.tpcreative.saveyourvoicemails.ui.trim
 
 import android.text.InputType
 import android.widget.EditText
+import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.saveyourvoicemails.R
@@ -23,6 +24,7 @@ import com.afollestad.materialdialogs.input.input
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 fun TrimAct.initUI(){
@@ -99,6 +101,7 @@ fun TrimAct.savedVoiceMails() {
                 SaveYourVoiceMailsApplication.getInstance().getRecorder().deleteDirectory()
                 SaveYourVoiceMailsApplication.getInstance().getTemporary().createDirectory()
                 SaveYourVoiceMailsApplication.getInstance().getRecorder().createDirectory()
+                EventBus.getDefault().post(EnumEventBus.RELOAD_LIST)
                 finish()
             }
     builder.show()

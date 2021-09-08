@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
@@ -25,6 +26,9 @@ import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 import com.afollestad.materialdialogs.MaterialDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.solovyev.android.checkout.ActivityCheckout
 import org.solovyev.android.checkout.Checkout
 import org.solovyev.android.checkout.Inventory
@@ -136,7 +140,20 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        EventBus.getDefault().unregister(this);
         log("Destroy...")
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(event: EnumEventBus?) {
+        getData()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
     }
 
     private fun alertDialog() {

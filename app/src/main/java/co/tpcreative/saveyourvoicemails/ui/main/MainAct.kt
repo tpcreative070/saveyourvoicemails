@@ -9,6 +9,7 @@ import android.provider.Settings
 import android.text.TextUtils.SimpleStringSplitter
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
@@ -29,6 +30,9 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.pandora.bottomnavigator.BottomNavigator
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.solovyev.android.checkout.Checkout
 import org.solovyev.android.checkout.Inventory
 
