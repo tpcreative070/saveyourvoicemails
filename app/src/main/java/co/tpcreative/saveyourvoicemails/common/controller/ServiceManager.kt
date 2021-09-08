@@ -70,7 +70,10 @@ class ServiceManager {
                 if (isShared){
                     rootOutput = SaveYourVoiceMailsApplication.getInstance().getRecorder()
                 }
-                val mOutPut = File(rootOutput + "/ ${mData.title}_${mData.fileName}")
+                var mOutPut = File(rootOutput + "/ ${mData.title}.${mInput.extension}")
+                if (mOutPut.exists()){
+                   mOutPut =  File(rootOutput + "/ ${mData.title}_${Utils.getCurrentDateTime()}.${mInput.extension}")
+                }
                 if (!SaveYourVoiceMailsApplication.getInstance().getDownload().isDirectoryExists()){
                     SaveYourVoiceMailsApplication.getInstance().getDownload().createDirectory()
                 }
