@@ -167,6 +167,17 @@ class MainAct : BaseActivity() {
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        val enabled: Boolean = isAccessibilityServiceEnabled(
+            this@MainAct,
+            MyAccessibilityService::class.java
+        )
+        if (enabled) {
+            alertAskRecording()
+        }
+    }
+
     override fun onDestroy() {
         mCheckout.stop()
         super.onDestroy()
