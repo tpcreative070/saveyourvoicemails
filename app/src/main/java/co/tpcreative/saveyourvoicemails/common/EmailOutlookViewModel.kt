@@ -39,15 +39,17 @@ class EmailOutlookViewModel(private val service : EmailOutlookService) : BaseVie
                     else -> {
                         if (EnumResponseCode.INVALID_AUTHENTICATION.code==mResultSentEmail.code){
                             val mRequestEmailToken = getRefreshContent(mMail365)
-                            log("Request refresh token ${Gson().toJson(mRequestEmailToken)}")
                             val mResultRefreshToken = service.refreshEmailToken(REFRESH_TOKEN,mRequestEmailToken)
                             when(mResultRefreshToken.status){
                                 Status.SUCCESS ->{
-                                    Utils.putMail365PreShare(mResultRefreshToken.data)
+                                    val mMail365Shared = Utils.getMail365()
+                                    mMail365Shared?.access_token = "Bearer ${mResultRefreshToken.data?.access_token}"
+                                    mMail365Shared?.refresh_token = mResultRefreshToken.data?.refresh_token
+                                    Utils.putMail365PreShare(mMail365Shared)
                                     val mResultAddedMailToken = service.addEmailToken(getAddedEmailToken(user_id))
                                     when(mResultAddedMailToken.status){
                                         Status.SUCCESS ->{
-                                            val mSentEmail = service.sendMail(SEND_MAIL,mResultRefreshToken.data?.access_token ?:"",getEmailContent(enumStatus,user_id))
+                                            val mSentEmail = service.sendMail(SEND_MAIL,mMail365Shared?.access_token ?:"",getEmailContent(enumStatus,user_id))
                                             when(mSentEmail.status){
                                                 Status.SUCCESS ->{
                                                     mSentEmail
@@ -73,9 +75,8 @@ class EmailOutlookViewModel(private val service : EmailOutlookService) : BaseVie
     }
 
     private fun getEmailContent(enumStatus: EnType,user_id : String) : EmailToken {
-        val mMail365 = Utils.getMail365()
         val urlForgotPassword = FORGOT_PASSWORD + Utils.getRequestCode()
-        val mResult = EmailToken.getInstance()?.convertObject(mMail365, enumStatus,user_id,urlForgotPassword)
+        val mResult = EmailToken.getInstance()?.convertObject(enumStatus,user_id,urlForgotPassword)
         mResult?.let {
             log("content email ${Gson().toJson(it)}")
             return it

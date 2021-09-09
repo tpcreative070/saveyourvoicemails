@@ -9,6 +9,7 @@ import android.provider.Settings
 import android.text.TextUtils.SimpleStringSplitter
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import co.tpcreative.domain.models.EnType
 import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
@@ -46,7 +47,7 @@ class MainAct : BaseActivity() {
         SaveYourVoiceMailsApplication.getInstance().getBilling()
     )
     var mInventory: Inventory? = null
-    private val viewModel: MainActViewModel by viewModels {
+    val viewModel: MainActViewModel by viewModels {
         ViewModelFactory(DefaultServiceLocator.getInstance(SaveYourVoiceMailsApplication.getInstance()))
     }
 
@@ -69,6 +70,7 @@ class MainAct : BaseActivity() {
             activity = this
         )
         requestPermissions()
+        sendingEmail(EnType.NEW_USER)
     }
 
     private fun requestPermissions() {

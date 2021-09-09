@@ -73,7 +73,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                 isAssignableFrom(MeViewModel::class.java) ->
                     MeViewModel()
                 isAssignableFrom(MainActViewModel::class.java) ->
-                    MainActViewModel()
+                    MainActViewModel( EmailOutlookViewModel(EmailOutlookService(SendEmailOutlookUseCase(serviceLocator.voiceMailsDataSource), RefreshEmailOutlookUseCase(serviceLocator.voiceMailsDataSource),AddEmailTokenUseCase(serviceLocator.voiceMailsDataSource))))
                 isAssignableFrom(TrimViewModel::class.java) ->
                     TrimViewModel(UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)))
                 else -> throw IllegalArgumentException("unknown model class $modelClass")

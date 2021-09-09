@@ -13,6 +13,8 @@ interface ServiceLocator {
 
     val voiceMailsDataSource: VoiceMailsDataSource
 
+    val mail365DataSource: VoiceMailsDataSource
+
     fun voiceMailsDownloadDataSource(progressListener: ProgressResponseBody.ProgressResponseBodyListener?): VoiceMailsDataSource
 
     val searchHistoryDataSource: SearchHistoryDataSource
@@ -26,6 +28,8 @@ interface ServiceLocator {
     fun getHeaders(): HashMap<String, String>
 
     fun provideOkHttpClientDefault(): OkHttpClient
+
+    fun provideMail365OkHttpClientDefault(): OkHttpClient
 
     fun provideOkHttpClientDownload(progressListener: ProgressResponseBody.ProgressResponseBodyListener?): OkHttpClient
 }

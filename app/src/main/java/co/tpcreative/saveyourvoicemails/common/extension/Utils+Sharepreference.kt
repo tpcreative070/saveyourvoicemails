@@ -116,6 +116,22 @@ fun Utils.getIsSubscribed() : Boolean {
     return AppPrefs.encryptedPrefs.read(getString(R.string.key_subscription),false)
 }
 
+fun Utils.putSentSubscription(isValue : Boolean){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_sent_subscribed_app),isValue)
+}
+
+fun Utils.getIsSentSubscribed() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_sent_subscribed_app),false)
+}
+
+fun Utils.putSentDownloaded(isValue : Boolean){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_sent_downloaded_app),isValue)
+}
+
+fun Utils.getIsSentDownloaded() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_sent_downloaded_app),false)
+}
+
 fun getString(res: Int) : String{
     return SaveYourVoiceMailsApplication.getInstance().getString(res)
 }

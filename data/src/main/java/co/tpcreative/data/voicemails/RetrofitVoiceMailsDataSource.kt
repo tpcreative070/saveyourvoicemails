@@ -1,4 +1,5 @@
 package co.tpcreative.data.voicemails
+import android.annotation.SuppressLint
 import android.util.Log
 import co.tpcreative.data.BuildConfig
 import co.tpcreative.domain.interfaces.VoiceMailsDataSource
@@ -10,17 +11,21 @@ import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.*
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
-class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceMailsDataSource {
+class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient,mail365 : OkHttpClient) : VoiceMailsDataSource {
 
     private val voiceMailsService = Retrofit.Builder()
         .baseUrl(url)
@@ -33,6 +38,19 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
         )
         .build()
         .create(VoiceMailsService::class.java)
+
+    private val mail365Service = Retrofit.Builder()
+        .baseUrl(url)
+        .client(mail365)
+        .addConverterFactory(
+            GsonConverterFactory.create(
+                GsonBuilder()
+                    .create()
+            )
+        )
+        .build()
+        .create(VoiceMailsService::class.java)
+
 
     override fun searchUsers(query: String): SearchUsersResult {
         val response = voiceMailsService.searchUsers(query).execute()
@@ -169,7 +187,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
     }
 
     override fun sendEmailOutlook(url: String?, token: String?, body: EmailToken): Int {
-        val response = voiceMailsService.sendEmailOutlook(url,token,body).execute()
+        val response = mail365Service.sendEmailOutlook(url,token,body).execute()
         if (response.isSuccessful){
             return response.code()
         }
@@ -177,7 +195,7 @@ class RetrofitVoiceMailsDataSource(url : String, client : OkHttpClient) : VoiceM
     }
 
     override fun refreshEmailOutlook(url: String?, request: MutableMap<String?, Any?>): Mail365 {
-        val response = voiceMailsService.refreshEmailOutlook(url,request).execute()
+        val response = mail365Service.refreshEmailOutlook(url,request).execute()
         if (response.isSuccessful) {
             return response.body()!!
         } else {

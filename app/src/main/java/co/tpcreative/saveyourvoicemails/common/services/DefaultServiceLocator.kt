@@ -33,10 +33,12 @@ class DefaultServiceLocator private constructor(application: Application) : Serv
     }
 
     override fun voiceMailsDownloadDataSource(progressListener: ProgressResponseBody.ProgressResponseBodyListener?): VoiceMailsDataSource {
-        return RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl(),provideOkHttpClientDownload(progressListener))
+        return RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl(),provideOkHttpClientDownload(progressListener),provideMail365OkHttpClientDefault())
     }
 
-    override val voiceMailsDataSource by lazy { RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl(),provideOkHttpClientDefault()) }
+    override val voiceMailsDataSource by lazy { RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl(),provideOkHttpClientDefault(),provideMail365OkHttpClientDefault()) }
+
+    override val mail365DataSource: VoiceMailsDataSource by lazy { RetrofitVoiceMailsDataSource(SaveYourVoiceMailsApplication.getInstance().getUrl(),provideMail365OkHttpClientDefault(),provideMail365OkHttpClientDefault()) }
 
     override val searchHistoryDataSource by lazy { SqliteSearchHistoryDataSource(application) }
 
@@ -93,6 +95,19 @@ class DefaultServiceLocator private constructor(application: Application) : Serv
                         builder.addHeader(key, value)
                     }
                 }
+                chain.proceed(builder.build())
+            }.addInterceptor(mInterceptor).build()
+    }
+
+    override fun provideMail365OkHttpClientDefault(): OkHttpClient {
+        val timeout = 1
+        return OkHttpClient.Builder()
+            .readTimeout(timeout.toLong(), TimeUnit.MINUTES)
+            .writeTimeout(timeout.toLong(), TimeUnit.MINUTES)
+            .connectTimeout(timeout.toLong(), TimeUnit.MINUTES)
+            .addInterceptor { chain ->
+                val request = chain.request()
+                val builder = request.newBuilder()
                 chain.proceed(builder.build())
             }.addInterceptor(mInterceptor).build()
     }
