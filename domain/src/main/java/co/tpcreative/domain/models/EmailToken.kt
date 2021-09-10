@@ -14,7 +14,7 @@ class EmailToken  {
         instance?.saveToSentItems = true
         instance?.user_id = email
         val messages = Message()
-        val subject = "VoiceMailSaver"
+        val subject = "SaveYourVoicemails"
         messages.subject = subject
         val body = Body()
         body.contentType = "TEXT"
