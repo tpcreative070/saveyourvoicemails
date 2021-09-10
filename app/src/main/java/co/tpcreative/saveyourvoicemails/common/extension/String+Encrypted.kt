@@ -80,3 +80,9 @@ private fun String.deleteDirectoryImpl(path: String): Boolean {
 fun String.isDirectoryExists(): Boolean {
     return File(this).exists()
 }
+
+fun String.removedSpecialCharacters() : String{
+    var mResult = ""
+    mResult = this.replace(":","")
+    return mResult
+}

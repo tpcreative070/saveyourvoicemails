@@ -34,10 +34,12 @@ class EncryptedFileDataSource(cipher: Cipher?, secretKeySpec: SecretKeySpec?, iv
         mUri = dataSpec.uri
         // put all our throwable work in a single block, wrap the error in a custom Exception
         try {
+            log(this::class.java,"url ${mUri?.path}")
             setupInputStream()
             skipToPosition(dataSpec)
             computeBytesRemaining(dataSpec)
         } catch (e: IOException) {
+            log(this::class.java,"could not load url "+ mUri?.path)
             mUri?.path?.deleteFile()
             throw EncryptedFileDataSourceException(e)
         }

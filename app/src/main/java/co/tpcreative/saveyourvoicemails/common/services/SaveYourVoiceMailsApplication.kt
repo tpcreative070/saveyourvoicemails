@@ -8,6 +8,7 @@ import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.encrypt.SecurityUtil
 import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
+import co.tpcreative.saveyourvoicemails.common.extension.isSignedIn
 import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
 import com.elvishew.xlog.LogConfiguration
 import com.elvishew.xlog.LogLevel
@@ -59,6 +60,9 @@ class SaveYourVoiceMailsApplication : MultiDexApplication() {
 
 
     fun initXLog(){
+        if (!Utils.isSignedIn()){
+            return
+        }
         val config = LogConfiguration.Builder()
             .logLevel(
                 LogLevel.ALL

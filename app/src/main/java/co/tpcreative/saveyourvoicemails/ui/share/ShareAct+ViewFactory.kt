@@ -8,6 +8,7 @@ import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.domain.models.UploadBody
+import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.PathUtil
 import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
@@ -29,6 +30,7 @@ import java.io.File
 
 fun ShareAct.initUI(){
     onHandlerIntent()
+    SaveYourVoiceMailsApplication.getInstance().initXLog()
 }
 
 fun ShareAct.onHandlerIntent() {
@@ -54,7 +56,7 @@ fun ShareAct.onHandlerIntent() {
 }
 
 fun ShareAct.handleSendSingleItem(intent: Intent) {
-    XLog.d("-----------------------------------------------Start ${Utils.getCurrentDateTime()}------------------------------------------")
+    XLog.d("-----------------------------------------------Start ${Utils.getCurrentDateTime()} Version ${BuildConfig.VERSION_NAME}------------------------------------------")
     try {
         val imageUri : Uri? = intent.getParcelableExtra(Intent.EXTRA_STREAM)
         if (imageUri != null) {
@@ -81,7 +83,7 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                 val mFile = File(response)
                 if (mFile.exists()) {
                     val path = mFile.absolutePath
-                    val name = mFile.name
+                    val name = mFile.name.removedSpecialCharacters()
                     val fileExtension: String = Utils.getFileExtension(path)
                     val mimeType: String? = intent.type
                     log("file extension $fileExtension")
@@ -117,7 +119,7 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                     if (mimeTypeFile.name == null || mimeTypeFile.name == "") {
                         mimeTypeFile.name = name
                     }
-                    XLog.d(path +" => size ${mFile.getSize(SizeUnit.KB)}");
+                    XLog.d(path +" => intent size ${mFile.getSize(SizeUnit.KB)}");
                     val importFiles = ImportFilesModel( mimeTypeFile, path, 0, false,Utils.getUUId())
                     log(importFiles)
                     importingData(importFiles)
@@ -224,7 +226,7 @@ fun ShareAct.savedVoiceMails() {
             SaveYourVoiceMailsApplication.getInstance().getTemporary().createDirectory()
             SaveYourVoiceMailsApplication.getInstance().getRecorder().createDirectory()
             finish()
-            XLog.d("-----------------------------------------------End ${Utils.getCurrentDateTime()}------------------------------------------")
+            XLog.d("-----------------------------------------------End ${Utils.getCurrentDateTime()} Version ${BuildConfig.VERSION_NAME}------------------------------------------")
         }
     builder.show()
 }

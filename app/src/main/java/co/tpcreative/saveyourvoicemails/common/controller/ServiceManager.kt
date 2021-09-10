@@ -50,7 +50,8 @@ class ServiceManager {
                     } else {
                         Utils.log(this::class.java, "CreatedFile failed")
                     }
-                    XLog.d("onImportData $output ==> ${File(output).getSize(SizeUnit.KB)}");
+                    XLog.d("onInput ${mData.path} ==> ${File(mData.path).getSize(SizeUnit.KB)}");
+                    XLog.d("onOutput $output ==> ${File(output).getSize(SizeUnit.KB)}");
                     Resource.success(output)
                 } catch (e: Exception) {
                     Utils.log(this::class.java, "Cannot write to $e")
