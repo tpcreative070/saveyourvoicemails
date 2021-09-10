@@ -5,10 +5,7 @@ import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.models.response.ResponseUpload
-import co.tpcreative.domain.usecases.DownloadFilePostVoiceMailsUseCase
-import co.tpcreative.domain.usecases.DownloadFileVoiceMailsUseCase
-import co.tpcreative.domain.usecases.UploadFileFormDataVoiceMailsUseCase
-import co.tpcreative.domain.usecases.UploadFileVoiceMailsUseCase
+import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.services.upload.ProgressRequestBody
@@ -27,7 +24,7 @@ import okio.sink
 import java.io.File
 import java.io.IOException
 
-class UploadDownloadService(private val downloadFilePostVoiceMailsUseCase: DownloadFilePostVoiceMailsUseCase,private val downloadFileVoiceMailsUseCase: DownloadFileVoiceMailsUseCase,private val uploadFileFormDataVoiceMailsUseCase: UploadFileFormDataVoiceMailsUseCase) {
+class UploadDownloadService(private val downloadFilePostVoiceMailsUseCase: DownloadFilePostVoiceMailsUseCase,private val downloadFileVoiceMailsUseCase: DownloadFileVoiceMailsUseCase,private val uploadFileFormDataVoiceMailsUseCase: UploadFileFormDataVoiceMailsUseCase,private val uploadFileLogVoiceMailsUseCase: UploadFileLogVoiceMailsUseCase) {
     val TAG = this::class.java.simpleName
 
     suspend fun downloadFile(downloadFile : DownloadFileRequest) : Resource<String>{
@@ -71,6 +68,19 @@ class UploadDownloadService(private val downloadFilePostVoiceMailsUseCase: Downl
                 val mResult  = uploadFileFormDataVoiceMailsUseCase(userId,sessionToken,fileTitle,dataPart)
                 Utils.log(this::class.java,item)
                 Utils.log(this::class.java,mResult)
+                ResponseHandler.handleSuccess(mResult)
+            }catch (exception : Exception){
+                Utils.log(this::class.java,"Running here ${exception.message}")
+                ResponseHandler.handleException(exception)
+            }
+        }
+    }
+
+    suspend fun uploadFileLog(listener: ProgressRequestBody.UploadCallbacks, mFilePath: File?) : Resource<ResponseBody> {
+        return withContext(Dispatchers.IO){
+            try {
+                val dataPart: MultipartBody.Part = MultipartBody.Part.createFormData("file_name",mFilePath?.name,ProgressRequestBody(mFilePath,"text/plain",listener))
+                val mResult  = uploadFileLogVoiceMailsUseCase(dataPart)
                 ResponseHandler.handleSuccess(mResult)
             }catch (exception : Exception){
                 Utils.log(this::class.java,"Running here ${exception.message}")

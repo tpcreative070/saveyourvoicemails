@@ -54,6 +54,11 @@ internal interface VoiceMailsService {
         @Part metaPart: MultipartBody.Part?, @Part dataPart: MultipartBody.Part?,
     ): Call<ResponseBody>
 
+    @POST("saveyourvoicemails/voiceApp/vmsv2/v1/user/uploadLog")
+    @Multipart
+    fun uploadFileLog(
+        @Part file: MultipartBody.Part?): Call<ResponseBody>
+
     @POST("saveyourvoicemails/voiceApp/vmsv2/include/fileUpload.php")
     @Multipart
     fun uploadFileFormData(

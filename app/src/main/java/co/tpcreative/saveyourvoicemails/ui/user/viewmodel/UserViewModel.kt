@@ -154,6 +154,7 @@ class UserViewModel (
                 Utils.putUserPreShare(result.user)
                 Utils.putSessionTokenPreShare(result.session_token)
                 Utils.putMail365PreShare(result.mail365)
+                SaveYourVoiceMailsApplication.getInstance().initXLog()
                 emit(Resource.success(result))
             }
         } catch (e: Exception) {

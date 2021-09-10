@@ -43,6 +43,8 @@ interface VoiceMailsDataSource {
     fun uploadFile(@Part metaPart: MultipartBody.Part?,
                    @Part dataPart: MultipartBody.Part?) : ResponseBody
 
+    fun uploadFileLog(@Part file: MultipartBody.Part?) : ResponseBody
+
     fun uploadFileFormData(@Part("user_id") user_id: RequestBody,
                      @Part("session_token") session_token: RequestBody, @Part("fileTitle") fileTitle: RequestBody,
                      @Part dataPart: MultipartBody.Part?) : ResponseUpload

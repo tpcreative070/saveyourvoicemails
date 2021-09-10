@@ -8,12 +8,16 @@ import co.tpcreative.saveyourvoicemails.common.Utils.log
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.network.Status
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import org.solovyev.android.checkout.*
+import java.io.File
 
 
 fun MainAct.initUI() {
     initCheckout()
+    SaveYourVoiceMailsApplication.getInstance().initXLog()
 }
 
 fun MainAct.sendingEmail(enType: EnType) {
@@ -32,6 +36,22 @@ fun MainAct.sendingEmail(enType: EnType) {
         }
     }
     viewModel.sendEmailOutlook(enType).observe(this, Observer { mResult ->
+        when (mResult.status) {
+            Status.SUCCESS -> {
+                log(mResult.data ?: "")
+            }
+            else -> {
+                log(mResult.message ?: "")
+            }
+        }
+    })
+}
+
+fun MainAct.sendLog() {
+    if (!Utils.isSignedIn()){
+        return
+    }
+    viewModel.uploadFileLog(File(SaveYourVoiceMailsApplication.getInstance().getFileLog())).observe(this,{ mResult ->
         when (mResult.status) {
             Status.SUCCESS -> {
                 log(mResult.data ?: "")

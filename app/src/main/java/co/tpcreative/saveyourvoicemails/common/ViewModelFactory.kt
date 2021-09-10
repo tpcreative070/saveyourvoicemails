@@ -24,7 +24,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                 isAssignableFrom(AudioFragmentViewModel::class.java) ->
                     AudioFragmentViewModel(
                         GetVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
-                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)),
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileLogVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)),
                         UpdateVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),
                         DeleteVoiceMailUseCase(serviceLocator.voiceMailsDataSource),
                         serviceLocator.getLogger(AudioFragmentViewModel::class),
@@ -56,7 +56,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(ShareViewModel::class),
-                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileLogVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
 
                 isAssignableFrom(PlayerViewModel::class.java) ->
@@ -64,7 +64,7 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                         serviceLocator.ioDispatcher,
                         serviceLocator.mainDispatcher,
                         serviceLocator.getLogger(PlayerViewModel::class),
-                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
+                        UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileLogVoiceMailsUseCase(serviceLocator.voiceMailsDataSource))
                     )
                 isAssignableFrom(ChangePasswordViewModel::class.java) ->
                     ChangePasswordViewModel(
@@ -73,9 +73,9 @@ class ViewModelFactory(private val serviceLocator: ServiceLocator,private val li
                 isAssignableFrom(MeViewModel::class.java) ->
                     MeViewModel()
                 isAssignableFrom(MainActViewModel::class.java) ->
-                    MainActViewModel( EmailOutlookViewModel(EmailOutlookService(SendEmailOutlookUseCase(serviceLocator.voiceMailsDataSource), RefreshEmailOutlookUseCase(serviceLocator.voiceMailsDataSource),AddEmailTokenUseCase(serviceLocator.voiceMailsDataSource))))
+                    MainActViewModel( EmailOutlookViewModel(EmailOutlookService(SendEmailOutlookUseCase(serviceLocator.voiceMailsDataSource), RefreshEmailOutlookUseCase(serviceLocator.voiceMailsDataSource),AddEmailTokenUseCase(serviceLocator.voiceMailsDataSource))), UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileLogVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)))
                 isAssignableFrom(TrimViewModel::class.java) ->
-                    TrimViewModel(UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)))
+                    TrimViewModel( UploadDownloadService(DownloadFilePostVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),DownloadFileVoiceMailsUseCase(serviceLocator.voiceMailsDownloadDataSource(listener)),UploadFileFormDataVoiceMailsUseCase(serviceLocator.voiceMailsDataSource),UploadFileLogVoiceMailsUseCase(serviceLocator.voiceMailsDataSource)))
                 else -> throw IllegalArgumentException("unknown model class $modelClass")
             }
         } as T

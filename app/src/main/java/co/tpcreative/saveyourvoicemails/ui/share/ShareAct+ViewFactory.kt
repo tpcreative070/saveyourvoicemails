@@ -11,18 +11,17 @@ import co.tpcreative.domain.models.UploadBody
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.PathUtil
 import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
+import co.tpcreative.saveyourvoicemails.common.SizeUnit
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
-import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
-import co.tpcreative.saveyourvoicemails.common.extension.deleteDirectory
-import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
-import co.tpcreative.saveyourvoicemails.common.extension.isFileExist
+import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
+import com.elvishew.xlog.XLog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,6 +54,7 @@ fun ShareAct.onHandlerIntent() {
 }
 
 fun ShareAct.handleSendSingleItem(intent: Intent) {
+    XLog.d("-----------------------------------------------Start ${Utils.getCurrentDateTime()}------------------------------------------")
     try {
         val imageUri : Uri? = intent.getParcelableExtra(Intent.EXTRA_STREAM)
         if (imageUri != null) {
@@ -66,11 +66,13 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                 if (response == null) {
                     response = PathUtil.getFilePathFromURI(this, imageUri)
                 }
+                XLog.d("getRealPathFromUri");
             } else {
                 response = PathUtil.getPath(this, imageUri)
                 if (response == null) {
                     response = PathUtil.getFilePathFromURI(this, imageUri)
                 }
+                XLog.d("getFilePathFromURI");
             }
             if (response == null) {
                 viewModel.isLoading.postValue(false)
@@ -81,7 +83,7 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                     val path = mFile.absolutePath
                     val name = mFile.name
                     val fileExtension: String = Utils.getFileExtension(path)
-                    val mimeType: String? = intent.getType()
+                    val mimeType: String? = intent.type
                     log("file extension $fileExtension")
                     log("Path file :$path")
                     var mimeTypeFile: MimeTypeFile? = Utils.mediaTypeSupport().get(fileExtension)
@@ -115,6 +117,7 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
                     if (mimeTypeFile.name == null || mimeTypeFile.name == "") {
                         mimeTypeFile.name = name
                     }
+                    XLog.d(path +" => size ${mFile.getSize(SizeUnit.KB)}");
                     val importFiles = ImportFilesModel( mimeTypeFile, path, 0, false,Utils.getUUId())
                     log(importFiles)
                     importingData(importFiles)
@@ -133,6 +136,20 @@ fun ShareAct.handleSendSingleItem(intent: Intent) {
         viewModel.isLoading.postValue(false)
         finish()
     }
+}
+
+private fun ShareAct.alertAskRecording(message : String) {
+    val builder: MaterialDialog = MaterialDialog(this)
+            .title(text = getString(R.string.alert))
+            .message(text = message)
+            .positiveButton(text = getString(R.string.ok))
+            .negativeButton(text = getString(R.string.cancel))
+            .cancelable(false)
+            .positiveButton {
+                finish()
+            }
+
+    builder.show()
 }
 fun ShareAct.importingData(mData:ImportFilesModel) = CoroutineScope(Dispatchers.Main).launch{
     val mResult = ServiceManager.getInstance()?.onImportData(mData)
@@ -207,6 +224,7 @@ fun ShareAct.savedVoiceMails() {
             SaveYourVoiceMailsApplication.getInstance().getTemporary().createDirectory()
             SaveYourVoiceMailsApplication.getInstance().getRecorder().createDirectory()
             finish()
+            XLog.d("-----------------------------------------------End ${Utils.getCurrentDateTime()}------------------------------------------")
         }
     builder.show()
 }

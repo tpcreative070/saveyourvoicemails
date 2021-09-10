@@ -178,6 +178,9 @@ class MainAct : BaseActivity() {
         if (enabled) {
             alertAskRecording()
         }
+        if (Utils.isSignedIn()){
+            sendLog()
+        }
     }
 
     override fun onDestroy() {

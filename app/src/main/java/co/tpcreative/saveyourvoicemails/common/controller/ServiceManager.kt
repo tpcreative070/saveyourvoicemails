@@ -2,12 +2,15 @@ package co.tpcreative.saveyourvoicemails.common.controller
 
 import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.domain.models.request.DownloadFileRequest
+import co.tpcreative.saveyourvoicemails.common.SizeUnit
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.extension.createCipherFile
 import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
+import co.tpcreative.saveyourvoicemails.common.extension.getSize
 import co.tpcreative.saveyourvoicemails.common.extension.isDirectoryExists
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import com.elvishew.xlog.XLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.*
@@ -47,9 +50,11 @@ class ServiceManager {
                     } else {
                         Utils.log(this::class.java, "CreatedFile failed")
                     }
+                    XLog.d("onImportData $output ==> ${File(output).getSize(SizeUnit.KB)}");
                     Resource.success(output)
                 } catch (e: Exception) {
                     Utils.log(this::class.java, "Cannot write to $e")
+                    XLog.d(e.message);
                     Resource.error(Utils.CODE_EXCEPTION, e.message ?: "", null)
                 } finally {
                     Utils.log(this::class.java, "Finally")
