@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.App" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@android:color/holo_green_dark</item>
+        <item name="textInputStyle">@style/InputTextInputLayoutStyle</item>
+        <item name="errorTextColor">@color/secondaryDarkColorRed</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:itemTextAppearance">@style/myCustomMenuTextAppearance</item>
+        <item name="dialogMaterialTitle">@color/dialogMaterialTitle</item>
+        <item name="dialogMaterialContent">@color/dialogMaterialContent</item>
+        <item name="dialogMaterialButton">?attr/colorAccent</item>
+        <item name="md_color_title">@color/dialogMaterialTitle</item>
+        <item name="md_color_content">@color/dialogMaterialContent</item>
+        <item name="md_color_button_text">?attr/dialogMaterialButton</item>
+        <item name="preference_icon">@color/material_gray_600</item>
+        <item name="preference_title">@color/material_gray_800</item>
+        <item name="preference_summary">@color/material_gray_600</item>
+    </style>
+
+    <style name="Theme.App.Share" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="titleTextColor">@android:color/holo_green_dark</item>
+        <item name="textInputStyle">@style/InputTextInputLayoutStyle</item>
+        <item name="errorTextColor">@color/secondaryDarkColorRed</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="dialogMaterialTitle">@color/dialogMaterialTitle</item>
+        <item name="dialogMaterialContent">@color/dialogMaterialContent</item>
+        <item name="dialogMaterialButton">?attr/colorAccent</item>
+        <item name="md_color_title">@color/dialogMaterialTitle</item>
+        <item name="md_color_content">@color/dialogMaterialContent</item>
+        <item name="md_color_button_text">?attr/dialogMaterialButton</item>
+    </style>
+
+    <style name="myCustomMenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textColor">@color/grey_900</item>
+    </style>
+
+    <!--Changed cursor color-->
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/blue</item>
+    </style>
+
+    <style name="InputTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/selector_items</item>
+        <item name="android:textColorHint">@color/text_color_hint</item>
+        <item name="hintTextColor">?attr/colorAccent</item>
+        <item name="endIconTint">?attr/colorAccent</item>
+    </style>
+
+    <style name="Widget.App.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.TextInputLayout</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="hintTextColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorOnSurface">@color/purple_700</item>
+        <item name="colorError">@color/teal_700</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.App.Subtitle1</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.App.Caption</item>
+        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+    </style>
+
+
+    <style name="TextAppearance.App.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="fontFamily">@font/brandon_reg</item>
+        <item name="android:fontFamily">@font/brandon_reg</item>
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="fontFamily">@font/brandon_reg</item>
+        <item name="android:fontFamily">@font/brandon_reg</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="SpotsDialogDefault" parent="android:Theme.DeviceDefault.Light.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Loading…</item>
+        <item name="DialogSpotCount">5</item>
+    </style>
+
+    <!--Custom Dialog -->
+    <style name="CustomDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogSpotColor">?attr/colorAccent</item>
+        <item name="DialogSpotCount">4</item>
+    </style>
+
+</resources>

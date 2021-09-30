@@ -1,2 +1,7 @@
+include ':trimmerlibrary'
+include ':common'
+include ':domain'
+include ':data'
 include ':app'
+include ':androidlame'
 rootProject.name = "saveyourvoicemails"

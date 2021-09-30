@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/teal_700"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/llMenu"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+            <RelativeLayout
+                android:gravity="center"
+                android:id="@+id/rlStopRecord"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:tint="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_record"
+                    android:id="@+id/imgStop"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:textSize="11dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="@string/stop"
+                    android:layout_below="@+id/imgStop"
+                    android:id="@+id/tvStop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:gravity="center"
+                android:id="@+id/rlHome"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <ImageView
+                    android:tint="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/ic_grid"
+                    android:id="@+id/imgHome"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:layout_marginTop="3dp"
+                    android:textSize="11dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="@string/home"
+                    android:layout_below="@+id/imgHome"
+                    android:id="@+id/tvHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

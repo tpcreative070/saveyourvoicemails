@@ -1,0 +1,27 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "com.jakewharton.timber:timber:$timber"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid"
+    implementation "com.squareup.retrofit2:retrofit:$appRetrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$appRetrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$appRetrofit"
+    implementation project(":common")
+}
+
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+}

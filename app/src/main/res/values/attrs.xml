@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinLockView">
+        <attr name="pinLength" format="integer" />
+        <attr name="keypadTextColor" format="color" />
+        <attr name="keypadTextSize" format="dimension" />
+        <attr name="keypadButtonSize" format="dimension" />
+        <attr name="keypadVerticalSpacing" format="dimension" />
+        <attr name="keypadHorizontalSpacing" format="dimension" />
+        <attr name="keypadButtonBackgroundDrawable" format="integer" />
+        <attr name="keypadVerifyButtonDrawable" format="integer" />
+        <attr name="keypadVerifyButtonSize" format="dimension" />
+        <attr name="keypadShowVerifyButton" format="boolean" />
+        <attr name="keypadVerifyButtonPressedColor" format="color" />
+
+        <attr name="dotEmptyBackground" format="reference" />
+        <attr name="dotFilledBackground" format="reference" />
+        <attr name="dotDiameter" format="dimension" />
+        <attr name="dotSpacing" format="dimension" />
+        <attr name="indicatorType" format="enum">
+            <enum name="fixed" value="0" />
+            <enum name="fill" value="1" />
+            <enum name="fillWithAnimation" value="2" />
+        </attr>
+
+    </declare-styleable>
+
+
+    <attr name="preference_title" format="reference"/>
+    <attr name="preference_summary" format="reference"/>
+    <attr name="preference_icon" format="reference"/>
+    <attr name="colorPremiumText" format="reference" />
+    <attr name="colorPremiumIcon" format="reference" />
+    <attr name="dialogColorPrimary" format="reference"/>
+    <attr name="dialogColorPrimaryDark" format="reference"/>
+    <attr name="dialogColorAccent" format="reference"/>
+    <attr name="dialogMaterialTitle" format="reference"/>
+    <attr name="dialogMaterialContent" format="reference"/>
+    <attr name="dialogMaterialButton" format="reference"/>
+
+    <declare-styleable name="CircleProgressBar">
+        <attr name="progressColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="strokeWidths" format="float"/>
+        <attr name="backgroundWidth" format="float"/>
+        <attr name="roundedCorners" format="boolean"/>
+        <attr name="maxValue" format="float"/>
+        <attr name="progressTextColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="progressText" format="string"/>
+        <attr name="suffix" format="string"/>
+        <attr name="prefix" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="Dialog">
+        <attr name="DialogTitleAppearance" format="reference" />
+        <attr name="DialogTitleText" format="reference|string" />
+        <attr name="DialogSpotColor" format="reference|color"/>
+        <attr name="DialogSpotCount" format="integer"/>
+    </declare-styleable>
+
+</resources>
