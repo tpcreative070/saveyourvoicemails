@@ -14,8 +14,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <LinearLayout
+            android:background="@drawable/bg_user_info_group"
+            android:padding="20dp"
+            android:id="@+id/llUserInfo"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:text="@string/signed_in_with"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:textSize="@dimen/text_size_17"
+                android:text="@string/facebook"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/green_500"
+                android:id="@+id/tvUserInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginTop="40dp"
+            android:layout_below="@+id/llUserInfo"
+            android:layout_marginTop="20dp"
             android:id="@+id/btnChangePassword"
             android:background="@drawable/bg_button_rounded"
             android:text="@string/change_password"

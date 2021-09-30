@@ -47,6 +47,8 @@ class MeFragment : BaseFragment() {
         val mUser = Utils.getUserInfo()
         if (mUser?.isFacebook == true){
             binding.btnChangePassword.visibility = View.GONE
+        }else{
+            binding.tvUserInfo.text = mUser?.email
         }
     }
 
