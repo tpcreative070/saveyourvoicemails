@@ -18,7 +18,6 @@ import co.tpcreative.domain.models.EnumFormatType
 import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
-import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
 import co.tpcreative.saveyourvoicemails.common.extension.getSessionTokenObject
 import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -263,6 +262,31 @@ object Utils {
         val date = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return dateFormat.format(date)
+    }
+
+    private fun getMilliseconds(value: String?, format : String): Long {
+        if (value.isNullOrEmpty()) {
+            return System.currentTimeMillis()
+        }
+        try {
+            val dateFormat = SimpleDateFormat(format, Locale.getDefault())
+            val date = dateFormat.parse(value)
+            return date?.time ?: System.currentTimeMillis()
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return System.currentTimeMillis()
+    }
+
+    fun isRequestingSubscription() : Boolean{
+        val mCreatedDate = getUserInfo()?.create_date
+        val mMilliseconds = getMilliseconds(mCreatedDate, FORMAT_TIME)
+        val mResultTimer = mMilliseconds + Constant.FIVE_DAY
+        val mCurrentMilliseconds = System.currentTimeMillis()
+        log(Utils::class.java,"Created date time $mCreatedDate")
+        log(Utils::class.java,"Created date time by milliseconds $mMilliseconds")
+        log(Utils::class.java,"Timer $mResultTimer")
+        return mCurrentMilliseconds>mResultTimer
     }
 
     fun getDate(): String? {
