@@ -87,7 +87,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onClickItem(position: Int) {
-        if (!Utils.getIsSubscribed()){
+        if (!Utils.getIsSubscribed() && Utils.isRequestingSubscription()){
             alertDialog()
             return
         }
@@ -101,7 +101,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onDownloadItem(position: Int) {
-        if (!Utils.getIsSubscribed()){
+        if (!Utils.getIsSubscribed() && Utils.isRequestingSubscription()){
             alertDialog()
             return
         }
@@ -111,7 +111,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onShare(position: Int) {
-        if (!Utils.getIsSubscribed()){
+        if (!Utils.getIsSubscribed() && Utils.isRequestingSubscription()){
             alertDialog()
             return
         }
@@ -121,7 +121,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onEditItem(position: Int) {
-        if (!Utils.getIsSubscribed()){
+        if (!Utils.getIsSubscribed() && Utils.isRequestingSubscription()){
             alertDialog()
             return
         }
@@ -130,7 +130,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     }
 
     override fun onDeleteItem(position: Int) {
-        if (!Utils.getIsSubscribed()){
+        if (!Utils.getIsSubscribed() && Utils.isRequestingSubscription()){
             alertDialog()
             return
         }

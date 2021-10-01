@@ -31,5 +31,7 @@ class Constant {
         const val FOREGROUND_CHANNEL_ID = "foreground_channel_id"
         const val FOREGROUND_CHANNEL_NAME = "foreground_channel_name"
         const val ID_NOTIFICATION_FOREGROUND_SERVICE = 8466503
+        const val ONE_DAY = 86400000
+        const val FIVE_DAY = ONE_DAY * 5
     }
 }
