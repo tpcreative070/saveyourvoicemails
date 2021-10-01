@@ -160,7 +160,8 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
         val builder: MaterialDialog = MaterialDialog(requireActivity())
                 .title(text = getString(R.string.confirm))
                 .message(res = R.string.description_subscription)
-                .positiveButton(text = getString(R.string.yes))
+                .positiveButton(text = getString(R.string.subscribe))
+                .negativeButton(text = getText(R.string.cancel))
                 .cancelable(false)
                 .positiveButton {
                    Navigator.moveSubscription(requireContext())
