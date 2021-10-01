@@ -1,16 +1,12 @@
 package co.tpcreative.saveyourvoicemails.ui.list
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
-import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.usecases.DeleteVoiceMailUseCase
-import co.tpcreative.domain.usecases.DownloadFilePostVoiceMailsUseCase
 import co.tpcreative.domain.usecases.GetVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UpdateVoiceMailsUseCase
-import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.extension.deleteFile

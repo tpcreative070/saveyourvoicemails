@@ -1,10 +1,5 @@
 package co.tpcreative.saveyourvoicemails.ui.user.view
-import android.content.Context
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import co.tpcreative.domain.models.EnumValidationKey

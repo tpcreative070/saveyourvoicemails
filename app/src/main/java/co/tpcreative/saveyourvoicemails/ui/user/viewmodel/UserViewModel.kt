@@ -2,9 +2,7 @@ package co.tpcreative.saveyourvoicemails.ui.user.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
 import co.tpcreative.common.Logger
-import co.tpcreative.domain.models.EmailToken
 import co.tpcreative.domain.models.EnType
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.domain.models.GitHubUser
@@ -22,7 +20,6 @@ import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplic
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class UserViewModel (
         private val getLatestOutlookUseCase: GetLatestOutlookUseCase,

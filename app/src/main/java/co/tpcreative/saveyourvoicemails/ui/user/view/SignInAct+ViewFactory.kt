@@ -5,15 +5,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import co.tpcreative.domain.models.ImportFilesModel
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
-import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.network.Status
-import co.tpcreative.saveyourvoicemails.ui.share.ShareAct
-import co.tpcreative.saveyourvoicemails.ui.share.uploadFile
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
@@ -24,7 +20,6 @@ import com.facebook.login.LoginResult
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.debounce
 import org.json.JSONException
-import java.io.File
 import java.util.*
 
 fun SignInAct.initUI(){

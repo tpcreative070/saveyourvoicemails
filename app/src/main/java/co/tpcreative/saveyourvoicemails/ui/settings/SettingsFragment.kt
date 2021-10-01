@@ -1,14 +1,8 @@
 package co.tpcreative.saveyourvoicemails.ui.settings
-import android.content.ActivityNotFoundException
-import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -20,7 +14,6 @@ import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.controller.EncryptedPreferenceDataStore
 import co.tpcreative.saveyourvoicemails.common.extension.instantiate
 import co.tpcreative.saveyourvoicemails.common.preference.MyPreference
-import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 import co.tpcreative.saveyourvoicemails.databinding.FragmentSettingsBinding
 
 class SettingsFragment : BaseFragment(){

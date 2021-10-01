@@ -4,7 +4,6 @@ import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.Empty
 import co.tpcreative.domain.models.UploadBody
-import co.tpcreative.domain.usecases.*
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.network.Resource

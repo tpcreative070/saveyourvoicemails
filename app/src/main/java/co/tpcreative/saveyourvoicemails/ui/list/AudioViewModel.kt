@@ -1,9 +1,7 @@
 package co.tpcreative.saveyourvoicemails.ui.list
-import android.annotation.SuppressLint
 import co.tpcreative.domain.models.response.VoiceMail
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
