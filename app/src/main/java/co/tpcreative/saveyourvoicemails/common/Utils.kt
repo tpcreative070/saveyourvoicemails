@@ -223,6 +223,11 @@ object Utils {
         return mUser?.user_id
     }
 
+    fun getEmail() : String? {
+        val mUser = getUserInfo()
+        return mUser?.email
+    }
+
     fun getUserUUID() : String? {
         val mUser =  getUserInfo()
         return mUser?.uuid
