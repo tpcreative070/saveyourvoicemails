@@ -11,7 +11,6 @@ import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 
 class ChangePasswordViewModel(private val changePasswordUserUseCase: ChangePasswordUserUseCase) : BaseViewModel<User>() {

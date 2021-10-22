@@ -15,7 +15,6 @@ import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.databinding.FragmentMeBinding
-import co.tpcreative.saveyourvoicemails.ui.list.AudioFragmentViewModel
 
 
 /**

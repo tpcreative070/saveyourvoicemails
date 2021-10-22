@@ -1,13 +1,9 @@
 package co.tpcreative.saveyourvoicemails.ui.user.view
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import co.tpcreative.domain.models.EnumValidationKey
-import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.SingletonManagerProcessing
 import co.tpcreative.saveyourvoicemails.common.ViewModelFactory

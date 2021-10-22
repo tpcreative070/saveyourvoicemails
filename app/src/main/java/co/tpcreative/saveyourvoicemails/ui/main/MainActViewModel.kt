@@ -32,7 +32,7 @@ class MainActViewModel(private val emailOutlookService: EmailOutlookViewModel, p
 
     fun sendEmailOutlook(type : EnType) = liveData(Dispatchers.IO){
         try {
-            val result = emailOutlookService.sendEmail(type,Utils.getUserId()?:"")
+            val result = emailOutlookService.sendEmail(type,Utils.getEmail() ?: Utils.getUserId() ?: "")
             when(result.status){
                 Status.SUCCESS->{
                     if (type == EnType.NEW_USER){

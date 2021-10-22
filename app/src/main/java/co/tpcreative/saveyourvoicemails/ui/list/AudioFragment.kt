@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.Navigator
@@ -18,20 +17,14 @@ import co.tpcreative.saveyourvoicemails.common.ViewModelFactory
 import co.tpcreative.saveyourvoicemails.common.base.BaseFragment
 import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.extension.getIsSubscribed
-import co.tpcreative.saveyourvoicemails.common.extension.textChanges
 import co.tpcreative.saveyourvoicemails.common.services.DefaultServiceLocator
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import co.tpcreative.saveyourvoicemails.common.view.NpaGridLayoutManager
 import co.tpcreative.saveyourvoicemails.databinding.FragmentAudioBinding
 import com.afollestad.materialdialogs.MaterialDialog
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.solovyev.android.checkout.ActivityCheckout
-import org.solovyev.android.checkout.Checkout
-import org.solovyev.android.checkout.Inventory
 
 class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
     var gridLayoutManager: NpaGridLayoutManager? = null
@@ -160,7 +153,8 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
         val builder: MaterialDialog = MaterialDialog(requireActivity())
                 .title(text = getString(R.string.confirm))
                 .message(res = R.string.description_subscription)
-                .positiveButton(text = getString(R.string.yes))
+                .positiveButton(text = getString(R.string.subscribe))
+                .negativeButton(text = getText(R.string.cancel))
                 .cancelable(false)
                 .positiveButton {
                    Navigator.moveSubscription(requireContext())

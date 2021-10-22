@@ -7,10 +7,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.GridLayoutManager
 import co.tpcreative.saveyourvoicemails.R
-import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.adapter.BaseAdapter
 import co.tpcreative.saveyourvoicemails.common.adapter.BaseHolder
-import com.google.gson.Gson
 
 class AudioAdapter (private val mLayoutManager: GridLayoutManager? = null, inflater: LayoutInflater, private val context: Context?, private val itemSelectedListener: ItemSelectedListener?) : BaseAdapter<AudioViewModel, BaseHolder<AudioViewModel>>(inflater) {
 

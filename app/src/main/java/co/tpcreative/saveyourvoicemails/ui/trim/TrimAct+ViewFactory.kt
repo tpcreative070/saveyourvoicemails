@@ -14,10 +14,6 @@ import co.tpcreative.saveyourvoicemails.common.extension.createDirectory
 import co.tpcreative.saveyourvoicemails.common.extension.deleteDirectory
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
-import co.tpcreative.saveyourvoicemails.ui.share.ShareAct
-import co.tpcreative.saveyourvoicemails.ui.share.enterVoiceMails
-import co.tpcreative.saveyourvoicemails.ui.share.savedVoiceMails
-import co.tpcreative.saveyourvoicemails.ui.share.uploadFile
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
