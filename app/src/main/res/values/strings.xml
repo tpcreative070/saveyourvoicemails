@@ -59,7 +59,7 @@
     <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice" within the Save Your Voicemails app\'s Settings (gear icon on bottom right). This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app. Remember to turn this off after saving your voicemails; otherwise, all of your calls will be recorded.</string>
     <string name="alert">Alert</string>
     <string name="find_enable_Voicemails">In "Settings", Click "Accessibility". Then Click "Installed Services". Then turn on "Voicemails Recorder". </string>
-    <string name="description_subscription">Save Your Voicemails charges a yearly subscription fee of $4.99 for unlimited use. Your free trial is over. Press subscribe to continue saving Voicemails. It\'s well worth it.</string>
+    <string name="description_subscription">Save Your Voicemails charges a yearly subscription fee of $9.89 for unlimited use. Your free trial is over. Press subscribe to continue saving Voicemails. It\'s well worth it.</string>
     <string name="yes">Yes</string>
     <string name="ok">Ok</string>
     <string name="subscribe">Subscribe</string>
