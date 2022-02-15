@@ -1,3 +1,13 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        google()
+        mavenCentral()
+    }
+}
+
 include ':trimmerlibrary'
 include ':common'
 include ':domain'

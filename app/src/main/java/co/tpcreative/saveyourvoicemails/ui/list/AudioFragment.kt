@@ -39,7 +39,7 @@ class AudioFragment : BaseFragment(), AudioAdapter.ItemSelectedListener {
         super.onCreate(savedInstanceState)
     }
 
-    @ExperimentalStdlibApi
+    @OptIn(ExperimentalStdlibApi::class)
     override fun work() {
         super.work()
         initUI()
