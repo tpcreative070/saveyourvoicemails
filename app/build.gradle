@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
     packagingOptions {
@@ -104,7 +104,6 @@ dependencies {
     implementation "androidx.core:core-ktx:$kotlin_core_version"
     implementation "com.google.guava:listenablefuture:$listenablefuture"
     implementation "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor"
-    implementation "android.arch.lifecycle:extensions:$lifecycleExtensions"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKTX"
     implementation "id.zelory:compressor:$compressor"
     implementation "io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:$ectionedRecyclerViewAdapter"
@@ -118,7 +117,6 @@ dependencies {
     implementation "androidx.core:core-ktx:$kotlin_core_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesCore"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroid"
-    implementation "android.arch.lifecycle:extensions:$lifecycleExtensions"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleLivedataKTX"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleViewModelKTX"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleExtensions"

@@ -18,7 +18,7 @@ import co.tpcreative.saveyourvoicemails.ui.user.viewmodel.UserViewModel
 class ViewModelFactory(private val serviceLocator: ServiceLocator,private val listener: ProgressResponseBody.ProgressResponseBodyListener?=null) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>) =
+    override fun <T : ViewModel> create(modelClass: Class<T>): T =
         with(modelClass) {
             when {
                 isAssignableFrom(AudioFragmentViewModel::class.java) ->

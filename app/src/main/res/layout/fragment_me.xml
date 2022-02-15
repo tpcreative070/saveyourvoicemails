@@ -59,8 +59,17 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_marginTop="20dp"
             android:layout_below="@+id/btnLiveChat"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnContactUS"
+            android:background="@drawable/bg_button_rounded"
+            android:text="@string/contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/btnContactUS"
             android:id="@+id/btnSignOut"
             android:background="@drawable/bg_button_rounded"
             android:text="@string/sign_out"
