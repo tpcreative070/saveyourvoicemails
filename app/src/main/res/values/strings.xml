@@ -38,7 +38,9 @@
     <string name="me">Me</string>
     <string name="email">Email</string>
     <string name="recorder">Recorder</string>
-    <string name="voicemails_recorder">Voicemails Recorder</string>
+    <string name="request_permission_AccessibilityService">Request AccessibilityService Permission</string>
+
+    <string name="voicemails_recorder">SaveYourVoicemails Recorder</string>
     <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
     <string name="live_chat_url">https://saveyourvoicemailnow.wixsite.com/savevoicemails</string>
     <string name="live_contact_us">https://saveyourvoicemailnow.wixsite.com/savevoicemails/contact-us</string>
@@ -51,6 +53,8 @@
     <string name="key_session_token">key_session_token</string>
     <string name="cancel">Cancel</string>
     <string name="send">Send</string>
+    <string name="accept">Accept</string>
+    <string name="later">Later</string>
     <string name="change">Change</string>
     <string name="enter_title">Enter title</string>
     <string name="enter_your_email">Enter your email</string>
@@ -59,7 +63,7 @@
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
     <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice" within the Save Your Voicemails app\'s Settings (gear icon on bottom right). This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app. Remember to turn this off after saving your voicemails; otherwise, all of your calls will be recorded.</string>
     <string name="alert">Alert</string>
-    <string name="find_enable_Voicemails">In "Settings", Click "Accessibility". Then Click "Installed Services". Then turn on "Voicemails Recorder". </string>
+    <string name="find_enable_Voicemails">This app uses Accessibility Services giving the user the option to record voicemails in case visual voicemail is not an option. Go to your Phone\'s SETTINGS and click ACCESSIBILITY. Then click INSTALLED SERVICES then click SaveYourVoicemails Recorder. Next turn your speaker ON, call in to hear your voicemails, play one voicemail and HANG UP as soon as the voicemail is over. A pop-up will come up that gives you the ability to name your voicemail then click SAVE. Your voicemail is now saved onto the SaveYourVoicemail.</string>
     <string name="description_subscription">Save Your Voicemails charges a yearly subscription fee of $9.89 for unlimited use. Your free trial is over. Press subscribe to continue saving Voicemails. It\'s well worth it.</string>
     <string name="yes">Yes</string>
     <string name="ok">Ok</string>

@@ -46,10 +46,6 @@ android {
         exclude 'META-INF/io.netty.versions.properties'
     }
 
-    dexOptions {
-        preDexLibraries = false
-    }
-
     buildFeatures {
         dataBinding true
         viewBinding = true

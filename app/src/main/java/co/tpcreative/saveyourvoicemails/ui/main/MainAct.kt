@@ -10,7 +10,6 @@ import android.text.TextUtils.SimpleStringSplitter
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import co.tpcreative.domain.models.EnType
-import co.tpcreative.domain.models.EnumEventBus
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
@@ -31,9 +30,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.pandora.bottomnavigator.BottomNavigator
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import org.solovyev.android.checkout.Checkout
 import org.solovyev.android.checkout.Inventory
 
@@ -108,9 +104,12 @@ class MainAct : BaseActivity() {
 
     private fun alertDialog() {
         val builder: MaterialDialog = MaterialDialog(this)
-            .title(text = getString(R.string.alert))
+            .title(text = getString(R.string.request_permission_AccessibilityService))
             .message(res = R.string.find_enable_Voicemails)
-            .positiveButton(text = getString(R.string.ok))
+            .positiveButton(text = getString(R.string.accept))
+            .negativeButton(text = getString(R.string.later))
+            .negativeButton {
+            }
             .cancelable(false)
             .positiveButton {
                 val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)

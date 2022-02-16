@@ -1,7 +1,8 @@
 package co.tpcreative.saveyourvoicemails.common.services
 import android.Manifest
-import android.app.*
+import android.app.Service
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.media.AudioFormat
 import android.media.AudioManager
 import android.media.AudioRecord
@@ -9,17 +10,13 @@ import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
+import androidx.core.app.ActivityCompat
 import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.common.Constant
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.helper.NotificationBarHelper
 import co.tpcreative.saveyourvoicemails.common.helper.ServiceHelper
 import co.tpcreative.saveyourvoicemails.ui.share.ShareAct
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.naman14.androidlame.AndroidLame
 import com.naman14.androidlame.LameBuilder
 import java.io.File
@@ -130,6 +127,20 @@ class SaveYourVoiceMailsService : Service() {
             AudioFormat.ENCODING_PCM_16BIT
         )
         Utils.log(TAG, "Initialising audio recorder..")
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.VOICE_RECOGNITION, inSampleRate,
             AudioFormat.CHANNEL_IN_MONO,

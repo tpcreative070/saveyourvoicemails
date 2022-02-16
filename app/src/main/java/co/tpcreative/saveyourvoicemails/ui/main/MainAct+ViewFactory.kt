@@ -9,7 +9,6 @@ import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
-import com.elvishew.xlog.XLog
 import com.google.gson.Gson
 import org.solovyev.android.checkout.*
 import java.io.File

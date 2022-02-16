@@ -93,7 +93,7 @@ fun Utils.signOut(){
 }
 
 fun Utils.isAutoRecord() : Boolean {
-    return AppPrefs.encryptedPrefs.read(getString(R.string.key_automatically_recorder_voice),false)
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_automatically_recorder_voice),true)
 }
 
 fun Utils.putRecord(isValue : Boolean)  {
