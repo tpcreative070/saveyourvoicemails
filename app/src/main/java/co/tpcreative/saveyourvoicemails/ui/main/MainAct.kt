@@ -86,8 +86,10 @@ class MainAct : BaseActivity() {
                     if (enabled) {
                         alertAskRecording()
                     } else {
-                        if (Utils.isSignedIn()) {
-                            alertDialog()
+                        if (Utils.isSignedIn() && Utils.getIsSeeVideo()) {
+                           alertDialog()
+                        }else{
+                            howToUseTheApp()
                         }
                     }
                     bindingEvent()
@@ -100,22 +102,6 @@ class MainAct : BaseActivity() {
                 }
             })
             .check()
-    }
-
-    private fun alertDialog() {
-        val builder: MaterialDialog = MaterialDialog(this)
-            .title(text = getString(R.string.request_permission_AccessibilityService))
-            .message(res = R.string.find_enable_Voicemails)
-            .positiveButton(text = getString(R.string.accept))
-            .negativeButton(text = getString(R.string.later))
-            .negativeButton {
-            }
-            .cancelable(false)
-            .positiveButton {
-                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                startActivity(intent)
-            }
-        builder.show()
     }
 
     private fun alertAskRecording() {

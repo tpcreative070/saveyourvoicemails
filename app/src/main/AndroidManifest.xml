@@ -10,21 +10,24 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:requestLegacyExternalStorage="true"
         android:name=".common.services.SaveYourVoiceMailsApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.trim.TrimAct"></activity>
+        <activity
+            android:name=".ui.how.HowToAct"
+            android:exported="false" />
+        <activity android:name=".ui.trim.TrimAct" />
         <activity
             android:name=".ui.subscription.SubscriptionAct"
             android:theme="@style/Theme.App.Share" />
@@ -32,8 +35,8 @@
         <activity android:name=".ui.permission.PermissionAct" />
         <activity
             android:name=".ui.share.ShareAct"
-            android:theme="@style/Theme.App.Share"
-            android:exported="false">
+            android:exported="false"
+            android:theme="@style/Theme.App.Share">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -49,8 +52,8 @@
         <activity android:name=".ui.user.view.SignInAct" />
         <activity
             android:name=".ui.main.MainAct"
-            android:label="@string/app_name"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,9 +66,9 @@
             android:foregroundServiceType="mediaProjection" />
         <service
             android:name=".common.services.MyAccessibilityService"
+            android:exported="false"
             android:label="@string/voicemails_recorder"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="false">
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
@@ -81,7 +84,8 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <receiver android:name=".common.services.PhoneStateReceiver"
+        <receiver
+            android:name=".common.services.PhoneStateReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />

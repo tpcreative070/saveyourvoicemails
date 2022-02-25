@@ -47,6 +47,10 @@
     <string name="key_voicemails_version">Voicemails: %1$s</string>
 
     <!-- TODO: user case -->
+    <string name="key_see_video">key_see_video</string>
+    <string name="see_video">Click NOW to watch a short video that will show you how to save your voicemails. If you click LATER. SaveYourVoiceMails is compatible with All Carriers and All phones. If you still need help, please click the Contact US in ME screen to Chat with a Real person.</string>
+    <string name="price_3_99">Price: $9.89</string>
+    <string name="video_guide">Video guide</string>
     <string name="key_user">key_user</string>
     <string name="key_request_code">key_request_code</string>
     <string name="key_mail365">key_mail365</string>
@@ -55,6 +59,8 @@
     <string name="send">Send</string>
     <string name="accept">Accept</string>
     <string name="later">Later</string>
+    <string name="now">Now</string>
+    <string name="how_to">How To</string>
     <string name="change">Change</string>
     <string name="enter_title">Enter title</string>
     <string name="enter_your_email">Enter your email</string>

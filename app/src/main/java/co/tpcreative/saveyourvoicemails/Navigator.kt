@@ -8,6 +8,7 @@ import android.net.Uri
 import co.tpcreative.domain.models.request.DownloadFileRequest
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.ui.changepassword.ChangePasswordAct
+import co.tpcreative.saveyourvoicemails.ui.how.HowToAct
 import co.tpcreative.saveyourvoicemails.ui.main.MainAct
 import co.tpcreative.saveyourvoicemails.ui.permission.PermissionAct
 import co.tpcreative.saveyourvoicemails.ui.player.PlayerAct
@@ -82,6 +83,12 @@ object Navigator {
                 Utils.onAlertNotify(context ,"Can not open the link")
             }
         }
+    }
+
+    fun onHowTo(activity: Activity) {
+        val intent = Intent(activity, HowToAct::class.java)
+        intent.putExtra("ActivityName", "inbox")
+        activity.startActivity(intent)
     }
 
 }

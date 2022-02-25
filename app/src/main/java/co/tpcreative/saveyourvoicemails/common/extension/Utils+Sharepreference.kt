@@ -132,6 +132,15 @@ fun Utils.getIsSentDownloaded() : Boolean {
     return AppPrefs.encryptedPrefs.read(getString(R.string.key_sent_downloaded_app),false)
 }
 
+fun Utils.putSeeVideo(isValue : Boolean){
+    AppPrefs.encryptedPrefs.write(getString(R.string.key_see_video),isValue)
+}
+
+fun Utils.getIsSeeVideo() : Boolean {
+    return AppPrefs.encryptedPrefs.read(getString(R.string.key_see_video),false)
+}
+
 fun getString(res: Int) : String{
     return SaveYourVoiceMailsApplication.getInstance().getString(res)
 }
+
