@@ -133,7 +133,7 @@ dependencies {
     implementation "org.solovyev.android:checkout:$androidCheckout"
     implementation "org.greenrobot:eventbus:$eventbus"
     implementation "com.elvishew:xlog:$xlog"
-
+    implementation 'com.github.PierfrancescoSoffritti:AndroidYouTubePlayer:10.0.5'
 
     implementation project(":data")
     implementation project(":domain")

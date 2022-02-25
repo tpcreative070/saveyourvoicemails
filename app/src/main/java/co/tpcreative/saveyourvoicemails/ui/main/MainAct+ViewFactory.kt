@@ -1,7 +1,10 @@
 package co.tpcreative.saveyourvoicemails.ui.main
 
+import android.content.Intent
+import android.provider.Settings
 import androidx.lifecycle.Observer
 import co.tpcreative.domain.models.EnType
+import co.tpcreative.saveyourvoicemails.Navigator
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.Utils.log
@@ -9,6 +12,7 @@ import co.tpcreative.saveyourvoicemails.common.base.log
 import co.tpcreative.saveyourvoicemails.common.extension.*
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
+import com.afollestad.materialdialogs.MaterialDialog
 import com.google.gson.Gson
 import org.solovyev.android.checkout.*
 import java.io.File
@@ -84,4 +88,38 @@ private fun MainAct.initCheckout() {
             log(this::class.java, products)
         }
     })
+}
+
+fun MainAct.howToUseTheApp() {
+    val builder: MaterialDialog = MaterialDialog(this)
+        .title(text = getString(R.string.video_guide))
+        .message(res = R.string.see_video)
+        .positiveButton(text = getString(R.string.now))
+        .negativeButton(text = getText(R.string.later))
+        .cancelable(false)
+        .positiveButton {
+            Navigator.onHowTo(this)
+            Utils.putSeeVideo(true)
+        }
+        .negativeButton {
+            alertDialog()
+            Utils.putSeeVideo(true)
+        }
+    builder.show()
+}
+
+ fun MainAct.alertDialog() {
+    val builder: MaterialDialog = MaterialDialog(this)
+        .title(text = getString(R.string.request_permission_AccessibilityService))
+        .message(res = R.string.find_enable_Voicemails)
+        .positiveButton(text = getString(R.string.accept))
+        .negativeButton(text = getString(R.string.later))
+        .negativeButton {
+        }
+        .cancelable(false)
+        .positiveButton {
+            val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(intent)
+        }
+    builder.show()
 }

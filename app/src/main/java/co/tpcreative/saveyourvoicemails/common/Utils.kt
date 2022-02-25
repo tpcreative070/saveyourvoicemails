@@ -19,7 +19,10 @@ import co.tpcreative.domain.models.MimeTypeFile
 import co.tpcreative.saveyourvoicemails.BuildConfig
 import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.extension.getSessionTokenObject
+import co.tpcreative.saveyourvoicemails.common.extension.getString
 import co.tpcreative.saveyourvoicemails.common.extension.getUserInfo
+import co.tpcreative.saveyourvoicemails.common.helper.AppPrefs
+import co.tpcreative.saveyourvoicemails.common.helper.Prefs
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 import com.google.gson.Gson
 import com.tapadoo.alerter.Alerter
@@ -366,5 +369,4 @@ object Utils {
         val mFile = File(root)
         return mFile.absolutePath
     }
-
 }
