@@ -4,6 +4,7 @@
     <androidx.preference.PreferenceCategory android:title="@string/key_general"
         android:layout="@layout/preference_category_layout">
         <co.tpcreative.saveyourvoicemails.common.preference.MySwitchPreference
+            android:defaultValue="true"
             android:layout="@layout/custom_preferences_item"
             android:icon="@drawable/ic_baseline_voicemail_24"
             android:summary="@string/key_detail_automatically_recorder_voice"
