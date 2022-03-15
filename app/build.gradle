@@ -11,7 +11,7 @@ android {
     compileSdkVersion appCompileSdkVersion
     buildToolsVersion appBuildToolsVersion
     defaultConfig {
-        applicationId "co.tpcreative.saveyourvoicemails"
+        applicationId "co.tpcreative.saveyourvoicemails.app"
         minSdkVersion appMinSdkVersion
         targetSdkVersion appTargetSdkVersion
         versionCode appVersionCode

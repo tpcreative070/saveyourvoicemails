@@ -92,7 +92,7 @@
     <string name="key_permission">Permission</string>
     <string name="key_version">Version</string>
     <string name="key_detail_permission">The following permissions have been granted</string>
-    <string name="key_subscription_one_year">co.tpcreative.saveyourvoicemails.oneyear</string>
+    <string name="key_subscription_one_year">co.tpcreative.saveyourvoicemails.app.yearly</string>
     <string name="no_voicemails">No Voicemails</string>
     <string name="microphone_access_for_audio_recording">Microphone access for audio recording</string>
     <string name="turn_on_recorder_app_connector_to_record_calls_on_android_10">Turn on Voicemails Recorder app to record calls on Android 10 and later</string>
