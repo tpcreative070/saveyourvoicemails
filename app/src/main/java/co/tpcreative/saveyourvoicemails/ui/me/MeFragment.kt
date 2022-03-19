@@ -47,6 +47,10 @@ class MeFragment : BaseFragment() {
             Navigator.openWebSites(getString(R.string.live_contact_us),requireActivity())
         }
 
+        binding.btnWatchTutorialVideo.setOnClickListener {
+            Navigator.onHowTo(requireActivity())
+        }
+
         val mUser = Utils.getUserInfo()
         if (mUser?.isFacebook == true){
             binding.btnChangePassword.visibility = View.GONE
