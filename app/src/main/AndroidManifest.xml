@@ -35,7 +35,7 @@
         <activity android:name=".ui.permission.PermissionAct" />
         <activity
             android:name=".ui.share.ShareAct"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.App.Share">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

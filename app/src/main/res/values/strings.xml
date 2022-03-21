@@ -38,7 +38,7 @@
     <string name="me">Me</string>
     <string name="email">Email</string>
     <string name="recorder">Recorder</string>
-    <string name="request_permission_AccessibilityService">Request AccessibilityService Permission</string>
+    <string name="request_permission_AccessibilityService">Request Accessibility Services Permission</string>
 
     <string name="voicemails_recorder">SaveYourVoicemails Recorder</string>
     <string name="privacy_policy_url">https://sites.google.com/view/saveyourvoicemailspolicy/home</string>
@@ -48,7 +48,7 @@
 
     <!-- TODO: user case -->
     <string name="key_see_video">key_see_video</string>
-    <string name="see_video">Click NOW to watch a short video that will show you how to save your voicemails. If you click LATER. SaveYourVoiceMails is compatible with All Carriers and All phones. If you still need help, please click the Contact US in ME screen to Chat with a Real person.</string>
+    <string name="see_video">Click "Now" to watch a short video that will show you how to save your voicemails. After watching the video, if you still need help, please click "Live Chat" to chat with a live person.</string>
     <string name="price_3_99">Price: $9.89</string>
     <string name="video_guide">Video guide</string>
     <string name="key_user">key_user</string>
@@ -69,7 +69,7 @@
     <string name="please_turn_on_service">Please turn on ACCESSIBILITY SERVICE to use recording on Android 10 and later</string>
     <string name="please_turn_on_recording">If you do not have Visual Voicemail and you have to dial in to hear your voicemails, then turn on "Automatically Record Voice" within the Save Your Voicemails app\'s Settings (gear icon on bottom right). This feature will record your voicemail when you call in to play them and automatically gives you the ability to share them to the Save Your Voicemails app. Remember to turn this off after saving your voicemails; otherwise, all of your calls will be recorded.</string>
     <string name="alert">Alert</string>
-    <string name="find_enable_Voicemails">This app uses Accessibility Services giving the user the option to record voicemails in case visual voicemail is not an option. Go to your Phone\'s SETTINGS and click ACCESSIBILITY. Then click INSTALLED SERVICES then click SaveYourVoicemails Recorder. Next turn your speaker ON, call in to hear your voicemails, play one voicemail and HANG UP as soon as the voicemail is over. A pop-up will come up that gives you the ability to name your voicemail then click SAVE. Your voicemail is now saved onto the SaveYourVoicemail.</string>
+    <string name="find_enable_Voicemails">If you do not have visual voicemail and you have to call in to hear your voicemails, then you must go to Accessibility Services on your phone\'s "Settings" and click "Installed Services or Installed Apps," then turn on the "SaveYourVoicemails Recorder." You may also watch a short video that explains this Accessibility feature by clicking "Me" (at the bottom of the screen) and then clicking "Watch Tutorial Video."</string>
     <string name="description_subscription">Save Your Voicemails charges a yearly subscription fee of $9.89 for unlimited use. Your free trial is over. Press subscribe to continue saving Voicemails. It\'s well worth it.</string>
     <string name="yes">Yes</string>
     <string name="ok">Ok</string>
@@ -88,7 +88,7 @@
     <string name="key_upgrade">Upgrade</string>
     <string name="key_general">General</string>
     <string name="key_automatically_recorder_voice">Automatically record voice</string>
-    <string name="key_detail_automatically_recorder_voice">Allow record visual voice mail and phone calls</string>
+    <string name="key_detail_automatically_recorder_voice">Allow record visual voicemails and phone calls</string>
     <string name="key_permission">Permission</string>
     <string name="key_version">Version</string>
     <string name="key_detail_permission">The following permissions have been granted</string>
@@ -117,4 +117,5 @@
     <string name="search">Search</string>
     <string name="signed_in_with">Signed In With:</string>
     <string name="contact_us">Contact US</string>
+    <string name="watch_tutorial_video">Watch Tutorial Video</string>
 </resources>

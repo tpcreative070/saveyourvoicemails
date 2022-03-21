@@ -68,6 +68,15 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:layout_below="@+id/btnLiveChat"
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnWatchTutorialVideo"
+            android:background="@drawable/bg_button_rounded"
+            android:text="@string/watch_tutorial_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_marginTop="20dp"
             android:layout_below="@+id/btnContactUS"
             android:id="@+id/btnSignOut"

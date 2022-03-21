@@ -65,7 +65,6 @@ class MainAct : BaseActivity() {
             defaultTab = R.id.home,
             activity = this
         )
-        requestPermissions()
         sendingEmail(EnType.NEW_USER)
     }
 
@@ -89,7 +88,9 @@ class MainAct : BaseActivity() {
                         if (Utils.isSignedIn() && Utils.getIsSeeVideo()) {
                            alertDialog()
                         }else{
-                            howToUseTheApp()
+                            if(Utils.isSignedIn()){
+                                howToUseTheApp()
+                            }
                         }
                     }
                     bindingEvent()
@@ -156,13 +157,7 @@ class MainAct : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        val enabled: Boolean = isAccessibilityServiceEnabled(
-            this@MainAct,
-            MyAccessibilityService::class.java
-        )
-        if (enabled) {
-            alertAskRecording()
-        }
+        requestPermissions()
         if (Utils.isSignedIn()){
             sendLog()
         }

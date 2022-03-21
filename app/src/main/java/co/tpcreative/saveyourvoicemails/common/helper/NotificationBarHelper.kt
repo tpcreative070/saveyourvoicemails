@@ -92,7 +92,7 @@ class NotificationBarHelper {
             appContext,
             0,
             homeIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar)
         remoteViews?.setOnClickPendingIntent(R.id.rlHome, pendingHome)
@@ -111,13 +111,13 @@ class NotificationBarHelper {
             appContext,
             0,
             stopPhoneCallRecordIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
         val pendingHome = PendingIntent.getService(
             appContext,
             0,
             homeIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE
         )
         remoteViews = RemoteViews(appContext.packageName, R.layout.notification_bar_recording)
         remoteViews?.setOnClickPendingIntent(R.id.rlStopRecord, pendingStop)
