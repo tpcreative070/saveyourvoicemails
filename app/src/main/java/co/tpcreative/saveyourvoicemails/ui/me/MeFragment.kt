@@ -51,6 +51,10 @@ class MeFragment : BaseFragment() {
             Navigator.onHowTo(requireActivity())
         }
 
+        binding.btnAccessibilityServices.setOnClickListener {
+            accessibilityServicesDescription()
+        }
+
         val mUser = Utils.getUserInfo()
         if (mUser?.isFacebook == true){
             binding.btnChangePassword.visibility = View.GONE
