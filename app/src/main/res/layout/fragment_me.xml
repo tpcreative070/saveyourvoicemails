@@ -68,17 +68,26 @@
             android:layout_height="wrap_content"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnWatchTutorialVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/btnLiveChat"
             android:layout_marginTop="20dp"
-            android:id="@+id/btnWatchTutorialVideo"
             android:background="@drawable/bg_button_rounded"
-            android:text="@string/watch_tutorial_video"
+            android:text="@string/watch_tutorial_video" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAccessibilityServices"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnWatchTutorialVideo"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_button_rounded"
+            android:text="@string/accessibility_services" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_marginTop="20dp"
-            android:layout_below="@+id/btnContactUS"
+            android:layout_below="@+id/btnAccessibilityServices"
             android:id="@+id/btnSignOut"
             android:background="@drawable/bg_button_rounded"
             android:text="@string/sign_out"

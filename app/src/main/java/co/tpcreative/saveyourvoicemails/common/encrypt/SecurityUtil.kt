@@ -46,7 +46,7 @@ class SecurityUtil  {
         const val key_password_default = "tpcreative.co"
         const val key_password_default_encrypted = "qF6xTl5bcYOVtf4A9RND6g=="
         const val DEFAULT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRwY3JlYXRpdmUuY29AZ21haWwuY29tIiwibmFtZSI6IkZyZWUiLCJyb2xlIjoiMCIsImNyZWF0ZWRfZGF0ZSI6IjExLzEzLzIwMTggMTA6NDg6MDAgUE0iLCJfaWQiOiI1YmVhZjIzMDQ2NGEwNzNmNjUzNDVjYmUiLCJpYXQiOjE1NDIxMjQwODB9.oEfdmeOTYxGnJtl1ZJtC71AELyLcNz6w6FhlTizVJdE"
-        const val API = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgwg3jjD5OdBNaW4Ag9Cymu+pSbVAkWfIV02l2BTaKa9gXvbiuG4lb8TUdOWm8LYalMlpXUZK8WYegNIZ2ZhmO4h7d+gry5V7RyKXKbo4gVcRivWupVBcP9OAe0ZOXgJ3JNsK8gjN2PFW25kpsKLOFs0Hzr2Z1RVh7wIw72kVgBXbT9vIj+wR7eTVC07GvcPXq0o5xnujDpN1bFpUXY0irHafQrZYTg/fFbzbX4Kwlu4pWbi+UFoGXELudNPXfvsRG20yEObdoeZCYskkmAwgpxFzPbfG03eHe8szGZhESzQwnEXyoxlWl8NnzGpVbInR3xbdx1c6iEAVos5HhAitBQIDAQAB"
+        const val API = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg/bqeuvFJIUK9nDnieFqhvu3H2CIyij4nLRybI1wUzLqHHXinzkKxtc8EQBBGxDmzinROjTkSKyo5wexc8q09sqpJi9SFF7TwA6hF/9zmClxNh6hv1U2qTX3LQLKKJi0Di6J8Glo4ShUZYk4s26HvphKIkctiUmERK84HEjMD/abFfgvwlJwKv7QO93GR27ceMKqFI8Sck5mvUDn5lrSuruPfJngYphdtn/Fbe4Z8DeHtLbE07B6nLitEWIJ759Bcf0eKFqG6jMUWyg3NIKgBH1/6y5qG4mbSsMHIrFsjSiVi//tXAMugbzlmd1bcOlZG+b9Bf9vMOjReEw3A4Zk0QIDAQAB"
         /*Encrypt key*/
         const val IVX = "1234567891234567" // 16 lenght - not secret
         const val SECRET_KEY = "secret@123456789" // 16 lenght - secret

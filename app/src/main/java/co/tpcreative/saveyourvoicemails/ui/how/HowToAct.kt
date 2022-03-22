@@ -24,7 +24,7 @@ class HowToAct : AppCompatActivity() {
             override fun onVideoDuration(youTubePlayer: YouTubePlayer, v: Float) {}
             override fun onStateChange(youTubePlayer: YouTubePlayer, playerState: PlayerConstants.PlayerState) {}
             override fun onReady(youTubePlayer: YouTubePlayer) {
-                val videoId = "_gRlRuf8Vts"
+                val videoId = "8fmfIxPW3sM"
                 youTubePlayer.loadVideo(videoId, 0f)
             }
 
