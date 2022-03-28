@@ -1,9 +1,14 @@
 package co.tpcreative.saveyourvoicemails.common.base
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.tpcreative.domain.models.EnumValidationKey
 import co.tpcreative.saveyourvoicemails.common.Utils
+import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
 
 open class BaseViewModel<T> : ViewModel() {
     open val isLoading : MutableLiveData<Boolean> by lazy {
@@ -83,5 +88,25 @@ open class BaseViewModel<T> : ViewModel() {
 
     fun log(message : Any){
         Utils.log(this::class.java,message)
+    }
+
+    fun isOnline(): Boolean {
+        val connectivityManager =
+            SaveYourVoiceMailsApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_CELLULAR")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_WIFI")
+                return true
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
+                Log.i("Internet", "NetworkCapabilities.TRANSPORT_ETHERNET")
+                return true
+            }
+        }
+        return false
     }
 }

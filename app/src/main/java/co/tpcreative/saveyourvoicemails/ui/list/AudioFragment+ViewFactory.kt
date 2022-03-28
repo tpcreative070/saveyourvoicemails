@@ -65,14 +65,21 @@ fun AudioFragment.initRecycleView(layoutInflater: LayoutInflater) {
 fun AudioFragment.getData() {
     viewModel.isLoading.postValue(true)
     viewModel.getVoiceMail().observe(this, Observer { mResult ->
-        CoroutineScope(Dispatchers.Main).launch {
-            if (mResult.data == null) {
-                binding.tvNoVoiceMails.visibility = View.VISIBLE
-            } else {
-                binding.tvNoVoiceMails.visibility = View.GONE
+        when(mResult.status){
+            Status.SUCCESS -> {
+                CoroutineScope(Dispatchers.Main).launch {
+                    if (mResult.data == null) {
+                        binding.tvNoVoiceMails.visibility = View.VISIBLE
+                    } else {
+                        binding.tvNoVoiceMails.visibility = View.GONE
+                    }
+                    adapter.setDataSource(mResult.data)
+                    viewModel.isLoading.postValue(false)
+                }
+            }else ->{
+                 onBasicAlertNotify(message = mResult.message ?:"")
+                 viewModel.isLoading.postValue(false)
             }
-            adapter.setDataSource(mResult.data)
-            viewModel.isLoading.postValue(false)
         }
     })
 }
@@ -125,12 +132,14 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
                             }
                             else -> {
                                 log(mExport?.message ?: "")
+                                onBasicAlertNotify(message = mResult.message ?:"")
                             }
                         }
                     }
                 }
                 else -> {
                     log(mResult.message ?: "")
+                    onBasicAlertNotify(message = mResult.message ?:"")
                 }
             }
             SingletonManagerProcessing.getInstance()?.onStopProgressing()
@@ -141,9 +150,16 @@ fun AudioFragment.downloadFile(request: DownloadFileRequest,isShared : Boolean) 
 fun AudioFragment.updateTitle() {
     viewModel.isLoading.postValue(true)
     viewModel.updatedVoiceMail().observe(this, Observer { mResult ->
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.isLoading.postValue(false)
-            getData()
+        when(mResult.status){
+            Status.SUCCESS ->{
+                CoroutineScope(Dispatchers.Main).launch {
+                    viewModel.isLoading.postValue(false)
+                    getData()
+                }
+            }else ->{
+                 onBasicAlertNotify(message = mResult.message ?:"")
+                 viewModel.isLoading.postValue(false)
+            }
         }
     })
 }
@@ -151,9 +167,14 @@ fun AudioFragment.updateTitle() {
 fun AudioFragment.deleteVoiceMail() {
     viewModel.isLoading.postValue(true)
     viewModel.deleteVoiceMail().observe(this, Observer { mResult ->
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.isLoading.postValue(false)
-            getData()
+        when(mResult.status){
+            Status.SUCCESS ->{
+                viewModel.isLoading.postValue(false)
+                getData()
+            }else ->{
+                onBasicAlertNotify(message = mResult.message ?:"")
+                viewModel.isLoading.postValue(false)
+        }
         }
     })
 }

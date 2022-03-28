@@ -78,6 +78,7 @@ Noted: WE DO NOT COLLECT ANY DATA WHILE YOU USE ACCESSIBILITY. ACCESSIBILITY ALL
     <string name="subscribe">Subscribe</string>
     <string name="uploading">Uploading…</string>
     <string name="delete">Delete</string>
+    <string name="no_connections">No Internet connection. Please check your network</string>
     <string name="edit">Edit</string>
     <string name="confirm">Confirm</string>
     <string name="exporting">Exporting…</string>

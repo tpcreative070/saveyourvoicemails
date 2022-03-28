@@ -10,6 +10,8 @@ import co.tpcreative.saveyourvoicemails.common.network.Status
 
 
 fun PlayerAct.initUI(){
+    setSupportActionBar(binding.toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
     binding.imgTrim.setOnClickListener {
         trimFile()
     }
@@ -41,6 +43,8 @@ fun PlayerAct.downloadFile(downloadFileRequest: DownloadFileRequest){
                 play(downloadFileRequest.fullLocalPath)
             }else ->{
                 log("Error occurred downloading")
+                SingletonManagerProcessing.getInstance()?.onStopProgressing()
+                onBasicAlertNotify(message = mResult.message ?:"")
             }
         }
         log(mResult.status)

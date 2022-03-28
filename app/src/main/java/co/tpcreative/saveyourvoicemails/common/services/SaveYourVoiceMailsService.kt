@@ -1,6 +1,7 @@
 package co.tpcreative.saveyourvoicemails.common.services
 import android.Manifest
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.AudioFormat
@@ -19,6 +20,10 @@ import co.tpcreative.saveyourvoicemails.common.helper.ServiceHelper
 import co.tpcreative.saveyourvoicemails.ui.share.ShareAct
 import com.naman14.androidlame.AndroidLame
 import com.naman14.androidlame.LameBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -35,8 +40,6 @@ class SaveYourVoiceMailsService : Service() {
     private lateinit var androidLame: AndroidLame
     var outputStream: FileOutputStream? = null
     private var file = ""
-    private var recordingThread: Thread? = null
-
 
     override fun onBind(intent: Intent?): IBinder {
        return  mBinder
@@ -59,8 +62,9 @@ class SaveYourVoiceMailsService : Service() {
                 File(outputPath).createNewFile()
                 isRecording = true
                 file = outputPath
-                recordingThread = Thread({ startRecording() }, "AudioRecorder Thread")
-                recordingThread?.start()
+                CoroutineScope(Dispatchers.IO).launch {
+                    startRecording(this@SaveYourVoiceMailsService)
+                }
                 val notification =
                         NotificationBarHelper.getInstance().updatedNotificationBar()
                 startForeground(Constant.ID_NOTIFICATION_FOREGROUND_SERVICE, notification)
@@ -74,8 +78,6 @@ class SaveYourVoiceMailsService : Service() {
         when(intent?.action){
             Constant.ACTION.STOP_RECORDING_PHONE_CALL -> {
                 isRecording = false
-                recordingThread?.interrupt()
-                exitApp()
             }
             Constant.ACTION.START_HOME -> {
                Navigator.moveToMain(this)
@@ -116,19 +118,18 @@ class SaveYourVoiceMailsService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         isRecording = false
-        recordingThread?.interrupt()
         sendIntent()
         log("onDestroy")
     }
 
-    private fun startRecording() {
+    private suspend fun startRecording(context : Context) = withContext(Dispatchers.IO) {
         minBuffer = AudioRecord.getMinBufferSize(
             inSampleRate, AudioFormat.CHANNEL_IN_MONO,
             AudioFormat.ENCODING_PCM_16BIT
         )
         Utils.log(TAG, "Initialising audio recorder..")
         if (ActivityCompat.checkSelfPermission(
-                this,
+                context,
                 Manifest.permission.RECORD_AUDIO
             ) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -139,7 +140,7 @@ class SaveYourVoiceMailsService : Service() {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return
+            return@withContext
         }
         audioRecord = AudioRecord(
             MediaRecorder.AudioSource.VOICE_RECOGNITION, inSampleRate,
@@ -188,7 +189,7 @@ class SaveYourVoiceMailsService : Service() {
                         Utils.log(
                             TAG, "writing mp3 buffer to outputstream with $bytesEncoded bytes"
                         )
-                        outputStream!!.write(mp3buffer, 0, bytesEncoded)
+                        outputStream?.write(mp3buffer, 0, bytesEncoded)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -203,9 +204,9 @@ class SaveYourVoiceMailsService : Service() {
         if (outputMp3buf > 0) {
             try {
                 Utils.log(TAG, "writing final mp3buffer to outputstream")
-                outputStream!!.write(mp3buffer, 0, outputMp3buf)
+                outputStream?.write(mp3buffer, 0, outputMp3buf)
                 Utils.log(TAG, "closing output stream")
-                outputStream!!.close()
+                outputStream?.close()
                 Utils.log(TAG, "Output recording saved in $file")
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -216,6 +217,7 @@ class SaveYourVoiceMailsService : Service() {
         audioRecord.release()
         Utils.log(TAG, "closing android lame")
         androidLame.close()
+        exitApp()
     }
 
     private fun sendIntent(){
