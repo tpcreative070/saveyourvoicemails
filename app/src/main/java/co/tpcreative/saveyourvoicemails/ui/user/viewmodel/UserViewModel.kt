@@ -9,6 +9,7 @@ import co.tpcreative.domain.models.GitHubUser
 import co.tpcreative.domain.models.request.Mail365Request
 import co.tpcreative.domain.models.request.UserRequest
 import co.tpcreative.domain.usecases.*
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.EmailOutlookViewModel
 import co.tpcreative.saveyourvoicemails.common.Event
 import co.tpcreative.saveyourvoicemails.common.Utils
@@ -141,6 +142,10 @@ class UserViewModel (
 
     fun signIn() = liveData(Dispatchers.IO){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mUser = UserRequest(user_id,email,password,null,null,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             val result = signInUsersUseCase(mUser)
             logger.debug("result: ${Gson().toJson(result)}")
@@ -162,6 +167,10 @@ class UserViewModel (
 
     fun signUp() = liveData(Dispatchers.IO){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mUser = UserRequest(user_id,email,password,null,phoneNumber,SaveYourVoiceMailsApplication.getInstance().getDeviceId())
             Utils.log(this@UserViewModel.javaClass,mUser)
             val result = signUpUsersUseCase(mUser)
@@ -197,6 +206,10 @@ class UserViewModel (
 
     fun sendEmailOutlook() = liveData(Dispatchers.IO){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val result = emailOutlookService.sendEmail(EnType.FORGOT_PASSWORD,user_id)
             when(result.status){
                 Status.SUCCESS->{

@@ -7,9 +7,11 @@ import co.tpcreative.domain.models.request.VoiceMailsRequest
 import co.tpcreative.domain.usecases.DeleteVoiceMailUseCase
 import co.tpcreative.domain.usecases.GetVoiceMailsUseCase
 import co.tpcreative.domain.usecases.UpdateVoiceMailsUseCase
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.extension.deleteFile
+import co.tpcreative.saveyourvoicemails.common.extension.getString
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.SaveYourVoiceMailsApplication
@@ -66,6 +68,10 @@ class AudioFragmentViewModel(
 
     fun downloadFile(downloadFileRequest: DownloadFileRequest) = liveData(Dispatchers.IO ){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mResult = downloadService.downloadFilePost(downloadFileRequest)
             logger.debug("result: ${Gson().toJson(mResult.data.toString())}")
             when(mResult.status){
@@ -84,6 +90,10 @@ class AudioFragmentViewModel(
     fun getVoiceMail() = liveData(Dispatchers.IO){
         dataList.clear()
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mRequest = VoiceMailsRequest()
             mRequest.user_id = Utils.getUserId()
             val mResult = getVoiceMailsUseCase(mRequest)
@@ -104,6 +114,10 @@ class AudioFragmentViewModel(
 
     fun updatedVoiceMail() = liveData(Dispatchers.IO){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mRequest = VoiceMailsRequest()
             mRequest.user_id = Utils.getUserId()
             mRequest.title = title
@@ -123,6 +137,10 @@ class AudioFragmentViewModel(
 
     fun deleteVoiceMail() = liveData(Dispatchers.IO){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mRequest = VoiceMailsRequest()
             mRequest.user_id = Utils.getUserId()
             mRequest.title = title

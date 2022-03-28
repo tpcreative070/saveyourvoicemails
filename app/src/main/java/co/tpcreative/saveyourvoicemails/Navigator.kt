@@ -41,7 +41,7 @@ object Navigator {
 
     fun moveToPlayer(context : Context,itemRequest : DownloadFileRequest){
         val intent = Intent(context,PlayerAct::class.java)
-        intent.putExtra(PlayerAct.AUDIO_URL_EXTRA,Gson().toJson(itemRequest))
+        intent.putExtra(PlayerAct.AUDIO_OBJECT_EXTRA,Gson().toJson(itemRequest))
         context.startActivity(intent)
     }
 

@@ -25,7 +25,7 @@ import javax.crypto.spec.SecretKeySpec
 class PlayerAct : BaseActivity() {
 
     companion object {
-        const val AUDIO_URL_EXTRA = "audio_url_extra"
+        const val AUDIO_OBJECT_EXTRA = "audio_object_extra"
     }
 
     lateinit var binding: ActivityPlayerBinding
@@ -63,9 +63,10 @@ class PlayerAct : BaseActivity() {
 
     private fun initPlayer() {
         initializePlayer()
-        val result = intent.getStringExtra(AUDIO_URL_EXTRA)
+        val result = intent.getStringExtra(AUDIO_OBJECT_EXTRA)
         val downloadRequest = Gson().fromJson(result,DownloadFileRequest::class.java)
         viewModel.setDownloadRequest(downloadRequest)
+        title = downloadRequest.title
         if (downloadRequest.isDownloaded){
             play(downloadRequest.fullLocalPath)
         }else{

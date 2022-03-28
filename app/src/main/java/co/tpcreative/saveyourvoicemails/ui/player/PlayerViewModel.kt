@@ -4,9 +4,11 @@ import androidx.lifecycle.liveData
 import co.tpcreative.common.Logger
 import co.tpcreative.domain.models.Empty
 import co.tpcreative.domain.models.request.DownloadFileRequest
+import co.tpcreative.saveyourvoicemails.R
 import co.tpcreative.saveyourvoicemails.common.Utils
 import co.tpcreative.saveyourvoicemails.common.base.BaseViewModel
 import co.tpcreative.saveyourvoicemails.common.controller.ServiceManager
+import co.tpcreative.saveyourvoicemails.common.extension.getString
 import co.tpcreative.saveyourvoicemails.common.network.Resource
 import co.tpcreative.saveyourvoicemails.common.network.Status
 import co.tpcreative.saveyourvoicemails.common.services.UploadDownloadService
@@ -30,6 +32,10 @@ class PlayerViewModel(private val ioDispatcher: CoroutineDispatcher,
     fun downloadFile(downloadFileRequest: DownloadFileRequest) = liveData(
         Dispatchers.IO ){
         try {
+            if (!isOnline()){
+                emit(Resource.error(Utils.CODE_EXCEPTION, getString(R.string.no_connections),null))
+                return@liveData
+            }
             val mResult = uploadDownloadService.downloadFilePost(downloadFileRequest)
             logger.debug("result: ${Gson().toJson(mResult.data.toString())}")
             when(mResult.status){
